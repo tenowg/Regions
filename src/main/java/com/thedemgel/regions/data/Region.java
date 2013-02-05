@@ -5,11 +5,6 @@ import com.thedemgel.regions.feature.FeatureHolder;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
 public class Region implements Serializable {
@@ -41,6 +36,23 @@ public class Region implements Serializable {
 		return holder.get(clazz);
 	}
 	
+	/**
+	 * Set the FeatureHolder for this RAZ, In this way, FeatureHolders can
+	 * handle more than one RAZ.
+	 * @param holder 
+	 */
+	public void setHolder(FeatureHolder holder) {
+		this.holder = holder;
+	}
+	
+	/**
+	 * Get the FeatureHolder for this RAZ
+	 * @return 
+	 */
+	public FeatureHolder getHolder() {
+		return holder;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -59,10 +71,6 @@ public class Region implements Serializable {
 	
 	public void setUUID(UUID value) {
 		this.ident = value;
-	}
-	
-	public FeatureHolder getHolder() {
-		return holder;
 	}
 	
 	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
