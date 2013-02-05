@@ -8,11 +8,13 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.spout.api.event.Event;
+import org.spout.api.util.list.concurrent.ConcurrentList;
 
 
 public class FeatureHolder implements Serializable {
 	private ConcurrentMap<Class<? extends Feature>, Feature> features = new ConcurrentHashMap<Class<? extends Feature>, Feature>();
-
+	private ConcurrentList<FeatureHolder> parentFeatures = new ConcurrentList<FeatureHolder>();
+	
 	public <T extends Feature> T add(Class<T> clazz) {
 		Feature feature = null;
 		try {
@@ -44,12 +46,20 @@ public class FeatureHolder implements Serializable {
 	}
 	
 	public void execute(Event event) {
+		for (FeatureHolder parent : parentFeatures) {
+			parent.execute(event);
+		}
+		
 		for (Feature feature : features.values()) {
 			feature.execute(event);
 		}
 	}
 	
 	public void onTick(float dt) {
+		for (FeatureHolder parent : parentFeatures) {
+			parent.onTick(dt);
+		}
+		
 		for (Feature feature : features.values()) {
 			feature.onTick(dt);
 		}
