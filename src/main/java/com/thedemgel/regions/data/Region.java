@@ -32,6 +32,10 @@ public class Region implements Serializable {
 		return holder.add(clazz);
 	}
 	
+	public <T extends Feature> void remove(Class<T> clazz) {
+		holder.detach(clazz);
+	}
+	
 	public <T extends Feature> T get(Class<T> clazz) {
 		return holder.get(clazz);
 	}
