@@ -9,6 +9,7 @@ import org.spout.api.math.Vector3;
 
 public class Region implements Serializable {
 
+	private final static long serialVersionUID = 32L;
 	transient private BBox regionBox;
 	private UUID ident;
 	private String name;

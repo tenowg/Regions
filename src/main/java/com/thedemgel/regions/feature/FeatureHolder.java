@@ -13,6 +13,7 @@ import org.spout.api.util.list.concurrent.ConcurrentList;
 
 
 public class FeatureHolder implements Serializable {
+	private static final long serialVersionUID = 56L;
 	private ConcurrentMap<Class<? extends Feature>, Feature> features = new ConcurrentHashMap<Class<? extends Feature>, Feature>();
 	private ConcurrentList<FeatureHolder> parentFeatures = new ConcurrentList<FeatureHolder>();
 	

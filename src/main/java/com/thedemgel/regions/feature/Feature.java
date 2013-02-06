@@ -7,6 +7,8 @@ import org.spout.api.event.Listener;
 
 
 public class Feature implements Listener, Serializable {
+	private static final long serialVersionUID = 31L;
+	
 	private FeatureHolder holder;
 
 	/**
