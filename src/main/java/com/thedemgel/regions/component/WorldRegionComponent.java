@@ -19,7 +19,7 @@ public class WorldRegionComponent extends WorldComponent {
 
 	private ConcurrentMap<String, Region> regions = new ConcurrentSkipListMap<String, Region>(String.CASE_INSENSITIVE_ORDER);
 	private ConcurrentMap<PointMap, ConcurrentList<Region>> xregions = new ConcurrentHashMap<PointMap, ConcurrentList<Region>>();
-
+	
 	public void addRegion(Region region) {
 		if (!regions.containsValue(region)) {
 			getData().get("regions", new ConcurrentSkipListMap<String, Region>(String.CASE_INSENSITIVE_ORDER)).put(region.getName(), region);
@@ -100,7 +100,7 @@ public class WorldRegionComponent extends WorldComponent {
 	 */
 	public void execute(Event event) {
 		for (Region reg : regions.values()) {
-			reg.getHolder().execute(event);
+			reg.getHolder().execute(event, reg);
 		}
 	}
 	
@@ -112,7 +112,22 @@ public class WorldRegionComponent extends WorldComponent {
 	public void execute(Event event, Point point) {
 		Region region = inRegion(point);
 		if (region != null) {
-			region.getHolder().execute(event);
+			region.getHolder().execute(event, region);
+		}
+	}
+	
+	/**
+	 * Method to call Features from Region Name
+	 * 
+	 * Use to call feature execute from other directly.
+	 * It is possible to send NULL events.
+	 * @param event
+	 * @param regionName 
+	 */
+	public void execute(Event event, String regionName) {
+		Region region = getRegion(regionName);
+		if (region != null) {
+			region.getHolder().execute(event, region);
 		}
 	}
 	

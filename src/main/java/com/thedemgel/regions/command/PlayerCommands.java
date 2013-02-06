@@ -74,4 +74,24 @@ public class PlayerCommands {
 		region.add(InRegion.class);
 		player.sendMessage(ChatStyle.CYAN, "Region Created (Currently the Regions are ultra accurate (deminsions are to the float value of position)");
 	}
+	
+	@Command(aliases = "getRegion", usage = "(name)", desc = "Get region information based on name.")
+	public void getRegion(CommandContext args, CommandSource source) throws CommandException {
+		Player player;
+		
+		if (Spout.getPlatform() != Platform.CLIENT) {
+			player = (Player) source;
+		} else {
+			player = ((Client) Spout.getEngine()).getActivePlayer();
+		}
+		
+		Region region = player.getWorld().getComponentHolder().get(WorldRegionComponent.class).getRegion(args.getString(0));
+		
+		if (region == null) {
+			player.sendMessage(ChatStyle.RED, "No region exists by that name.");
+			return;
+		}
+		
+		player.sendMessage("Region: " + region.getName());
+	}
 }

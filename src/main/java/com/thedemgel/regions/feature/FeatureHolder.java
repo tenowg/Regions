@@ -14,6 +14,7 @@ import org.spout.api.util.list.concurrent.ConcurrentList;
 
 public class FeatureHolder implements Serializable {
 	private static final long serialVersionUID = 56L;
+	
 	private ConcurrentMap<Class<? extends Feature>, Feature> features = new ConcurrentHashMap<Class<? extends Feature>, Feature>();
 	private ConcurrentList<FeatureHolder> parentFeatures = new ConcurrentList<FeatureHolder>();
 	
@@ -87,18 +88,18 @@ public class FeatureHolder implements Serializable {
 	 * Executes all execute methods while passing EVENT to all Features.
 	 * @param event 
 	 */
-	public void execute(Event event) {
+	public void execute(Event event, Region region) {
 		for (FeatureHolder parent : parentFeatures) {
-			parent.execute(event);
+			parent.execute(event, region);
 			for (Entry<Class<? extends Feature>, Feature> feature : parent.features.entrySet()) {
 				if (!features.containsKey(feature.getKey())) {
-					feature.getValue().execute(event);
+					feature.getValue().execute(event, region);
 				}
 			}
 		}
 		
 		for (Feature feature : features.values()) {
-			feature.execute(event);
+			feature.execute(event, region);
 		}
 	}
 	
@@ -108,7 +109,7 @@ public class FeatureHolder implements Serializable {
 		}
 		
 		for (Feature feature : features.values()) {
-			feature.onTick(dt);
+			feature.tick(dt);
 		}
 	}
 }
