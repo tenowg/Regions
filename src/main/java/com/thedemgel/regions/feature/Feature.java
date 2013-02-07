@@ -51,7 +51,7 @@ public class Feature implements Listener, Serializable {
 	 * @param event 
 	 * @param region
 	 */
-	public void execute(Event event, Region region) {
+	public final void execute(Event event, Region region) {
 		RegionEventParser parser = new RegionEventParser();
 		try {
 			parser.parse(this, event, region);
@@ -66,7 +66,7 @@ public class Feature implements Listener, Serializable {
 	 * @param dt
 	 * @param region 
 	 */
-	public void tick(float dt, Region region) {
+	public final void tick(float dt, Region region) {
 		OnTickParser parser = new OnTickParser();
 		try {
 			parser.parse(this, dt, region);

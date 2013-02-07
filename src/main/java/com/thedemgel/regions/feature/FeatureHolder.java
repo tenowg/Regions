@@ -90,7 +90,7 @@ public class FeatureHolder implements Serializable {
 	 */
 	public void execute(Event event, Region region) {
 		for (FeatureHolder parent : parentFeatures) {
-			parent.execute(event, region);
+			//parent.execute(event, region);
 			for (Entry<Class<? extends Feature>, Feature> feature : parent.features.entrySet()) {
 				if (!features.containsKey(feature.getKey())) {
 					feature.getValue().execute(event, region);
