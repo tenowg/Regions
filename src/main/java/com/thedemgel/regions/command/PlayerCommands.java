@@ -94,4 +94,24 @@ public class PlayerCommands {
 		
 		player.sendMessage("Region: " + region.getName());
 	}
+	
+	@Command(aliases = "removeRegion", usage = "(name)", desc = "remove region information based on name.")
+	public void removeRegion(CommandContext args, CommandSource source) throws CommandException {
+		Player player;
+		
+		if (Spout.getPlatform() != Platform.CLIENT) {
+			player = (Player) source;
+		} else {
+			player = ((Client) Spout.getEngine()).getActivePlayer();
+		}
+		
+		Region region = player.getWorld().getComponentHolder().get(WorldRegionComponent.class).getRegion(args.getString(0));
+		
+		if (region != null) {
+			player.getWorld().getComponentHolder().get(WorldRegionComponent.class).removeRegion(region);
+			player.sendMessage("Region Removed");
+		} else {
+			player.sendMessage("Region not found");
+		}
+	}
 }

@@ -1,10 +1,13 @@
 
 package com.thedemgel.regions.data;
 
+import java.io.Serializable;
 import org.spout.api.geo.discrete.Point;
 
 
-public class PointMap {
+public class PointMap implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private int x, y, z;
 	
 	public PointMap(int x, int y, int z) {

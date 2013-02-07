@@ -26,6 +26,26 @@ public class WorldRegionComponent extends WorldComponent {
 			regions = getData().get("regions", new ConcurrentSkipListMap<String, Region>(String.CASE_INSENSITIVE_ORDER));
 		}
 		
+		updateRegion(region);
+	}
+
+	public void removeRegion(Region region) {
+		for(PointMap mpoint : region.getPointCache()) {
+			ConcurrentList<Region> regs = xregions.get(mpoint);
+			regs.remove(region);
+		}
+		
+		regions.remove(region.getName());
+	}
+	
+	public void updateRegion(Region region) {
+		for(PointMap mpoint : region.getPointCache()) {
+			ConcurrentList<Region> regs = xregions.get(mpoint);
+			regs.remove(region);
+		}
+		
+		region.resetPointCache();
+		
 		int i, ii, iii;
 
 		for (i = (int) (region.getRegion().getLowX() / 100); i <= (int) (region.getRegion().getHighX() / 100); i++) {
@@ -36,18 +56,14 @@ public class WorldRegionComponent extends WorldComponent {
 					if (regs == null) {
 						regs = new ConcurrentList<Region>();
 					}
+					region.addPointCache(mpoint);
 					regs.add(region);
 					xregions.put(mpoint, regs);
 				}
 			}
 		}
-
-		for (Region reg : getData().get("regions", new ConcurrentSkipListMap<String, Region>(String.CASE_INSENSITIVE_ORDER)).values()) {
-			Spout.getLogger().info(reg.getRegion().toString());
-		}
-
 	}
-
+	
 	/**
 	 * Gets a region by name.
 	 * @param name

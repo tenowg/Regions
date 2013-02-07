@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.UUID;
 import org.spout.api.math.Vector3;
+import org.spout.api.util.list.concurrent.ConcurrentList;
 
 public class Region implements Serializable {
 
@@ -16,6 +17,8 @@ public class Region implements Serializable {
 	
 	private Vector3 min;
 	private Vector3 max;
+	
+	private ConcurrentList<PointMap> pointCache = new ConcurrentList<PointMap>();
 	
 	private FeatureHolder holder = new FeatureHolder();
 	
@@ -78,8 +81,23 @@ public class Region implements Serializable {
 		this.ident = value;
 	}
 	
+	public ConcurrentList<PointMap> getPointCache() {
+		return pointCache;
+	}
+	
+	public void resetPointCache() {
+		pointCache.clear();
+	}
+	
+	public void addPointCache(PointMap point) {
+		pointCache.add(point);
+	}
+	
 	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
 		regionBox = new BBox(min, max);
+		if (pointCache == null) {
+			pointCache = new ConcurrentList<PointMap>();
+		}
 	}
 }

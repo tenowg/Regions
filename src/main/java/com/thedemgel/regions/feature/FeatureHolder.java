@@ -1,7 +1,10 @@
 
 package com.thedemgel.regions.feature;
 
+import com.thedemgel.regions.data.BBox;
+import com.thedemgel.regions.data.PointMap;
 import com.thedemgel.regions.data.Region;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -120,5 +123,11 @@ public class FeatureHolder implements Serializable {
 		for (Feature feature : features.values()) {
 			feature.tick(dt, region);
 		}
+	}
+	
+	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		
+		parentFeatures = new ConcurrentList<FeatureHolder>();
 	}
 }
