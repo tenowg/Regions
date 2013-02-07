@@ -12,16 +12,25 @@ import org.spout.api.event.Event;
 import org.spout.api.util.list.concurrent.ConcurrentList;
 
 
+/**
+ * FeatureHolders contain all attached Features that regions execute either
+ * onTick or by passed in Event from WorldRegionComponent.
+ * 
+ * parentFeatures is transient due to the off chance that java creates many
+ * new objects instead of deserializing as it should, so all parent features
+ * will need to be manually saved and reinitialized on startup.
+ * @author tenowg
+ */
 public class FeatureHolder implements Serializable {
 	private static final long serialVersionUID = 56L;
 	
 	private ConcurrentMap<Class<? extends Feature>, Feature> features = new ConcurrentHashMap<Class<? extends Feature>, Feature>();
-	private ConcurrentList<FeatureHolder> parentFeatures = new ConcurrentList<FeatureHolder>();
+	transient private ConcurrentList<FeatureHolder> parentFeatures = new ConcurrentList<FeatureHolder>();
 	
 	/**
 	 * Add a Feature to this FeatureHolder
 	 * @param clazz
-	 * @return
+	 * @return Either the Feature added, Previous Feature, or null if failure.
 	 */
 	public <T extends Feature> T add(Class<T> clazz) {
 		Feature feature = null;
@@ -50,7 +59,7 @@ public class FeatureHolder implements Serializable {
 	/**
 	 * Retrieve a Feature that is attached to this FeatureHolder
 	 * @param clazz
-	 * @return 
+	 * @return Feature if one if found, otherwise null
 	 */
 	public <T extends Feature> T get(Class<T> clazz) {
 		if (features.containsKey(clazz)) {
@@ -61,7 +70,7 @@ public class FeatureHolder implements Serializable {
 	
 	/**
 	 * Remove a Feature that is attached to this FeatureHolder
-	 * @param clazz
+	 * @param clazz Class to remove
 	 */
 	public <T extends Feature> void detach(Class<T> clazz) {
 		features.get(clazz).onDetached();
@@ -70,7 +79,7 @@ public class FeatureHolder implements Serializable {
 	
 	/**
 	 * Add a parent FeatureHolder to holder.
-	 * @param holder 
+	 * @param holder FeatureHolder to add.
 	 */
 	public void addFeatureHolder(FeatureHolder holder) {
 		parentFeatures.add(holder);
@@ -78,7 +87,7 @@ public class FeatureHolder implements Serializable {
 	
 	/**
 	 * Remove a Parent FeatureHolder from this FeatureHolder.
-	 * @param holder 
+	 * @param holder FeatureHolder to remove.
 	 */
 	public void removeFeatureHolder(FeatureHolder holder) {
 		parentFeatures.remove(holder);
@@ -86,7 +95,7 @@ public class FeatureHolder implements Serializable {
 	
 	/**
 	 * Executes all execute methods while passing EVENT to all Features.
-	 * @param event 
+	 * @param event Event passed to Features to be executed.
 	 */
 	public void execute(Event event, Region region) {
 		for (FeatureHolder parent : parentFeatures) {
