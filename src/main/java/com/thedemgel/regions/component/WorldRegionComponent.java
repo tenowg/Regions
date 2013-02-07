@@ -138,7 +138,7 @@ public class WorldRegionComponent extends WorldComponent {
 	@Override
 	public void onTick(float dt) {
 		for (Region reg : regions.values()) {
-			reg.getHolder().onTick(dt);
+			reg.getHolder().onTick(dt, reg);
 		}
 	}
 }

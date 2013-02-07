@@ -103,13 +103,13 @@ public class FeatureHolder implements Serializable {
 		}
 	}
 	
-	public void onTick(float dt) {
+	public void onTick(float dt, Region region) {
 		for (FeatureHolder parent : parentFeatures) {
-			parent.onTick(dt);
+			parent.onTick(dt, region);
 		}
 		
 		for (Feature feature : features.values()) {
-			feature.tick(dt);
+			feature.tick(dt, region);
 		}
 	}
 }

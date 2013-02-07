@@ -1,13 +1,13 @@
 package com.thedemgel.regions.annotations;
 
 import com.thedemgel.regions.Regions;
+import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.feature.Feature;
 import java.lang.reflect.Method;
-import org.spout.api.Spout;
 
 public class OnTickParser {
 
-	public void parse(Feature feature, float dt) throws Exception {
+	public void parse(Feature feature, float dt, Region region) throws Exception {
 		Method[] methods = feature.getClass().getMethods();
 
 		for (Method method : methods) {
@@ -41,7 +41,7 @@ public class OnTickParser {
 					}
 				}
 
-				method.invoke(feature, dt);
+				method.invoke(feature, dt, region);
 			}
 		}
 	}
