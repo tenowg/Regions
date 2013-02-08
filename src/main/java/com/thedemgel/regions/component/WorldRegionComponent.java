@@ -92,9 +92,9 @@ public class WorldRegionComponent extends WorldComponent {
 
 		int i, ii, iii;
 
-		for (i = (int) (region.getRegion().getLowX() / 100); i <= (int) (region.getRegion().getHighX() / 100); i++) {
-			for (ii = (int) (region.getRegion().getLowY() / 100); ii <= (int) (region.getRegion().getHighY() / 100); ii++) {
-				for (iii = (int) (region.getRegion().getLowZ() / 100); iii <= (int) (region.getRegion().getHighZ() / 100); iii++) {
+		for (i = (int) (region.getVolume().getLowX() / 100); i <= (int) (region.getVolume().getHighX() / 100); i++) {
+			for (ii = (int) (region.getVolume().getLowY() / 100); ii <= (int) (region.getVolume().getHighY() / 100); ii++) {
+				for (iii = (int) (region.getVolume().getLowZ() / 100); iii <= (int) (region.getVolume().getHighZ() / 100); iii++) {
 					PointMap mpoint = new PointMap(i, ii, iii);
 					ConcurrentList<Region> regs = xregions.get(mpoint);
 					if (regs == null) {
@@ -180,7 +180,12 @@ public class WorldRegionComponent extends WorldComponent {
 		Set<Region> regionsRet = new HashSet<Region>();
 		if (xregions.containsKey(mpoint)) {
 			for (Region region : xregions.get(mpoint)) {
-				if (region.getRegion().containsPoint(point)) {
+				if (region.getVolume().containsPoint(point)) {
+					regionsRet.add(region);
+				}
+				
+				// NEW CODE
+				if (region.getVolume().containsPoint(point)) {
 					regionsRet.add(region);
 				}
 			}

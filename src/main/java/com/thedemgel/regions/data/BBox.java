@@ -24,6 +24,14 @@ public class BBox extends BoundingBox implements Serializable {
 		return false;
 	}
 	
+	public void setMin(Vector3 vec) {
+		this.min = vec;
+	}
+	
+	public void setMax(Vector3 vec) {
+		this.max = vec;
+	}
+	
 	public float getLowX() {
 		if (getMin().getX() < getMax().getX()) {
 			return getMin().getX();

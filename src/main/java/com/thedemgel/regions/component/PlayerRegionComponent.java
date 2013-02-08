@@ -2,6 +2,7 @@ package com.thedemgel.regions.component;
 
 import com.thedemgel.regions.data.BBox;
 import com.thedemgel.regions.data.Region;
+import com.thedemgel.regions.data.RegionType;
 import java.util.Set;
 import me.dzineit.selectionapi.SelectionPlayer;
 import org.spout.api.component.type.EntityComponent;
@@ -17,7 +18,7 @@ import org.spout.api.math.Vector3;
  */
 public class PlayerRegionComponent extends EntityComponent {
 
-	private Region selectedRegion = new Region(new BBox(Vector3.ZERO, Vector3.ZERO));
+	private Region selectedRegion = new Region(RegionType.BOUNDING_BOX);
 	private SelectionPlayer playerSel;
 	private Vector3 pos1 = null;
 	private Vector3 pos2 = null;
@@ -53,8 +54,8 @@ public class PlayerRegionComponent extends EntityComponent {
 	
 	public void setSelectedRegion(Region region) {
 		this.selectedRegion = region;
-		pos1 = region.getRegion().getMin();
-		pos2 = region.getRegion().getMax();
+		pos1 = region.getVolume().getMin();
+		pos2 = region.getVolume().getMax();
 	}
 	
 	private void adjustPos() {
