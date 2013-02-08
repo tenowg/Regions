@@ -14,6 +14,7 @@ import org.spout.api.command.CommandSource;
 import org.spout.api.command.annotated.Command;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
+import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 import org.spout.api.plugin.Platform;
 
@@ -29,7 +30,7 @@ public class PlayerCommands {
 		this.plugin = instance;
 	}
 
-	@Command(aliases = "pos1", usage = "[exact | block] (not implemented)", desc = "Select the first Position of a cube", min = 0, max = 0)
+	@Command(aliases = "pos1", usage = "[-b]", flags = "b", desc = "Select the first Position of a cube (use -b to select block)", min = 0, max = 0)
 	public void pos1(CommandContext args, CommandSource source) throws CommandException {
 		Player player;
 		
@@ -40,11 +41,19 @@ public class PlayerCommands {
 		}
 
 		SelectionPlayer comp = player.get(SelectionPlayer.class);
+		PlayerRegionComponent preg = player.get(PlayerRegionComponent.class);
+		
 		comp.getSelection().setPos1(player.getScene().getPosition());
-		player.sendMessage(ChatStyle.CYAN, "Position One Set.");
+		
+		if (args.hasFlag('b')) {
+			preg.setPos1(true);			
+		} else {
+			preg.setPos1();
+		}
+		player.sendMessage(ChatStyle.CYAN, "Position One Set. ");
 	}
 	
-	@Command(aliases = "pos2", usage = "[exact | block] (not implemented)", desc = "Select the second Position of a cube.", min = 0, max = 0)
+	@Command(aliases = "pos2", usage = "[-b]", flags = "b", desc = "Select the second Position of a cube. (use -b to select block)", min = 0, max = 1)
 	public void pos2(CommandContext args, CommandSource source) throws CommandException {
 		Player player;
 		
@@ -55,8 +64,36 @@ public class PlayerCommands {
 		}
 		
 		SelectionPlayer comp = player.get(SelectionPlayer.class);
+		PlayerRegionComponent preg = player.get(PlayerRegionComponent.class);
+		
 		comp.getSelection().setPos2(player.getScene().getPosition());
-		player.sendMessage(ChatStyle.CYAN, "Position Two Set.");
+		
+		if (args.hasFlag('b')) {
+			preg.setPos2(true);
+			player.sendMessage("Adjusting...");
+		} else {
+			preg.setPos2();
+		}
+		
+		player.sendMessage(ChatStyle.CYAN, "Position Two Set. ");
+	}
+	
+	@Command(aliases = "updateregion", usage = "", desc = "Update Selected region")
+	public void updateregion(CommandContext args, CommandSource source) throws CommandException {
+		Player player;
+		
+		if (Spout.getPlatform() != Platform.CLIENT) {
+			player = (Player) source;
+		} else {
+			player = ((Client) Spout.getEngine()).getActivePlayer();
+		}
+		
+		if (player.get(PlayerRegionComponent.class).updateSelected() == null) {
+			player.sendMessage("Either no region selected, or its a new region, try creating.");
+			return;
+		}
+		
+		player.sendMessage("Region updated.");
 	}
 	
 	@Command(aliases = "createRegion", usage = "(name)", desc = "Create a Region. (Should have 2 Positions selected.", min = 1, max = 1)
@@ -69,13 +106,17 @@ public class PlayerCommands {
 			player = ((Client) Spout.getEngine()).getActivePlayer();
 		}
 		
-		Region region = player.getWorld().getComponentHolder().get(WorldRegionComponent.class).createRegion(player, args.getString(0));
+		Region region = player.get(PlayerRegionComponent.class).createSelected(args.getString(0));
 		
-		region.add(InRegion.class);
-		player.sendMessage(ChatStyle.CYAN, "Region Created (Currently the Regions are ultra accurate (deminsions are to the float value of position)");
+		if (region != null) {
+			region.add(InRegion.class);
+			player.sendMessage(ChatStyle.CYAN, "Region Created...");
+		} else {
+			player.sendMessage(ChatStyle.RED, "Region already exists, try updating instead.");
+		}
 	}
 	
-	@Command(aliases = "getRegion", usage = "(name)", desc = "Get region information based on name.")
+	@Command(aliases = "selectregion", usage = "(name)", desc = "Select a region to edit it.")
 	public void getRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player;
 		
@@ -92,7 +133,8 @@ public class PlayerCommands {
 			return;
 		}
 		
-		player.sendMessage("Region: " + region.getName());
+		player.get(PlayerRegionComponent.class).setSelectedRegion(region);
+		player.sendMessage("Region Selected: " + region.getName());
 	}
 	
 	@Command(aliases = "removeRegion", usage = "(name)", desc = "remove region information based on name.")
@@ -114,4 +156,6 @@ public class PlayerCommands {
 			player.sendMessage("Region not found");
 		}
 	}
+	
+	
 }

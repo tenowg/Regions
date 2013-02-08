@@ -57,7 +57,7 @@ public class WorldRegionComponent extends WorldComponent {
 	 * Will completely remove a region from all Maps effectively removing it
 	 * from the game.
 	 *
-	 * @param region
+	 * @param region Region to be removed
 	 */
 	public void removeRegion(Region region) {
 		for (PointMap mpoint : region.getPointCache()) {
@@ -75,10 +75,17 @@ public class WorldRegionComponent extends WorldComponent {
 	 *
 	 * @param region Region after it has been updated with new Coords.
 	 */
-	public void updateRegion(Region region) {
+	public Region updateRegion(Region region) {
+		
+		if (region.getUUID() == null) {
+			return null;
+		}
+		
 		for (PointMap mpoint : region.getPointCache()) {
 			ConcurrentList<Region> regs = xregions.get(mpoint);
-			regs.remove(region);
+			if (regs != null) {
+				regs.remove(region);
+			}
 		}
 
 		region.resetPointCache();
@@ -99,6 +106,8 @@ public class WorldRegionComponent extends WorldComponent {
 				}
 			}
 		}
+		
+		return region;
 	}
 
 	/**
@@ -117,7 +126,7 @@ public class WorldRegionComponent extends WorldComponent {
 
 		return null;
 	}
-
+	
 	/**
 	 * Gets a region by UUID. Developers should store UUIDs instead of Names
 	 * in their plugins As they should never change once the regions are
@@ -129,7 +138,17 @@ public class WorldRegionComponent extends WorldComponent {
 	public Region getRegion(UUID uuid) {
 		return regions.get(uuid);
 	}
-
+	
+	/**
+	 * Gets a regions a Player is in.
+	 * 
+	 * @param player The player to check
+	 * @return Regions the player is currently in
+	 */
+	public Set<Region> getRegion(Player player) {
+		return getRegion(player.getScene().getPosition());
+	}
+	
 	/**
 	 * Creates a Region from SelectPlayer selections.
 	 *
@@ -138,12 +157,13 @@ public class WorldRegionComponent extends WorldComponent {
 	 * @return The Created Region
 	 */
 	public Region createRegion(Player player, String name) {
-		SelectionPlayer selplayer = player.get(SelectionPlayer.class);
-		Spout.getLogger().info(selplayer.toString());
-		BBox bos = new BBox(selplayer.getSelection().getPos1(), selplayer.getSelection().getPos2());
-		Region region = new Region(bos);
+		Region region = player.get(PlayerRegionComponent.class).getSelectedRegion();
+		if (region.getUUID() != null) {
+			return null;
+		}
 		region.setName(name);
 		region.setUUID(UUID.randomUUID());
+		region.setWorld(player.getWorld().getUID());
 		addRegion(region);
 		return region;
 	}
