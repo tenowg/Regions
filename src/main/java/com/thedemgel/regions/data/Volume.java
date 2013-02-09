@@ -7,8 +7,6 @@ import org.spout.api.math.Vector3;
 public abstract class Volume {
 	public Volume() {}
 	
-	public abstract void init();
-	
 	public abstract boolean containsPoint(Point point);
 	
 	public void setPoint(Points type, Point point) {}

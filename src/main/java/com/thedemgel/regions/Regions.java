@@ -1,13 +1,14 @@
 
 package com.thedemgel.regions;
 
-import com.thedemgel.regions.annotations.OnTickParser;
 import com.thedemgel.regions.command.PlayerCommands;
-import com.thedemgel.regions.feature.Feature;
+import com.thedemgel.regions.data.Volume;
+import com.thedemgel.regions.data.VolumeBox;
 import gnu.trove.iterator.TLongIterator;
 import gnu.trove.list.linked.TLongLinkedList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.spout.api.Engine;
 import org.spout.api.chat.ChatArguments;
 import org.spout.api.chat.style.ChatStyle;
@@ -26,6 +27,9 @@ public class Regions extends CommonPlugin {
 	private Engine engine;
 	private static Regions instance;
 	private TicksPerSecondMonitor tpsMonitor;
+	
+	private Map<String, Class<? extends Volume>> volumes = new HashMap<String, Class<? extends Volume>>();
+	private Map<String, String> volumeDesc = new HashMap<String, String>();
 
 	@Override
 	public void onLoad() {
@@ -42,13 +46,14 @@ public class Regions extends CommonPlugin {
 		final CommandRegistrationsFactory<Class<?>> commandRegFactory = new AnnotatedCommandRegistrationFactory(new SimpleInjector(this), new SimpleAnnotatedCommandExecutorFactory());
 		final RootCommand root = engine.getRootCommand();
 		root.addSubCommands(this, PlayerCommands.class, commandRegFactory);
-		//root.addSubCommands(this, AdminCommands.class, commandRegFactory);
 
 		engine.getEventManager().registerEvents(new PlayerListener(this), this);
 		
 		tpsMonitor = new TicksPerSecondMonitor();
 		getEngine().getScheduler().scheduleSyncRepeatingTask(this, tpsMonitor, 0, 50, TaskPriority.CRITICAL);
 
+		registerVolume("box", "Basic BoundingBox", VolumeBox.class);
+		
 		getLogger().log(Level.INFO, "v{0} enabled.", getDescription().getVersion());
 	}
 
@@ -63,6 +68,19 @@ public class Regions extends CommonPlugin {
 	
 	public static Regions getInstance() {
 		return instance;
+	}
+	
+	public void registerVolume(String name, String description, Class<? extends Volume> volume) {
+		volumes.put(name, volume);
+		volumeDesc.put(name, description);
+	}
+	
+	public Map<String, String> getTypeDesc() {
+		return volumeDesc;
+	}
+	
+	public Class<? extends Volume> getVolume(String name) {
+		return volumes.get(name);
 	}
 	
 	public TicksPerSecondMonitor getTPDMonitor() {

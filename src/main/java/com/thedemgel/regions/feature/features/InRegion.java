@@ -6,12 +6,15 @@ import com.thedemgel.regions.annotations.OnTick;
 import com.thedemgel.regions.annotations.RegionEvent;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.feature.Feature;
+import java.io.IOException;
+import java.io.InvalidClassException;
+import java.util.logging.Level;
+import org.spout.api.Spout;
 import org.spout.api.event.player.PlayerChatEvent;
 
 
 public class InRegion extends Feature {
-	private static final long serialVersionUID = 66L;
-
+	
 	/*
 	 * Marking something as @RegionEvent will make this method
 	 * fire everytime the event Type (in this case PlayerChatEvent) is
@@ -21,8 +24,10 @@ public class InRegion extends Feature {
 	@RegionEvent
 	public void executeIt(PlayerChatEvent event, Region region) {
 		PlayerChatEvent chatEvent = (PlayerChatEvent)event;
-		chatEvent.getPlayer().sendMessage("You Chatted in " + region.getName());
 		
+		getData().put("talked", getData().get("talked", 0) + 1);
+		
+		chatEvent.getPlayer().sendMessage("You Chatted in " + region.getName() + " " + getData().get("talked") + " times.");
 	}
 	
 	@OnTick

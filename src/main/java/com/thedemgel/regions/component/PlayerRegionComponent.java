@@ -1,24 +1,17 @@
 package com.thedemgel.regions.component;
 
-import com.thedemgel.regions.data.BBox;
 import com.thedemgel.regions.data.Region;
-import com.thedemgel.regions.data.RegionType;
-import java.util.Set;
+import com.thedemgel.regions.data.Volume;
+import com.thedemgel.regions.data.VolumeBox;
 import me.dzineit.selectionapi.SelectionPlayer;
 import org.spout.api.component.type.EntityComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
-/**
- * This file is an example, and will be removed once the Plugin is ready for
- * release.
- *
- * @author tenowg
- */
 public class PlayerRegionComponent extends EntityComponent {
 
-	private Region selectedRegion = new Region(RegionType.BOUNDING_BOX);
+	private Region selectedRegion = new Region(VolumeBox.class);
 	private SelectionPlayer playerSel;
 	private Vector3 pos1 = null;
 	private Vector3 pos2 = null;
@@ -56,6 +49,10 @@ public class PlayerRegionComponent extends EntityComponent {
 		this.selectedRegion = region;
 		pos1 = region.getVolume().getMin();
 		pos2 = region.getVolume().getMax();
+	}
+	
+	public void setVolumeType(Class<? extends Volume> type) {
+		selectedRegion = new Region(type);
 	}
 	
 	private void adjustPos() {

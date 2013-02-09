@@ -4,7 +4,11 @@ import com.thedemgel.regions.Regions;
 import com.thedemgel.regions.component.PlayerRegionComponent;
 import com.thedemgel.regions.component.WorldRegionComponent;
 import com.thedemgel.regions.data.Region;
+import com.thedemgel.regions.data.Volume;
 import com.thedemgel.regions.feature.features.InRegion;
+import java.util.Map.Entry;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentMap;
 import me.dzineit.selectionapi.SelectionPlayer;
 import org.spout.api.Client;
 import org.spout.api.Spout;
@@ -116,6 +120,42 @@ public class PlayerCommands {
 		}
 	}
 	
+	@Command(aliases = "regiontypes", desc = "List all available region types.")
+	public void regionsTypes(CommandContext args, CommandSource source) throws CommandException {
+		Player player;
+		
+		if (Spout.getPlatform() != Platform.CLIENT) {
+			player = (Player) source;
+		} else {
+			player = ((Client) Spout.getEngine()).getActivePlayer();
+		}
+		
+		for (Entry<String, String> type : plugin.getTypeDesc().entrySet()) {
+			player.sendMessage(type.getKey(), " - ", type.getValue());
+		}
+	}
+	
+	@Command(aliases = "settype", usage = "(type)",  desc = "Set the type of Volume for selected region.")
+	public void setRegionType(CommandContext args, CommandSource source) throws CommandException {
+		Player player;
+		
+		if (Spout.getPlatform() != Platform.CLIENT) {
+			player = (Player) source;
+		} else {
+			player = ((Client) Spout.getEngine()).getActivePlayer();
+		}
+		
+		Class<? extends Volume> volume = plugin.getVolume(args.getString(0));
+		
+		if (volume != null) {
+			player.get(PlayerRegionComponent.class).setVolumeType(volume);
+			player.sendMessage("Selection set to: " + volume.getSimpleName());
+			return;
+		}
+		
+		player.sendMessage("Volume Type not found.");
+	}
+	
 	@Command(aliases = "selectregion", usage = "(name)", desc = "Select a region to edit it.")
 	public void getRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player;
@@ -157,5 +197,21 @@ public class PlayerCommands {
 		}
 	}
 	
-	
+	@Command(aliases = "listRegion", usage = "(name)", desc = "remove region information based on name.")
+	public void listRegion(CommandContext args, CommandSource source) throws CommandException {
+		Player player;
+		
+		if (Spout.getPlatform() != Platform.CLIENT) {
+			player = (Player) source;
+		} else {
+			player = ((Client) Spout.getEngine()).getActivePlayer();
+		}
+		
+		ConcurrentMap<UUID, Region> regions = player.getWorld().getComponentHolder().get(WorldRegionComponent.class).getRegions();
+		
+		for (Region region : regions.values()) {
+			player.sendMessage(region.getName());
+			player.sendMessage(region.getVolume().getMin() + "/" + region.getVolume().getMax());
+		}
+	}
 }

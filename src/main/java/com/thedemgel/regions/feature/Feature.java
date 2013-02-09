@@ -4,8 +4,13 @@ package com.thedemgel.regions.feature;
 import com.thedemgel.regions.annotations.OnTickParser;
 import com.thedemgel.regions.annotations.RegionEventParser;
 import com.thedemgel.regions.data.Region;
+import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.spout.api.Spout;
+import org.spout.api.component.impl.DatatableComponent;
 import org.spout.api.event.Event;
 import org.spout.api.event.Listener;
 
@@ -53,6 +58,10 @@ public class Feature implements Listener, Serializable {
 		return holder;
 	}
 	
+	public DatatableComponent getData() {
+		return holder.getData();
+	}
+	
 	/**
 	 * Calls the Event action on a Feature
 	 * @param event Any Event
@@ -79,6 +88,20 @@ public class Feature implements Listener, Serializable {
 			parser.parse(this, dt, region);
 		} catch (Exception ex) {
 			Spout.getLogger().info(ex.getMessage());
+		}
+	}
+	
+	private void readObject(java.io.ObjectInputStream in) throws IOException {
+		try {
+			//Spout.getLogger().info("Test: " + in.readObject().toString());
+			in.defaultReadObject();
+			Spout.getLogger().info("I GOT THE ERROR HERE");
+			
+		} catch (InvalidClassException ex) {
+			Spout.getLogger().log(Level.SEVERE, "I GOT THE ERROR HERE", ex);
+			Spout.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
+		} catch (ClassNotFoundException ex) {
+			Spout.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
 		}
 	}
 }

@@ -1,6 +1,5 @@
 package com.thedemgel.regions.component;
 
-import com.thedemgel.regions.data.BBox;
 import com.thedemgel.regions.data.PointMap;
 import com.thedemgel.regions.data.Region;
 import java.util.Collections;
@@ -10,9 +9,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
-import me.dzineit.selectionapi.SelectionPlayer;
-import org.apache.commons.collections.set.UnmodifiableSet;
-import org.spout.api.Spout;
 import org.spout.api.component.type.WorldComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.event.Event;
@@ -161,6 +157,11 @@ public class WorldRegionComponent extends WorldComponent {
 		if (region.getUUID() != null) {
 			return null;
 		}
+		
+		if (getRegion(name) != null) {
+			return null;
+		}
+		
 		region.setName(name);
 		region.setUUID(UUID.randomUUID());
 		region.setWorld(player.getWorld().getUID());
@@ -194,6 +195,10 @@ public class WorldRegionComponent extends WorldComponent {
 		return Collections.unmodifiableSet(regionsRet);
 	}
 
+	public ConcurrentMap<UUID, Region> getRegions() {
+		return regions;
+	}
+	
 	public void init() {
 		regions = getData().get("regions", new ConcurrentSkipListMap<UUID, Region>());
 		for (Region region : regions.values()) {
