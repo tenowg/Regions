@@ -4,6 +4,7 @@ package com.thedemgel.regions.feature.features;
 import com.thedemgel.regions.annotations.Intensity;
 import com.thedemgel.regions.annotations.OnTick;
 import com.thedemgel.regions.annotations.RegionEvent;
+import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.feature.Feature;
 import java.io.IOException;
@@ -14,6 +15,9 @@ import org.spout.api.event.player.PlayerChatEvent;
 
 
 public class InRegion extends Feature {
+	private String dumb = "This is dumb";
+	
+	private static final long serialVersionUID = 8L;
 	
 	/*
 	 * Marking something as @RegionEvent will make this method
@@ -22,12 +26,12 @@ public class InRegion extends Feature {
 	 * within the attached RAZ.
 	 */
 	@RegionEvent
-	public void executeIt(PlayerChatEvent event, Region region) {
+	public void executeIt(PlayerChatEvent event, EventRegion region) {
 		PlayerChatEvent chatEvent = (PlayerChatEvent)event;
 		
 		getData().put("talked", getData().get("talked", 0) + 1);
 		
-		chatEvent.getPlayer().sendMessage("You Chatted in " + region.getName() + " " + getData().get("talked") + " times.");
+		chatEvent.getPlayer().sendMessage("You Chatted in " + region.getRegion().getName() + " " + getData().get("talked") + " times.");
 	}
 	
 	@OnTick
@@ -44,4 +48,5 @@ public class InRegion extends Feature {
 	public void anotherTask(float dt, Region region) {
 		// So Something else on Tick, will not run if TPS is 16 or lower
 	}
+	
 }

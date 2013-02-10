@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.spout.api.Spout;
 import org.spout.api.math.Vector3;
+import org.spout.api.plugin.Plugin;
 import org.spout.api.util.list.concurrent.ConcurrentList;
 
 public class Region implements Serializable {
@@ -59,8 +60,8 @@ public class Region implements Serializable {
 		volume.setPoint(Points.POS_TWO, vec2);
 	}
 
-	public <T extends Feature> T add(Class<T> clazz) {
-		return holder.add(clazz);
+	public <T extends Feature> T add(Plugin plugin, Class<T> clazz) {
+		return holder.add(plugin, clazz);
 	}
 
 	public <T extends Feature> void remove(Class<T> clazz) {

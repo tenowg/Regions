@@ -1,5 +1,6 @@
 package com.thedemgel.regions.component;
 
+import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.PointMap;
 import com.thedemgel.regions.data.Region;
 import java.util.Collections;
@@ -228,9 +229,13 @@ public class WorldRegionComponent extends WorldComponent {
 	 * @param point
 	 */
 	public void execute(Event event, Point point) {
+		
+		
 		for (Region region : getRegion(point)) {
 			if (region != null) {
+				EventRegion eventRegion = new EventRegion(getRegion(point), region);
 				region.getHolder().execute(event, region);
+				region.getHolder().execute(event, eventRegion);
 			}
 		}
 	}

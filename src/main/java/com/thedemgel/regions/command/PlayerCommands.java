@@ -113,7 +113,7 @@ public class PlayerCommands {
 		Region region = player.get(PlayerRegionComponent.class).createSelected(args.getString(0));
 		
 		if (region != null) {
-			region.add(InRegion.class);
+			region.add(plugin, InRegion.class);
 			player.sendMessage(ChatStyle.CYAN, "Region Created...");
 		} else {
 			player.sendMessage(ChatStyle.RED, "Region already exists, try updating instead.");

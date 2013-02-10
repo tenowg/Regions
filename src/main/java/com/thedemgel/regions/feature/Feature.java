@@ -3,6 +3,7 @@ package com.thedemgel.regions.feature;
 
 import com.thedemgel.regions.annotations.OnTickParser;
 import com.thedemgel.regions.annotations.RegionEventParser;
+import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.Region;
 import java.io.IOException;
 import java.io.InvalidClassException;
@@ -13,6 +14,7 @@ import org.spout.api.Spout;
 import org.spout.api.component.impl.DatatableComponent;
 import org.spout.api.event.Event;
 import org.spout.api.event.Listener;
+import org.spout.api.plugin.Plugin;
 
 
 /**
@@ -22,8 +24,8 @@ import org.spout.api.event.Listener;
  * attached to many RAZs.
  * @author tenowg
  */
-public class Feature implements Listener, Serializable {
-	private static final long serialVersionUID = 31L;
+public class Feature implements Listener {
+	protected Plugin plugin;
 	
 	private FeatureHolder holder;
 	/**
@@ -32,8 +34,9 @@ public class Feature implements Listener, Serializable {
 	 * @param holder
 	 * @return Successful attach
 	 */
-	public boolean attachTo(FeatureHolder holder) {
+	public boolean attachTo(Plugin plugin, FeatureHolder holder) {
 		this.holder = holder;
+		this.plugin = plugin;
 		return true;
 	}
 	
@@ -70,6 +73,15 @@ public class Feature implements Listener, Serializable {
 	public final void execute(Event event, Region region) {
 		RegionEventParser parser = new RegionEventParser();
 		try {
+			//parser.parse(this, event, region);
+		} catch (Exception ex) {
+			Spout.getLogger().info(ex.getMessage());
+		}
+	}
+	
+	public final void execute(Event event, EventRegion region) {
+		RegionEventParser parser = new RegionEventParser();
+		try {
 			parser.parse(this, event, region);
 		} catch (Exception ex) {
 			Spout.getLogger().info(ex.getMessage());
@@ -88,20 +100,6 @@ public class Feature implements Listener, Serializable {
 			parser.parse(this, dt, region);
 		} catch (Exception ex) {
 			Spout.getLogger().info(ex.getMessage());
-		}
-	}
-	
-	private void readObject(java.io.ObjectInputStream in) throws IOException {
-		try {
-			//Spout.getLogger().info("Test: " + in.readObject().toString());
-			in.defaultReadObject();
-			Spout.getLogger().info("I GOT THE ERROR HERE");
-			
-		} catch (InvalidClassException ex) {
-			Spout.getLogger().log(Level.SEVERE, "I GOT THE ERROR HERE", ex);
-			Spout.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
-		} catch (ClassNotFoundException ex) {
-			Spout.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
 		}
 	}
 }

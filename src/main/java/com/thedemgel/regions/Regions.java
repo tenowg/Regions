@@ -2,14 +2,19 @@
 package com.thedemgel.regions;
 
 import com.thedemgel.regions.command.PlayerCommands;
+import com.thedemgel.regions.data.PluginFeatures;
 import com.thedemgel.regions.data.Volume;
 import com.thedemgel.regions.data.VolumeBox;
+import com.thedemgel.regions.feature.Feature;
+import com.thedemgel.regions.feature.features.InRegion;
 import gnu.trove.iterator.TLongIterator;
 import gnu.trove.list.linked.TLongLinkedList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import org.spout.api.Engine;
+import org.spout.api.Spout;
 import org.spout.api.chat.ChatArguments;
 import org.spout.api.chat.style.ChatStyle;
 import org.spout.api.command.CommandRegistrationsFactory;
@@ -30,6 +35,8 @@ public class Regions extends CommonPlugin {
 	
 	private Map<String, Class<? extends Volume>> volumes = new HashMap<String, Class<? extends Volume>>();
 	private Map<String, String> volumeDesc = new HashMap<String, String>();
+	
+	private Map<CommonPlugin, PluginFeatures> features = new ConcurrentHashMap<CommonPlugin, PluginFeatures>();
 
 	@Override
 	public void onLoad() {
@@ -53,6 +60,7 @@ public class Regions extends CommonPlugin {
 		getEngine().getScheduler().scheduleSyncRepeatingTask(this, tpsMonitor, 0, 50, TaskPriority.CRITICAL);
 
 		registerVolume("box", "Basic BoundingBox", VolumeBox.class);
+		registerFeature(this, InRegion.class);
 		
 		getLogger().log(Level.INFO, "v{0} enabled.", getDescription().getVersion());
 	}
@@ -77,6 +85,21 @@ public class Regions extends CommonPlugin {
 	
 	public Map<String, String> getTypeDesc() {
 		return volumeDesc;
+	}
+	
+	public void registerFeature(CommonPlugin plugin, Class<? extends Feature> feature) {
+		if (!features.containsKey(plugin)) {
+			features.put(plugin, new PluginFeatures());
+		}
+		features.get(plugin).getFeatures().put(feature.getSimpleName(), feature);
+	}
+	
+	public Class<? extends Feature> getFeature(CommonPlugin plugin, String SimpleName) {
+		if (features.containsKey(plugin)) {
+			return features.get(plugin).getFeatures().get(SimpleName);
+		}
+		
+		return null;
 	}
 	
 	public Class<? extends Volume> getVolume(String name) {
