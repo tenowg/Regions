@@ -49,4 +49,11 @@ public class InRegion extends Feature {
 		// So Something else on Tick, will not run if TPS is 16 or lower
 	}
 	
+	public void setDumb(String value) {
+		dumb = value;
+	}
+	
+	public String getDumb() {
+		return dumb;
+	}
 }

@@ -7,7 +7,6 @@ import org.spout.api.util.list.concurrent.ConcurrentList;
 
 
 public class Owner extends Feature {
-	private static final long serialVersionUID = 1L;
 	private ConcurrentList<String> owners = new ConcurrentList<String>();
 	
 	public void addOwner(Player player) {

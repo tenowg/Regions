@@ -56,6 +56,11 @@
 			<artifactId>selectionapi</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+			<version>1.11</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<defaultGoal>clean install</defaultGoal>
@@ -82,6 +87,36 @@
 			</resource>
 		</resources>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<artifactSet>
+								<includes>
+									<!-- <include>org.yaml:*</include> -->
+								</includes>
+								<excludes>
+									<exclude>me.dzineit:*</exclude>
+									<exclude>org.yaml:*</exclude>
+								</excludes>
+							</artifactSet>
+							<!-- <relocations>
+								<relocation>
+									<pattern>org.yaml</pattern>
+									<shadedPattern>org.shaded.yaml</shadedPattern>
+								</relocation>
+							</relocations> -->
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>

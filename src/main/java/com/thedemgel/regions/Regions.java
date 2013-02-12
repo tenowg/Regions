@@ -7,6 +7,7 @@ import com.thedemgel.regions.data.Volume;
 import com.thedemgel.regions.data.VolumeBox;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.feature.features.InRegion;
+import com.thedemgel.regions.feature.features.Owner;
 import gnu.trove.iterator.TLongIterator;
 import gnu.trove.list.linked.TLongLinkedList;
 import java.util.HashMap;
@@ -61,6 +62,7 @@ public class Regions extends CommonPlugin {
 
 		registerVolume("box", "Basic BoundingBox", VolumeBox.class);
 		registerFeature(this, InRegion.class);
+		registerFeature(this, Owner.class);
 		
 		getLogger().log(Level.INFO, "v{0} enabled.", getDescription().getVersion());
 	}

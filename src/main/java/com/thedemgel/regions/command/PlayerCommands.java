@@ -6,6 +6,7 @@ import com.thedemgel.regions.component.WorldRegionComponent;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.data.Volume;
 import com.thedemgel.regions.feature.features.InRegion;
+import com.thedemgel.regions.feature.features.Owner;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
@@ -114,6 +115,7 @@ public class PlayerCommands {
 		
 		if (region != null) {
 			region.add(plugin, InRegion.class);
+			region.add(plugin, Owner.class);
 			player.sendMessage(ChatStyle.CYAN, "Region Created...");
 		} else {
 			player.sendMessage(ChatStyle.RED, "Region already exists, try updating instead.");

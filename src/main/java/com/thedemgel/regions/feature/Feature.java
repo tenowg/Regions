@@ -15,6 +15,7 @@ import org.spout.api.component.impl.DatatableComponent;
 import org.spout.api.event.Event;
 import org.spout.api.event.Listener;
 import org.spout.api.plugin.Plugin;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 
 /**
@@ -26,6 +27,7 @@ import org.spout.api.plugin.Plugin;
  */
 public class Feature implements Listener {
 	protected Plugin plugin;
+	private String pluginName;
 	
 	private FeatureHolder holder;
 	/**
@@ -37,6 +39,7 @@ public class Feature implements Listener {
 	public boolean attachTo(Plugin plugin, FeatureHolder holder) {
 		this.holder = holder;
 		this.plugin = plugin;
+		this.pluginName = plugin.getName();
 		return true;
 	}
 	
@@ -101,5 +104,13 @@ public class Feature implements Listener {
 		} catch (Exception ex) {
 			Spout.getLogger().info(ex.getMessage());
 		}
+	}
+	
+	public String getPluginName() {
+		return pluginName;
+	}
+
+	public void setPluginName(String value) {
+		this.pluginName = value;
 	}
 }
