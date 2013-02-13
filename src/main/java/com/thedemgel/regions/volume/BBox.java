@@ -7,7 +7,7 @@ import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
 
-public class BBox extends BoundingBox implements Serializable {
+public class BBox extends BoundingBox {
 	
 	public BBox(Vector3 pos1, Vector3 pos2) {
 		super(pos1, pos2);

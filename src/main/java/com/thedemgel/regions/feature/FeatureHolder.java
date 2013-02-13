@@ -1,7 +1,9 @@
 package com.thedemgel.regions.feature;
 
+import com.thedemgel.regions.Regions;
 import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.Region;
+import com.thedemgel.regions.util.RegionYamlConstructor;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -16,6 +18,7 @@ import java.util.logging.Logger;
 import org.spout.api.Spout;
 import org.spout.api.component.impl.DatatableComponent;
 import org.spout.api.event.Event;
+import org.spout.api.plugin.CommonPlugin;
 import org.spout.api.plugin.Plugin;
 import org.spout.api.util.list.concurrent.ConcurrentList;
 import org.yaml.snakeyaml.Yaml;
@@ -34,19 +37,12 @@ import org.yaml.snakeyaml.constructor.Constructor;
 public class FeatureHolder implements Serializable {
 
 	private static final long serialVersionUID = 56L;
-	transient private DatatableComponent data;
-	private byte[] dataMap;
 	transient private ConcurrentMap<String, Class<? extends Feature>> featureNames = new ConcurrentSkipListMap<String, Class<? extends Feature>>(String.CASE_INSENSITIVE_ORDER);
 	transient private ConcurrentMap<Class<? extends Feature>, Feature> features = new ConcurrentHashMap<Class<? extends Feature>, Feature>();
 	transient private ConcurrentList<ParentFeatureHolder> parentFeatures = new ConcurrentList<ParentFeatureHolder>();
 	private List<String> yamls = new ArrayList<String>();
 
 	public FeatureHolder() {
-		data = new DatatableComponent();
-	}
-
-	public DatatableComponent getData() {
-		return data;
 	}
 
 	/**
@@ -176,8 +172,6 @@ public class FeatureHolder implements Serializable {
 	}
 
 	private void writeObject(ObjectOutputStream oos) throws IOException {
-		dataMap = data.serialize();
-
 		Yaml beanWriter = new Yaml();
 
 		if (yamls == null) {
@@ -197,11 +191,10 @@ public class FeatureHolder implements Serializable {
 	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
 		parentFeatures = new ConcurrentList<ParentFeatureHolder>();
-		data = new DatatableComponent(dataMap);
 		features = new ConcurrentHashMap<Class<? extends Feature>, Feature>();
 		featureNames = new ConcurrentSkipListMap<String, Class<? extends Feature>>(String.CASE_INSENSITIVE_ORDER);
 
-		Yaml loader = new Yaml(new FilterConstructor(true));
+		Yaml loader = new Yaml(new RegionYamlConstructor());
 
 		if (yamls != null) {
 			for (String yam : yamls) {
@@ -210,6 +203,20 @@ public class FeatureHolder implements Serializable {
 					feat = (Feature) loader.load(yam);
 				} catch (Exception e) {
 					Spout.getLogger().warning("Feature failed load or was not found: " + yam);
+					// Do class lookup and try to reload from scratch.]
+					String string = yam.substring(0, yam.indexOf(" "));
+					string = string.substring(string.lastIndexOf(".") + 1);
+					String plug = yam.substring(yam.indexOf("pluginName") + 12);
+					if (plug.contains(",")) {
+						plug = plug.substring(0, plug.indexOf(","));
+					} else if (plug.contains("}")) {
+						plug = plug.substring(0, plug.indexOf("}"));
+					}
+					Plugin lookupPlugin = Spout.getPluginManager().getPlugin(plug);
+					Class featureClazz = Regions.getInstance().getFeature((CommonPlugin) lookupPlugin, string);
+					add(lookupPlugin, featureClazz);
+					Spout.getLogger().info("***********************" + string);
+					Spout.getLogger().info("***********************" + plug);
 					continue;
 				}
 				//Spout.getLogger().info(feat.toString());
@@ -217,30 +224,7 @@ public class FeatureHolder implements Serializable {
 				if (feat.attachTo(plug, this)) {
 					features.put(feat.getClass(), feat);
 					featureNames.put(feat.getClass().getSimpleName(), feat.getClass());
-					Spout.getLogger().info("Adding: " + feat.toString());
 				}
-			}
-		}
-	}
-
-	class FilterConstructor extends Constructor {
-
-		private boolean filter;
-
-		public FilterConstructor(boolean f) {
-			filter = f;
-		}
-
-		@Override
-		protected Class<?> getClassForName(String name) {
-			if (filter && name.contains("FeatureHolder")) {
-				throw new RuntimeException("Filter is applied.");
-			}
-			
-			try {
-				return Class.forName(name);
-			} catch (ClassNotFoundException ex) {
-				throw new RuntimeException("Class not found");
 			}
 		}
 	}

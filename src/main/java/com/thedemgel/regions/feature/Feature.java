@@ -64,10 +64,6 @@ public class Feature implements Listener {
 		return holder;
 	}
 	
-	public DatatableComponent getData() {
-		return holder.getData();
-	}
-	
 	/**
 	 * Calls the Event action on a Feature
 	 * @param event Any Event

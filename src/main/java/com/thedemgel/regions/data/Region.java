@@ -1,35 +1,42 @@
 package com.thedemgel.regions.data;
 
-import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.Regions;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.feature.FeatureHolder;
+import com.thedemgel.regions.util.RegionYamlConstructor;
+import com.thedemgel.regions.volume.Volume;
+import com.thedemgel.regions.volume.volumes.VolumeBox;
 import java.io.IOException;
-import java.io.InvalidClassException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.UUID;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.spout.api.Spout;
 import org.spout.api.math.Vector3;
 import org.spout.api.plugin.Plugin;
 import org.spout.api.util.list.concurrent.ConcurrentList;
+import org.yaml.snakeyaml.Yaml;
 
 public class Region implements Serializable {
 
 	private final static long serialVersionUID = 32L;
-	private Volume volume;
+	transient private Volume volume;
 	private UUID ident = null;
 	private String name;
 	private UUID world;
 	private ConcurrentList<PointMap> pointCache = new ConcurrentList<PointMap>();
 	private FeatureHolder holder = new FeatureHolder();
+	
+	private String volumeYaml;
 
 	public Region(String type) {
 		Class<? extends Volume> volumeType = Regions.getInstance().getVolume(name);
 		if (volumeType != null) {
 			try {
 				volume = volumeType.newInstance();
+				Yaml beanWriter = new Yaml();
+				volumeYaml = "";
+				volumeYaml = beanWriter.dump(volume);
 			} catch (InstantiationException ex) {
 				Spout.getLogger().log(Level.SEVERE, null, ex);
 			} catch (IllegalAccessException ex) {
@@ -41,6 +48,9 @@ public class Region implements Serializable {
 	public Region(Class<? extends Volume> type) {
 		try {
 			volume = type.newInstance();
+			Yaml beanWriter = new Yaml();
+			volumeYaml = "";
+			volumeYaml = beanWriter.dump(volume);
 		} catch (InstantiationException ex) {
 			Spout.getLogger().log(Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
@@ -133,16 +143,34 @@ public class Region implements Serializable {
 	}
 
 	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-		try {
-			/*Region region = (Region) in.readObject();
-			for (Feature feature : region.holder.getFeatures().values()) {
-				Spout.getLogger().info(feature.toString());
-			}*/
-			in.defaultReadObject();
-			//in.readObject();
-		} catch (InvalidClassException ex) {
-			Spout.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
-			
+		in.defaultReadObject();
+		Yaml loader = new Yaml(new RegionYamlConstructor());
+		Spout.getLogger().info(volumeYaml);
+		if (!"".equals(volumeYaml)) {
+			volume = (Volume) loader.load(volumeYaml);
+			volume.reInit();
+		} else {
+			volume = new VolumeBox();
 		}
+	}
+	
+	// HANDLE SERIALIZING VOLUME
+	transient boolean written = false;
+	private void writeObject(ObjectOutputStream oos) throws IOException {
+		Spout.getLogger().info(written + "!!");
+		if (written == true) {
+			return;
+		} else {
+			written = true;
+		}
+		Yaml beanWriter = new Yaml();
+		
+		volumeYaml = "";
+
+		volumeYaml = beanWriter.dump(volume);
+		
+		Spout.getLogger().info(volumeYaml);
+			
+		oos.defaultWriteObject();
 	}
 }

@@ -143,7 +143,6 @@ public class PlayerRegionComponent extends EntityComponent {
 	public Region createSelected(String name) {
 		selectedRegion.setMinMax(pos1, pos2);
 
-
 		return getOwner().getWorld().getComponentHolder().get(WorldRegionComponent.class).createRegion((Player) getOwner(), name);
 	}
 }

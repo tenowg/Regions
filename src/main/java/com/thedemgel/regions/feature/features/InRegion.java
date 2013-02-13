@@ -19,9 +19,7 @@ import org.spout.api.event.player.PlayerChatEvent;
 
 
 public class InRegion extends Feature implements Tickable {
-	private String dumb = "This is dumb";
-	
-	private static final long serialVersionUID = 8L;
+	public int total_chats;
 	
 	/*
 	 * Marking something as @RegionEvent will make this method
@@ -33,9 +31,9 @@ public class InRegion extends Feature implements Tickable {
 	public void executeIt(PlayerChatEvent event, EventRegion region) {
 		PlayerChatEvent chatEvent = (PlayerChatEvent)event;
 		
-		getData().put("talked", getData().get("talked", 0) + 1);
+		total_chats++;
 		
-		chatEvent.getPlayer().sendMessage("You Chatted in " + region.getRegion().getName() + " " + getData().get("talked") + " times.");
+		chatEvent.getPlayer().sendMessage("You Chatted in " + region.getRegion().getName() + " " + total_chats + " times.");
 	}
 	
 	@OnTick
@@ -59,13 +57,5 @@ public class InRegion extends Feature implements Tickable {
 		for (ChatSection arg : args.getArgs().getRawArgs()) {
 			args.getPlayer().sendMessage(arg);
 		}
-	}
-	
-	public void setDumb(String value) {
-		dumb = value;
-	}
-	
-	public String getDumb() {
-		return dumb;
 	}
 }
