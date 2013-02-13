@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.spout.api.Spout;
@@ -35,6 +36,7 @@ public class FeatureHolder implements Serializable {
 	private static final long serialVersionUID = 56L;
 	transient private DatatableComponent data;
 	private byte[] dataMap;
+	transient private ConcurrentMap<String, Class<? extends Feature>> featureNames = new ConcurrentSkipListMap<String, Class<? extends Feature>>(String.CASE_INSENSITIVE_ORDER);
 	transient private ConcurrentMap<Class<? extends Feature>, Feature> features = new ConcurrentHashMap<Class<? extends Feature>, Feature>();
 	transient private ConcurrentList<ParentFeatureHolder> parentFeatures = new ConcurrentList<ParentFeatureHolder>();
 	private List<String> yamls = new ArrayList<String>();
@@ -60,9 +62,9 @@ public class FeatureHolder implements Serializable {
 		try {
 			feature = clazz.newInstance();
 		} catch (InstantiationException ex) {
-			Logger.getLogger(Region.class.getName()).log(Level.SEVERE, null, ex);
+			Spout.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
 		} catch (IllegalAccessException ex) {
-			Logger.getLogger(Region.class.getName()).log(Level.SEVERE, null, ex);
+			Spout.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
 		}
 
 		if (feature == null) {
@@ -72,6 +74,7 @@ public class FeatureHolder implements Serializable {
 		if (feature.attachTo(plugin, this)) {
 			if (!features.containsKey(clazz)) {
 				features.put(clazz, feature);
+				featureNames.put(feature.getClass().getSimpleName(), feature.getClass());
 
 				feature.onAttached();
 			}
@@ -96,6 +99,19 @@ public class FeatureHolder implements Serializable {
 	}
 
 	/**
+	 * Retrieve a Feature that is attached to this FeatureHolder, BY NAME.
+	 * @param <T>
+	 * @param name String value to search
+	 * @return Feature if one if found, otherwise null
+	 */
+	public <T extends Feature> T get(String name) {
+		Class<? extends Feature> feat = featureNames.get(name);
+		if (feat != null) {
+			return (T) features.get(feat);
+		}
+		return null;
+	}
+	/**
 	 * Remove a Feature that is attached to this FeatureHolder
 	 *
 	 * @param clazz Class to remove
@@ -103,6 +119,7 @@ public class FeatureHolder implements Serializable {
 	public <T extends Feature> void detach(Class<T> clazz) {
 		features.get(clazz).onDetached();
 		features.remove(clazz);
+		featureNames.remove(clazz.getSimpleName());
 	}
 
 	/**
@@ -128,20 +145,6 @@ public class FeatureHolder implements Serializable {
 	 *
 	 * @param event Event passed to Features to be executed.
 	 */
-	public void execute(Event event, Region region) {
-		for (FeatureHolder parent : parentFeatures) {
-			//parent.execute(event, region);
-			for (Entry<Class<? extends Feature>, Feature> feature : parent.features.entrySet()) {
-				if (!features.containsKey(feature.getKey())) {
-					feature.getValue().execute(event, region);
-				}
-			}
-		}
-
-		for (Feature feature : features.values()) {
-			feature.execute(event, region);
-		}
-	}
 
 	public void execute(Event event, EventRegion regions) {
 		for (FeatureHolder parent : parentFeatures) {
@@ -196,6 +199,7 @@ public class FeatureHolder implements Serializable {
 		parentFeatures = new ConcurrentList<ParentFeatureHolder>();
 		data = new DatatableComponent(dataMap);
 		features = new ConcurrentHashMap<Class<? extends Feature>, Feature>();
+		featureNames = new ConcurrentSkipListMap<String, Class<? extends Feature>>(String.CASE_INSENSITIVE_ORDER);
 
 		Yaml loader = new Yaml(new FilterConstructor(true));
 
@@ -212,6 +216,7 @@ public class FeatureHolder implements Serializable {
 				Plugin plug = Spout.getPluginManager().getPlugin(feat.getPluginName());
 				if (feat.attachTo(plug, this)) {
 					features.put(feat.getClass(), feat);
+					featureNames.put(feat.getClass().getSimpleName(), feat.getClass());
 					Spout.getLogger().info("Adding: " + feat.toString());
 				}
 			}

@@ -1,14 +1,17 @@
 package com.thedemgel.regions.component;
 
 import com.thedemgel.regions.data.Region;
-import com.thedemgel.regions.data.Volume;
-import com.thedemgel.regions.data.VolumeBox;
+import com.thedemgel.regions.volume.Volume;
+import com.thedemgel.regions.volume.volumes.VolumeBox;
 import me.dzineit.selectionapi.SelectionPlayer;
 import org.spout.api.component.type.EntityComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
+/**
+ * Player Region Component used to control Region Selection.
+ */
 public class PlayerRegionComponent extends EntityComponent {
 
 	private Region selectedRegion = new Region(VolumeBox.class);
@@ -17,21 +20,31 @@ public class PlayerRegionComponent extends EntityComponent {
 	private Vector3 pos2 = null;
 	private boolean isBlock1 = false;
 	private boolean isBlock2 = false;
+	private Class<? extends Volume> volType = VolumeBox.class;
 
 	@Override
 	public void onAttached() {
 		playerSel = getOwner().add(SelectionPlayer.class);
 	}
 
+	/**
+	 * Sets the first position to be use by region.
+	 */
 	public void setPos1() {
 		setPos1(false);
 	}
 
+	/**
+	 * Sets the first position to be use by region.
+	 */
 	public void setPos1(boolean isBlock) {
 		isBlock1 = isBlock;
 		adjustPos();
 	}
 
+	/**
+	 * Sets the second position to be use by region.
+	 */
 	public void setPos2() {
 		setPos2(false);
 	}
@@ -40,33 +53,38 @@ public class PlayerRegionComponent extends EntityComponent {
 		isBlock2 = isBlock;
 		adjustPos();
 	}
-	
+
 	public Region getSelectedRegion() {
 		return selectedRegion;
 	}
-	
+
+	public void newSelection() {
+		selectedRegion = new Region(volType);
+	}
+
 	public void setSelectedRegion(Region region) {
 		this.selectedRegion = region;
 		pos1 = region.getVolume().getMin();
 		pos2 = region.getVolume().getMax();
 	}
-	
+
 	public void setVolumeType(Class<? extends Volume> type) {
+		volType = type;
 		selectedRegion = new Region(type);
 	}
-	
+
 	private void adjustPos() {
 		Point a = playerSel.getSelection().getPos1();
 		Point b = playerSel.getSelection().getPos2();
-		
+
 		if (a == null || b == null) {
 			return;
 		}
-		
+
 		float x = a.getX();
 		float y = a.getY();
 		float z = a.getZ();
-		
+
 		if (isBlock1) {
 			if (a.getX() > b.getX()) {
 				x = a.getBlockX() + 1;
@@ -84,9 +102,9 @@ public class PlayerRegionComponent extends EntityComponent {
 				z = a.getBlockZ();
 			}
 		}
-		
+
 		pos1 = new Vector3(x, y, z);
-		
+
 		x = b.getX();
 		y = b.getY();
 		z = b.getZ();
@@ -108,17 +126,24 @@ public class PlayerRegionComponent extends EntityComponent {
 				z = b.getBlockZ();
 			}
 		}
-		
+
 		pos2 = new Vector3(x, y, z);
 	}
-	
+
+	/**
+	 * Updates a selections MIN/MAX
+	 * @return Updated Region
+	 */
 	public Region updateSelected() {
 		selectedRegion.setMinMax(pos1, pos2);
+
 		return getOwner().getWorld().getComponentHolder().get(WorldRegionComponent.class).updateRegion(selectedRegion);
 	}
-	
+
 	public Region createSelected(String name) {
 		selectedRegion.setMinMax(pos1, pos2);
-		return getOwner().getWorld().getComponentHolder().get(WorldRegionComponent.class).createRegion((Player)getOwner(), name);
+
+
+		return getOwner().getWorld().getComponentHolder().get(WorldRegionComponent.class).createRegion((Player) getOwner(), name);
 	}
 }

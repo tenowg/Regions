@@ -1,20 +1,24 @@
 
 package com.thedemgel.regions.feature.features;
 
+import com.thedemgel.regions.annotations.FeatureCommand;
+import com.thedemgel.regions.annotations.FeatureCommandArgs;
 import com.thedemgel.regions.annotations.Intensity;
 import com.thedemgel.regions.annotations.OnTick;
 import com.thedemgel.regions.annotations.RegionEvent;
 import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.feature.Feature;
+import com.thedemgel.regions.feature.Tickable;
 import java.io.IOException;
 import java.io.InvalidClassException;
 import java.util.logging.Level;
 import org.spout.api.Spout;
+import org.spout.api.chat.ChatSection;
 import org.spout.api.event.player.PlayerChatEvent;
 
 
-public class InRegion extends Feature {
+public class InRegion extends Feature implements Tickable {
 	private String dumb = "This is dumb";
 	
 	private static final long serialVersionUID = 8L;
@@ -47,6 +51,14 @@ public class InRegion extends Feature {
 	@OnTick(load = Intensity.HIGHEST)
 	public void anotherTask(float dt, Region region) {
 		// So Something else on Tick, will not run if TPS is 16 or lower
+	}
+	
+	@FeatureCommand(alias = "test")
+	public void doSomething(FeatureCommandArgs args) {
+		Spout.getLogger().info("Doing something");
+		for (ChatSection arg : args.getArgs().getRawArgs()) {
+			args.getPlayer().sendMessage(arg);
+		}
 	}
 	
 	public void setDumb(String value) {

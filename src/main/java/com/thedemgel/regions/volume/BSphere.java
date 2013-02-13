@@ -1,5 +1,5 @@
 
-package com.thedemgel.regions.data;
+package com.thedemgel.regions.volume;
 
 import org.spout.api.collision.BoundingSphere;
 import org.spout.api.math.Vector3;

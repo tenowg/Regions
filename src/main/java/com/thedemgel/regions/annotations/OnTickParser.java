@@ -3,11 +3,19 @@ package com.thedemgel.regions.annotations;
 import com.thedemgel.regions.Regions;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.feature.Feature;
+import com.thedemgel.regions.feature.Tickable;
 import java.lang.reflect.Method;
 
+/**
+ * Parser to handle @OnTick
+ */
 public class OnTickParser {
 
 	public void parse(Feature feature, float dt, Region region) throws Exception {
+		if (!(feature instanceof Tickable)) {
+			return;
+		}
+		
 		Method[] methods = feature.getClass().getMethods();
 
 		for (Method method : methods) {

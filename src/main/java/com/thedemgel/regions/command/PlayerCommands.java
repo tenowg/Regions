@@ -1,18 +1,26 @@
 package com.thedemgel.regions.command;
 
 import com.thedemgel.regions.Regions;
+import com.thedemgel.regions.annotations.FeatureCommandArgs;
+import com.thedemgel.regions.annotations.FeatureCommandParser;
 import com.thedemgel.regions.component.PlayerRegionComponent;
 import com.thedemgel.regions.component.WorldRegionComponent;
 import com.thedemgel.regions.data.Region;
-import com.thedemgel.regions.data.Volume;
+import com.thedemgel.regions.feature.Feature;
+import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.feature.features.InRegion;
 import com.thedemgel.regions.feature.features.Owner;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import me.dzineit.selectionapi.SelectionPlayer;
 import org.spout.api.Client;
 import org.spout.api.Spout;
+import org.spout.api.chat.ChatSection;
 import org.spout.api.chat.style.ChatStyle;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
@@ -37,13 +45,7 @@ public class PlayerCommands {
 
 	@Command(aliases = "pos1", usage = "[-b]", flags = "b", desc = "Select the first Position of a cube (use -b to select block)", min = 0, max = 0)
 	public void pos1(CommandContext args, CommandSource source) throws CommandException {
-		Player player;
-		
-		if (Spout.getPlatform() != Platform.CLIENT) {
-			player = (Player) source;
-		} else {
-			player = ((Client) Spout.getEngine()).getActivePlayer();
-		}
+		Player player = getPlayer(source);
 
 		SelectionPlayer comp = player.get(SelectionPlayer.class);
 		PlayerRegionComponent preg = player.get(PlayerRegionComponent.class);
@@ -60,13 +62,7 @@ public class PlayerCommands {
 	
 	@Command(aliases = "pos2", usage = "[-b]", flags = "b", desc = "Select the second Position of a cube. (use -b to select block)", min = 0, max = 1)
 	public void pos2(CommandContext args, CommandSource source) throws CommandException {
-		Player player;
-		
-		if (Spout.getPlatform() != Platform.CLIENT) {
-			player = (Player) source;
-		} else {
-			player = ((Client) Spout.getEngine()).getActivePlayer();
-		}
+		Player player = getPlayer(source);
 		
 		SelectionPlayer comp = player.get(SelectionPlayer.class);
 		PlayerRegionComponent preg = player.get(PlayerRegionComponent.class);
@@ -83,15 +79,9 @@ public class PlayerCommands {
 		player.sendMessage(ChatStyle.CYAN, "Position Two Set. ");
 	}
 	
-	@Command(aliases = "updateregion", usage = "", desc = "Update Selected region")
+	@Command(aliases = "update", usage = "", desc = "Update Selected region")
 	public void updateregion(CommandContext args, CommandSource source) throws CommandException {
-		Player player;
-		
-		if (Spout.getPlatform() != Platform.CLIENT) {
-			player = (Player) source;
-		} else {
-			player = ((Client) Spout.getEngine()).getActivePlayer();
-		}
+		Player player = getPlayer(source);
 		
 		if (player.get(PlayerRegionComponent.class).updateSelected() == null) {
 			player.sendMessage("Either no region selected, or its a new region, try creating.");
@@ -101,15 +91,9 @@ public class PlayerCommands {
 		player.sendMessage("Region updated.");
 	}
 	
-	@Command(aliases = "createRegion", usage = "(name)", desc = "Create a Region. (Should have 2 Positions selected.", min = 1, max = 1)
+	@Command(aliases = "create", usage = "(name)", desc = "Create a Region. (Should have 2 Positions selected.", min = 1, max = 1)
 	public void createRegion(CommandContext args, CommandSource source) throws CommandException {
-		Player player;
-		
-		if (Spout.getPlatform() != Platform.CLIENT) {
-			player = (Player) source;
-		} else {
-			player = ((Client) Spout.getEngine()).getActivePlayer();
-		}
+		Player player = getPlayer(source);
 		
 		Region region = player.get(PlayerRegionComponent.class).createSelected(args.getString(0));
 		
@@ -122,15 +106,9 @@ public class PlayerCommands {
 		}
 	}
 	
-	@Command(aliases = "regiontypes", desc = "List all available region types.")
+	@Command(aliases = "types", desc = "List all available region types.")
 	public void regionsTypes(CommandContext args, CommandSource source) throws CommandException {
-		Player player;
-		
-		if (Spout.getPlatform() != Platform.CLIENT) {
-			player = (Player) source;
-		} else {
-			player = ((Client) Spout.getEngine()).getActivePlayer();
-		}
+		Player player = getPlayer(source);
 		
 		for (Entry<String, String> type : plugin.getTypeDesc().entrySet()) {
 			player.sendMessage(type.getKey(), " - ", type.getValue());
@@ -139,13 +117,7 @@ public class PlayerCommands {
 	
 	@Command(aliases = "settype", usage = "(type)",  desc = "Set the type of Volume for selected region.")
 	public void setRegionType(CommandContext args, CommandSource source) throws CommandException {
-		Player player;
-		
-		if (Spout.getPlatform() != Platform.CLIENT) {
-			player = (Player) source;
-		} else {
-			player = ((Client) Spout.getEngine()).getActivePlayer();
-		}
+		Player player = getPlayer(source);
 		
 		Class<? extends Volume> volume = plugin.getVolume(args.getString(0));
 		
@@ -158,15 +130,9 @@ public class PlayerCommands {
 		player.sendMessage("Volume Type not found.");
 	}
 	
-	@Command(aliases = "selectregion", usage = "(name)", desc = "Select a region to edit it.")
+	@Command(aliases = "select", usage = "(name)", desc = "Select a region to edit it.")
 	public void getRegion(CommandContext args, CommandSource source) throws CommandException {
-		Player player;
-		
-		if (Spout.getPlatform() != Platform.CLIENT) {
-			player = (Player) source;
-		} else {
-			player = ((Client) Spout.getEngine()).getActivePlayer();
-		}
+		Player player = getPlayer(source);
 		
 		Region region = player.getWorld().getComponentHolder().get(WorldRegionComponent.class).getRegion(args.getString(0));
 		
@@ -179,15 +145,9 @@ public class PlayerCommands {
 		player.sendMessage("Region Selected: " + region.getName());
 	}
 	
-	@Command(aliases = "removeRegion", usage = "(name)", desc = "remove region information based on name.")
+	@Command(aliases = "remove", usage = "(name)", desc = "Remove region information based on name.")
 	public void removeRegion(CommandContext args, CommandSource source) throws CommandException {
-		Player player;
-		
-		if (Spout.getPlatform() != Platform.CLIENT) {
-			player = (Player) source;
-		} else {
-			player = ((Client) Spout.getEngine()).getActivePlayer();
-		}
+		Player player = getPlayer(source);
 		
 		Region region = player.getWorld().getComponentHolder().get(WorldRegionComponent.class).getRegion(args.getString(0));
 		
@@ -199,8 +159,50 @@ public class PlayerCommands {
 		}
 	}
 	
-	@Command(aliases = "listRegion", usage = "(name)", desc = "remove region information based on name.")
+	@Command(aliases = "new", desc = "Clear and initalize a new Region")
+	public void newRegion(CommandContext args, CommandSource source) throws CommandException {
+		Player player = getPlayer(source);
+		
+		player.get(PlayerRegionComponent.class).newSelection();
+		
+	}
+	
+	@Command(aliases = "list", desc = "List all regions.")
 	public void listRegion(CommandContext args, CommandSource source) throws CommandException {
+		Player player = getPlayer(source);
+		
+		ConcurrentMap<UUID, Region> regions = player.getWorld().getComponentHolder().get(WorldRegionComponent.class).getRegions();
+		
+		for (Region region : regions.values()) {
+			player.sendMessage(region.getName());
+			player.sendMessage(region.getVolume().getMin() + "/" + region.getVolume().getMax());
+		}
+	}
+	
+	@Command(aliases = "set", usage = "(feature) (command) [args...]", desc = "Sets or Executes a command on a Feature.")
+	public void set(CommandContext args, CommandSource source) throws CommandException {
+		Player player = getPlayer(source);
+		
+		Region region = player.get(PlayerRegionComponent.class).getSelectedRegion();
+		
+		List<ChatSection> test = new ArrayList<ChatSection>();
+		test.addAll(args.getRawArgs().subList(2, args.getRawArgs().size()));
+		
+		CommandContext newArgs = new CommandContext(args.getString(1), test, args.getFlags());
+		
+		Feature feature = region.getHolder().get(args.getString(0));
+		
+		FeatureCommandArgs newargs = new FeatureCommandArgs(player, newArgs);
+		
+		FeatureCommandParser parser = new FeatureCommandParser();
+		try {
+			parser.parse(feature, newargs);
+		} catch (Exception ex) {
+			Spout.getLogger().info(ex.toString());
+		}
+	}
+	
+	private Player getPlayer(CommandSource source) {
 		Player player;
 		
 		if (Spout.getPlatform() != Platform.CLIENT) {
@@ -209,11 +211,6 @@ public class PlayerCommands {
 			player = ((Client) Spout.getEngine()).getActivePlayer();
 		}
 		
-		ConcurrentMap<UUID, Region> regions = player.getWorld().getComponentHolder().get(WorldRegionComponent.class).getRegions();
-		
-		for (Region region : regions.values()) {
-			player.sendMessage(region.getName());
-			player.sendMessage(region.getVolume().getMin() + "/" + region.getVolume().getMax());
-		}
+		return player;
 	}
 }

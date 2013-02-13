@@ -3,8 +3,8 @@ package com.thedemgel.regions;
 
 import com.thedemgel.regions.command.PlayerCommands;
 import com.thedemgel.regions.data.PluginFeatures;
-import com.thedemgel.regions.data.Volume;
-import com.thedemgel.regions.data.VolumeBox;
+import com.thedemgel.regions.volume.Volume;
+import com.thedemgel.regions.volume.volumes.VolumeBox;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.feature.features.InRegion;
 import com.thedemgel.regions.feature.features.Owner;
@@ -53,7 +53,9 @@ public class Regions extends CommonPlugin {
 		//Commands
 		final CommandRegistrationsFactory<Class<?>> commandRegFactory = new AnnotatedCommandRegistrationFactory(new SimpleInjector(this), new SimpleAnnotatedCommandExecutorFactory());
 		final RootCommand root = engine.getRootCommand();
-		root.addSubCommands(this, PlayerCommands.class, commandRegFactory);
+		//root.addSubCommands(this, PlayerCommands.class, commandRegFactory);
+		root.addSubCommand(this, "raz");
+		root.getChild("raz").addSubCommands(this, PlayerCommands.class, commandRegFactory);
 
 		engine.getEventManager().registerEvents(new PlayerListener(this), this);
 		
@@ -64,12 +66,12 @@ public class Regions extends CommonPlugin {
 		registerFeature(this, InRegion.class);
 		registerFeature(this, Owner.class);
 		
-		getLogger().log(Level.INFO, "v{0} enabled.", getDescription().getVersion());
+		getLogger().log(Level.INFO, "v" + getDescription().getVersion() + " enabled.");
 	}
 
 	@Override
 	public void onDisable() {
-		getLogger().log(Level.INFO, "v{0} disabled.", getDescription().getVersion());
+		getLogger().log(Level.INFO, "v" + getDescription().getVersion() + " disabled.");
 	}
 	
 	private static void setInstance(Regions instance) {

@@ -1,5 +1,8 @@
-package com.thedemgel.regions.data;
+package com.thedemgel.regions.volume.volumes;
 
+import com.thedemgel.regions.volume.BBox;
+import com.thedemgel.regions.data.Points;
+import com.thedemgel.regions.volume.Volume;
 import java.io.IOException;
 import java.io.Serializable;
 import org.spout.api.Spout;

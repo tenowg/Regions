@@ -1,6 +1,7 @@
 
-package com.thedemgel.regions.data;
+package com.thedemgel.regions.volume;
 
+import com.thedemgel.regions.data.Points;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 

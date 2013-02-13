@@ -1,5 +1,5 @@
 
-package com.thedemgel.regions.data;
+package com.thedemgel.regions.volume;
 
 import java.io.Serializable;
 import org.spout.api.collision.BoundingBox;

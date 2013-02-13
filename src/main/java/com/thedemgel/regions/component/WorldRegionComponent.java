@@ -3,6 +3,7 @@ package com.thedemgel.regions.component;
 import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.PointMap;
 import com.thedemgel.regions.data.Region;
+import com.thedemgel.regions.data.RegionsData;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -43,8 +44,8 @@ public class WorldRegionComponent extends WorldComponent {
 	 */
 	public void addRegion(Region region) {
 		if (!regions.containsValue(region)) {
-			getData().get("regions", new ConcurrentSkipListMap<UUID, Region>()).put(region.getUUID(), region);
-			regions = getData().get("regions", new ConcurrentSkipListMap<UUID, Region>());
+			getData().get(RegionsData.REGIONS).put(region.getUUID(), region);
+			regions = getData().get(RegionsData.REGIONS);
 		}
 
 		updateRegion(region);
@@ -62,7 +63,8 @@ public class WorldRegionComponent extends WorldComponent {
 			regs.remove(region);
 		}
 
-		regions.remove(region.getUUID());
+		getData().get(RegionsData.REGIONS).remove(region.getUUID());
+		regions = getData().get(RegionsData.REGIONS);
 	}
 
 	/**
@@ -196,12 +198,19 @@ public class WorldRegionComponent extends WorldComponent {
 		return Collections.unmodifiableSet(regionsRet);
 	}
 
+	/**
+	 * The complete set of Regions for this World
+	 * @return ConcurrentMap regions
+	 */
 	public ConcurrentMap<UUID, Region> getRegions() {
 		return regions;
 	}
 	
+	/**
+	 * Lets get this all setup.
+	 */
 	public void init() {
-		regions = getData().get("regions", new ConcurrentSkipListMap<UUID, Region>());
+		regions = getData().get(RegionsData.REGIONS);
 		for (Region region : regions.values()) {
 			addRegion(region);
 		}
@@ -215,7 +224,8 @@ public class WorldRegionComponent extends WorldComponent {
 	 */
 	public void execute(Event event) {
 		for (Region reg : regions.values()) {
-			reg.getHolder().execute(event, reg);
+			EventRegion regs = new EventRegion(null, reg);
+			reg.getHolder().execute(event, regs);
 		}
 	}
 
@@ -229,12 +239,9 @@ public class WorldRegionComponent extends WorldComponent {
 	 * @param point
 	 */
 	public void execute(Event event, Point point) {
-		
-		
 		for (Region region : getRegion(point)) {
 			if (region != null) {
 				EventRegion eventRegion = new EventRegion(getRegion(point), region);
-				region.getHolder().execute(event, region);
 				region.getHolder().execute(event, eventRegion);
 			}
 		}
@@ -252,7 +259,7 @@ public class WorldRegionComponent extends WorldComponent {
 	public void execute(Event event, String regionName) {
 		Region region = getRegion(regionName);
 		if (region != null) {
-			region.getHolder().execute(event, region);
+			region.getHolder().execute(event, new EventRegion(null, region));
 		}
 	}
 
@@ -268,7 +275,7 @@ public class WorldRegionComponent extends WorldComponent {
 	public void execute(Event event, UUID uuid) {
 		Region region = getRegion(uuid);
 		if (region != null) {
-			region.getHolder().execute(event, region);
+			region.getHolder().execute(event, new EventRegion(null, region));
 		}
 	}
 
@@ -283,7 +290,7 @@ public class WorldRegionComponent extends WorldComponent {
 	 */
 	public void execute(Event event, Region region) {
 		if (region != null) {
-			region.getHolder().execute(event, region);
+			region.getHolder().execute(event, new EventRegion(null, region));
 		}
 	}
 
