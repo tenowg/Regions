@@ -6,10 +6,12 @@ import com.thedemgel.regions.annotations.FeatureCommandParser;
 import com.thedemgel.regions.component.PlayerRegionComponent;
 import com.thedemgel.regions.component.WorldRegionComponent;
 import com.thedemgel.regions.data.Region;
+import com.thedemgel.regions.data.UpdatedRegion;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.feature.features.InRegion;
 import com.thedemgel.regions.feature.features.Owner;
+import com.thedemgel.regions.volume.points.Points;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -43,28 +45,10 @@ public class PlayerCommands {
 	public PlayerCommands(Regions instance) {
 		this.plugin = instance;
 	}
-
-	@Command(aliases = "pos1", usage = "[-b]", flags = "b", desc = "Select the first Position of a cube (use -b to select block)", min = 0, max = 0)
-	@CommandPermissions("raz.command.position")
-	public void pos1(CommandContext args, CommandSource source) throws CommandException {
-		Player player = getPlayer(source);
-
-		SelectionPlayer comp = player.get(SelectionPlayer.class);
-		PlayerRegionComponent preg = player.get(PlayerRegionComponent.class);
-		
-		comp.getSelection().setPos1(player.getScene().getPosition());
-		
-		if (args.hasFlag('b')) {
-			preg.setPos1(true);			
-		} else {
-			preg.setPos1();
-		}
-		player.sendMessage(ChatStyle.CYAN, "Position One Set. ");
-	}
 	
-	@Command(aliases = "pos2", usage = "[-b]", flags = "b", desc = "Select the second Position of a cube. (use -b to select block)", min = 0, max = 1)
+	@Command(aliases = "pos", usage = "[point type]", desc = "Select the second Position of a cube. (use -b to select block)", min = 0, max = 1)
 	@CommandPermissions("raz.command.position")
-	public void pos2(CommandContext args, CommandSource source) throws CommandException {
+	public void pos(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
 		SelectionPlayer comp = player.get(SelectionPlayer.class);
@@ -72,14 +56,11 @@ public class PlayerCommands {
 		
 		comp.getSelection().setPos2(player.getScene().getPosition());
 		
-		if (args.hasFlag('b')) {
-			preg.setPos2(true);
-			player.sendMessage("Adjusting...");
-		} else {
-			preg.setPos2();
+		if (preg.setPos(args.getString(0), player.getScene().getPosition()) == null) {
+			player.sendMessage(ChatStyle.CYAN, "Position ", args.getString(0).toUpperCase()," not Set. (Not an position value)");
 		}
 		
-		player.sendMessage(ChatStyle.CYAN, "Position Two Set. ");
+		player.sendMessage(ChatStyle.CYAN, "Position ", args.getString(0).toUpperCase()," Set. ");
 	}
 	
 	@Command(aliases = "update", usage = "", desc = "Update Selected region")
@@ -87,12 +68,22 @@ public class PlayerCommands {
 	public void updateregion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		if (player.get(PlayerRegionComponent.class).updateSelected() == null) {
-			player.sendMessage("Either no region selected, or its a new region, try creating.");
+		UpdatedRegion ureg = player.get(PlayerRegionComponent.class).updateSelected();
+		
+		if (!ureg.getUpdated()) {
+			for (Points point : ureg.getErrorPoints()) {
+				player.sendMessage(ChatStyle.RED, point, " is not set. (", point.desc());
+			}
+			player.sendMessage(ChatStyle.RED, "Failed to Update Region.");
 			return;
 		}
 		
-		player.sendMessage("Region updated.");
+		if (ureg.getExists()) {
+			player.sendMessage(ChatStyle.RED, "Region already exists, try updating.");
+			return;
+		} 
+		
+		player.sendMessage(ChatStyle.CYAN, "Region updated.");
 	}
 	
 	@Command(aliases = "create", usage = "(name)", desc = "Create a Region. (Should have 2 Positions selected.", min = 1, max = 1)
@@ -100,9 +91,20 @@ public class PlayerCommands {
 	public void createRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		Region region = player.get(PlayerRegionComponent.class).createSelected(args.getString(0));
+		UpdatedRegion ureg = player.get(PlayerRegionComponent.class).createSelected(args.getString(0));
 		
-		if (region != null) {
+		if (!ureg.getUpdated()) {
+			// Do failed stuff
+			for (Points point : ureg.getErrorPoints()) {
+				player.sendMessage(ChatStyle.RED, point, " is not set. (", point.desc());
+			}
+			player.sendMessage(ChatStyle.RED, "Failed to Create Region.");
+			return;
+		}
+		
+		Region region = ureg.getRegion();
+		
+		if (!ureg.getExists()) {
 			region.add(plugin, InRegion.class);
 			region.add(plugin, Owner.class);
 			player.sendMessage(ChatStyle.CYAN, "Region Created...");
@@ -172,8 +174,37 @@ public class PlayerCommands {
 	public void newRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		player.get(PlayerRegionComponent.class).newSelection();
+		PlayerRegionComponent regComp = player.get(PlayerRegionComponent.class);
+		regComp.newSelection();
+		player.sendMessage(ChatStyle.CYAN, "New region put into player selection (Region not saved)");
+		player.sendMessage(ChatStyle.CYAN, "Current volume type: " + regComp.getVolumeType().getSimpleName());
+		player.sendMessage(ChatStyle.CYAN, "To choose a different type use: /raz types and /raz settype <type>");
 		
+		/*String types = "";
+		for (Points type : regComp.getSelectedRegion().getVolume().getEnum()) {
+			types += type + " ";
+		}*/
+		
+		player.sendMessage("Please set each of the following values: ");
+		
+		for (Points type : regComp.getSelectedRegion().getVolume().getEnum()) {
+			player.sendMessage(type, " - ", type.desc());
+		}
+		
+		
+	}
+	
+	@Command(aliases = "points", desc = "List needed points in Region")
+	public void listpoints(CommandContext args, CommandSource source) throws CommandException {
+		Player player = getPlayer(source);
+		
+		PlayerRegionComponent regComp = player.get(PlayerRegionComponent.class);
+		
+		player.sendMessage("Please set each of the following values: ");
+		
+		for (Points type : regComp.getSelectedRegion().getVolume().getEnum()) {
+			player.sendMessage(type, " - ", type.desc());
+		}
 	}
 	
 	@Command(aliases = "list", desc = "List all regions.")

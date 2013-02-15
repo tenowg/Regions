@@ -5,7 +5,6 @@ import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
 public abstract class Volume {
-
 	public Volume() {
 	}
 
@@ -39,4 +38,8 @@ public abstract class Volume {
 	public abstract float getHighZ();
 
 	public abstract void reInit();
+	
+	public abstract Points[] getEnum();
+	
+	public abstract Points getEnum(String name);
 }

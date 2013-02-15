@@ -4,6 +4,7 @@ package com.thedemgel.regions.volume.volumes;
 import com.thedemgel.regions.volume.BSphere;
 import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.volume.points.Points;
+import com.thedemgel.regions.volume.points.PointsBox;
 import com.thedemgel.regions.volume.points.PointsSphere;
 import org.spout.api.Spout;
 import org.spout.api.geo.discrete.Point;
@@ -151,6 +152,16 @@ public class VolumeSphere extends Volume {
 		minVol = new Vector3(minx - centerVol.distance(radiusVol), miny -  centerVol.distance(radiusVol), minz -  centerVol.distance(radiusVol));
 		maxVol = new Vector3(maxx - centerVol.distance(radiusVol), maxy -  centerVol.distance(radiusVol), maxx -  centerVol.distance(radiusVol));
 		sphere = new BSphere(centerVol, centerVol.distance(radiusVol));
+	}
+
+	@Override
+	public Points[] getEnum() {
+		return PointsSphere.values();
+	}
+
+	@Override
+	public Points getEnum(String name) {
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 }

@@ -9,24 +9,34 @@ import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
 public class VolumeBox extends Volume {
-	//private static final long serialVersionUID = 2L;
 
 	private BBox box = new BBox(Vector3.ZERO, Vector3.ZERO);
 	private Vector3 minVol;
 	private Vector3 maxVol;
-	
 	// Used for serialization
 	public float minx;
 	public float miny;
 	public float minz;
-	
 	public float maxx;
 	public float maxy;
 	public float maxz;
-	
+
 	@Override
 	public boolean containsPoint(Point point) {
 		return box.containsPoint(point);
+	}
+
+	@Override
+	public Points getEnum(String type) {
+		try {
+			return PointsBox.valueOf(type);
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+	}
+
+	public Points[] getEnum() {
+		return PointsBox.values();
 	}
 
 	@Override
@@ -38,14 +48,14 @@ public class VolumeBox extends Volume {
 			Spout.getLogger().severe("Wrong type of ENUM of POINTS sent to VolumnBox.");
 			return;
 		}
-		
+
 		switch (points) {
-			case POS_ONE: {
+			case ONE: {
 				box.setMin(point);
 				setMin(point);
 				break;
 			}
-			case POS_TWO: {
+			case TWO: {
 				box.setMax(point);
 				setMax(point);
 				break;
@@ -70,7 +80,7 @@ public class VolumeBox extends Volume {
 		miny = minVol.getY();
 		minz = minVol.getZ();
 	}
-	
+
 	@Override
 	public void setMax(Vector3 point) {
 		maxVol = point;
@@ -78,7 +88,7 @@ public class VolumeBox extends Volume {
 		maxy = maxVol.getY();
 		maxz = maxVol.getZ();
 	}
-	
+
 	public BBox getBounding() {
 		return box;
 	}
