@@ -3,7 +3,6 @@ package com.thedemgel.regions.component;
 import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.PointMap;
 import com.thedemgel.regions.data.Region;
-import com.thedemgel.regions.data.RegionsData;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,13 +10,10 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
-import org.spout.api.Spout;
 import org.spout.api.component.type.WorldComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.event.Event;
 import org.spout.api.geo.discrete.Point;
-import org.spout.api.map.DefaultedKey;
-import org.spout.api.map.DefaultedKeyImpl;
 import org.spout.api.util.list.concurrent.ConcurrentList;
 
 /**

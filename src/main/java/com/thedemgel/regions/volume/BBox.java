@@ -103,12 +103,12 @@ public class BBox extends BoundingBox {
 			x = (float) Math.floor(a.getX());
 		}
 		if (a.getY() > b.getY()) {
-			y = (float) Math.ceil(a.getY());;
+			y = (float) Math.ceil(a.getY());
 		} else {
 			y = (float) Math.floor(a.getY());
 		}
 		if (a.getZ() > b.getZ()) {
-			z = (float) Math.ceil(a.getZ());;
+			z = (float) Math.ceil(a.getZ());
 		} else {
 			z = (float) Math.floor(a.getZ());
 		}

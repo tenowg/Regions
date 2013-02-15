@@ -6,18 +6,9 @@ import com.thedemgel.regions.annotations.OnTickParser;
 import com.thedemgel.regions.annotations.RegionEventParser;
 import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.Region;
-import java.io.IOException;
-import java.io.InvalidClassException;
-import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.spout.api.Spout;
-import org.spout.api.component.impl.DatatableComponent;
-import org.spout.api.entity.Player;
 import org.spout.api.event.Event;
-import org.spout.api.event.Listener;
 import org.spout.api.plugin.Plugin;
-import org.yaml.snakeyaml.constructor.Constructor;
 
 
 /**
@@ -71,15 +62,20 @@ public class Feature {
 	 * @param event Any Event
 	 * @param region The region the Event should fire.
 	 */
-	public final void execute(Event event, Region region) {
+	/*public final void execute(Event event, Region region) {
 		RegionEventParser parser = new RegionEventParser();
 		try {
 			//parser.parse(this, event, region);
 		} catch (Exception ex) {
 			Spout.getLogger().info(ex.getMessage());
 		}
-	}
-	
+	}*/
+
+	/**
+	 * Calls the Event action on a Feature
+	 * @param event Any Event
+	 * @param region The region the Event should fire.
+	 */
 	public final void execute(Event event, EventRegion region) {
 		RegionEventParser parser = new RegionEventParser();
 		try {
@@ -104,6 +100,10 @@ public class Feature {
 		}
 	}
 	
+	/**
+	 * Gets the name of the plugin that manages this Feature.
+	 * @return String name of plugin
+	 */
 	public String getPluginName() {
 		return pluginName;
 	}

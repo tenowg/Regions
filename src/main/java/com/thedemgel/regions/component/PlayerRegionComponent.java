@@ -35,6 +35,12 @@ public class PlayerRegionComponent extends EntityComponent {
 		playerSel = getOwner().add(SelectionPlayer.class);
 	}
 
+	/**
+	 * 
+	 * @param name The string value of the ENUM to set
+	 * @param point The Point location to set
+	 * @return The Points (ENUM) that was set - null if not found
+	 */
 	public Points setPos(String name, Point point) {
 		Points pNum = selectedRegion.getVolume().getEnum(name.toUpperCase());
 
@@ -44,14 +50,25 @@ public class PlayerRegionComponent extends EntityComponent {
 		return pNum;
 	}
 
+	/**
+	 * Returns the selected Region. This will return null if not Region was selected
+	 * @return Selected Region or NULL
+	 */
 	public Region getSelectedRegion() {
 		return selectedRegion;
 	}
 
+	/**
+	 * Will replace the selected region with a new Region file.
+	 */
 	public void newSelection() {
 		selectedRegion = new Region(volType);
 	}
 
+	/**
+	 * Retrieves a regions and places it in the selectionRegion.
+	 * @param region the Region to select
+	 */
 	public void setSelectedRegion(Region region) {
 		this.selectedRegion = region;
 		pos1 = region.getVolume().getMin();
@@ -59,11 +76,21 @@ public class PlayerRegionComponent extends EntityComponent {
 		volType = region.getVolume().getClass();
 	}
 
+	/**
+	 * Will set the Volume type of a region, will also
+	 * reset the selectedRegion
+	 * TODO: not have to reset the selected region.
+	 * @param type 
+	 */
 	public void setVolumeType(Class<? extends Volume> type) {
 		volType = type;
 		selectedRegion = new Region(type);
 	}
 
+	/**
+	 * Will return the current VolumeType to be used by regions.
+	 * @return Volume class
+	 */
 	public Class<? extends Volume> getVolumeType() {
 		return volType;
 	}
@@ -98,6 +125,11 @@ public class PlayerRegionComponent extends EntityComponent {
 		return ureg;
 	}
 
+	/**
+	 * Will commit a new region to the system. Used after newSelection()
+	 * @param name Name of the purposed region
+	 * @return UpdatedRegion object
+	 */
 	public UpdatedRegion createSelected(String name) {
 		UpdatedRegion ureg = new UpdatedRegion(selectedRegion);
 		

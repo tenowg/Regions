@@ -8,17 +8,15 @@ import com.thedemgel.regions.component.WorldRegionComponent;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.data.UpdatedRegion;
 import com.thedemgel.regions.feature.Feature;
-import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.feature.features.InRegion;
 import com.thedemgel.regions.feature.features.Owner;
+import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.volume.points.Points;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import me.dzineit.selectionapi.SelectionPlayer;
 import org.spout.api.Client;
 import org.spout.api.Spout;
@@ -30,8 +28,6 @@ import org.spout.api.command.annotated.Command;
 import org.spout.api.command.annotated.CommandPermissions;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
-import org.spout.api.geo.discrete.Point;
-import org.spout.api.math.Vector3;
 import org.spout.api.plugin.Platform;
 
 /**
@@ -114,6 +110,7 @@ public class PlayerCommands {
 	}
 	
 	@Command(aliases = "types", desc = "List all available region types.")
+	@CommandPermissions("raz.command.types")
 	public void regionsTypes(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
@@ -180,34 +177,31 @@ public class PlayerCommands {
 		player.sendMessage(ChatStyle.CYAN, "Current volume type: " + regComp.getVolumeType().getSimpleName());
 		player.sendMessage(ChatStyle.CYAN, "To choose a different type use: /raz types and /raz settype <type>");
 		
-		/*String types = "";
-		for (Points type : regComp.getSelectedRegion().getVolume().getEnum()) {
-			types += type + " ";
-		}*/
-		
-		player.sendMessage("Please set each of the following values: ");
+		player.sendMessage(ChatStyle.YELLOW, "Please set each of the following values: ");
 		
 		for (Points type : regComp.getSelectedRegion().getVolume().getEnum()) {
-			player.sendMessage(type, " - ", type.desc());
+			player.sendMessage(ChatStyle.YELLOW, type, ChatStyle.CYAN,  " - ", type.desc());
 		}
 		
 		
 	}
 	
 	@Command(aliases = "points", desc = "List needed points in Region")
+	@CommandPermissions("raz.command.points")
 	public void listpoints(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
 		PlayerRegionComponent regComp = player.get(PlayerRegionComponent.class);
 		
-		player.sendMessage("Please set each of the following values: ");
+		player.sendMessage(ChatStyle.YELLOW, "Please set each of the following values: ");
 		
 		for (Points type : regComp.getSelectedRegion().getVolume().getEnum()) {
-			player.sendMessage(type, " - ", type.desc());
+			player.sendMessage(ChatStyle.YELLOW, type, " - ", type.desc());
 		}
 	}
 	
 	@Command(aliases = "list", desc = "List all regions.")
+	@CommandPermissions("raz.command.list")
 	public void listRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		

@@ -14,7 +14,6 @@ import org.spout.api.event.player.PlayerChatEvent;
 import org.spout.api.event.player.PlayerJoinEvent;
 import org.spout.api.event.world.WorldLoadEvent;
 import org.spout.api.geo.World;
-import org.spout.api.geo.discrete.Point;
 import org.spout.api.plugin.Platform;
 
 public class PlayerListener implements Listener {

@@ -3,19 +3,17 @@ package com.thedemgel.regions;
 
 import com.thedemgel.regions.command.PlayerCommands;
 import com.thedemgel.regions.data.PluginFeatures;
-import com.thedemgel.regions.volume.Volume;
-import com.thedemgel.regions.volume.volumes.VolumeBox;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.feature.features.InRegion;
 import com.thedemgel.regions.feature.features.Owner;
-import gnu.trove.iterator.TLongIterator;
-import gnu.trove.list.linked.TLongLinkedList;
+import com.thedemgel.regions.util.TicksPerSecondMonitor;
+import com.thedemgel.regions.volume.Volume;
+import com.thedemgel.regions.volume.volumes.VolumeBox;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import org.spout.api.Engine;
-import org.spout.api.Spout;
 import org.spout.api.chat.ChatArguments;
 import org.spout.api.chat.style.ChatStyle;
 import org.spout.api.command.CommandRegistrationsFactory;
@@ -26,7 +24,6 @@ import org.spout.api.command.annotated.SimpleInjector;
 import org.spout.api.plugin.CommonPlugin;
 import org.spout.api.plugin.PluginLogger;
 import org.spout.api.scheduler.TaskPriority;
-import org.spout.api.util.concurrent.AtomicFloat;
 
 
 public class Regions extends CommonPlugin {
@@ -112,48 +109,5 @@ public class Regions extends CommonPlugin {
 	
 	public TicksPerSecondMonitor getTPDMonitor() {
 		return tpsMonitor;
-	}
-	
-	public static class TicksPerSecondMonitor implements Runnable {
-		private static final int MAX_MEASUREMENTS = 20 * 60;
-		private TLongLinkedList timings = new TLongLinkedList();
-		private long lastTime = System.currentTimeMillis();
-		private final AtomicFloat ticksPerSecond = new AtomicFloat(20);
-		private final AtomicFloat avgTicksPerSecond = new AtomicFloat(20);
-
-		@Override
-		public void run() {
-			long time = System.currentTimeMillis();
-			timings.add(time - lastTime);
-			lastTime = time;
-			if (timings.size() > MAX_MEASUREMENTS) {
-				timings.removeAt(0);
-			}
-			final int size = timings.size();
-			if (size > 20) {
-				TLongIterator i = timings.iterator();
-				int count = 0;
-				long last20 = 0;
-				long total = 0;
-				while (i.hasNext()) {
-					long next = i.next();
-					if (count > size - 20) {
-						last20 += next;
-					}
-					total += next;
-					count++;
-				}
-				ticksPerSecond.set(1000F / (last20 / 20F));
-				avgTicksPerSecond.set(1000F / (total / ((float) size)));
-			}
-		}
-
-		public float getTPS() {
-			return ticksPerSecond.get();
-		}
-
-		public float getAvgTPS() {
-			return avgTicksPerSecond.get();
-		}
 	}
 }

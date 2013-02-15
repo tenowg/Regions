@@ -4,7 +4,6 @@ package com.thedemgel.regions.volume.volumes;
 import com.thedemgel.regions.volume.BSphere;
 import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.volume.points.Points;
-import com.thedemgel.regions.volume.points.PointsBox;
 import com.thedemgel.regions.volume.points.PointsSphere;
 import org.spout.api.Spout;
 import org.spout.api.geo.discrete.Point;
@@ -41,11 +40,11 @@ public class VolumeSphere extends Volume {
 		}
 		
 		switch (points) {
-			case POS_CENTER: {
+			case CENTER: {
 				setMin(point);
 				break;
 			}
-			case POS_RADIUS: {
+			case RADIUS: {
 				setMax(point);
 				break;
 			}

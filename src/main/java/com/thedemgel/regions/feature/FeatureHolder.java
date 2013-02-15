@@ -14,15 +14,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.spout.api.Spout;
-import org.spout.api.component.impl.DatatableComponent;
 import org.spout.api.event.Event;
 import org.spout.api.plugin.CommonPlugin;
 import org.spout.api.plugin.Plugin;
 import org.spout.api.util.list.concurrent.ConcurrentList;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
 
 /**
  * FeatureHolders contain all attached Features that regions execute either
@@ -203,6 +200,7 @@ public class FeatureHolder implements Serializable {
 					feat = (Feature) loader.load(yam);
 				} catch (Exception e) {
 					Spout.getLogger().warning("Feature failed load or was not found: " + yam);
+					Spout.getLogger().info("Attempting to find replacement.");
 					// Do class lookup and try to reload from scratch.]
 					String string = yam.substring(0, yam.indexOf(" "));
 					string = string.substring(string.lastIndexOf(".") + 1);
@@ -215,8 +213,6 @@ public class FeatureHolder implements Serializable {
 					Plugin lookupPlugin = Spout.getPluginManager().getPlugin(plug);
 					Class featureClazz = Regions.getInstance().getFeature((CommonPlugin) lookupPlugin, string);
 					add(lookupPlugin, featureClazz);
-					Spout.getLogger().info("***********************" + string);
-					Spout.getLogger().info("***********************" + plug);
 					continue;
 				}
 				//Spout.getLogger().info(feat.toString());

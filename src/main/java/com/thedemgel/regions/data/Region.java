@@ -6,7 +6,6 @@ import com.thedemgel.regions.feature.FeatureHolder;
 import com.thedemgel.regions.util.PointRepresenter;
 import com.thedemgel.regions.util.RegionYamlConstructor;
 import com.thedemgel.regions.volume.Volume;
-import com.thedemgel.regions.volume.points.PointsBox;
 import com.thedemgel.regions.volume.volumes.VolumeBox;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -14,15 +13,9 @@ import java.io.Serializable;
 import java.util.UUID;
 import java.util.logging.Level;
 import org.spout.api.Spout;
-import org.spout.api.geo.discrete.Point;
-import org.spout.api.math.Vector3;
 import org.spout.api.plugin.Plugin;
 import org.spout.api.util.list.concurrent.ConcurrentList;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.introspector.Property;
-import org.yaml.snakeyaml.nodes.NodeTuple;
-import org.yaml.snakeyaml.nodes.Tag;
-import org.yaml.snakeyaml.representer.Representer;
 
 public class Region implements Serializable {
 
