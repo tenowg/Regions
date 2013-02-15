@@ -6,6 +6,7 @@ import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.feature.FeatureHolder;
 import com.thedemgel.regions.util.RegionYamlConstructor;
 import com.thedemgel.regions.volume.Volume;
+import com.thedemgel.regions.volume.points.PointsBox;
 import com.thedemgel.regions.volume.volumes.VolumeBox;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -60,16 +61,16 @@ public class Region implements Serializable {
 	}
 
 	public void setMin(Vector3 vec) {
-		volume.setPoint(Points.POS_ONE, vec);
+		volume.setPoint(PointsBox.POS_ONE, vec);
 	}
 
 	public void setMax(Vector3 vec) {
-		volume.setPoint(Points.POS_TWO, vec);
+		volume.setPoint(PointsBox.POS_TWO, vec);
 	}
 
 	public void setMinMax(Vector3 vec1, Vector3 vec2) {
-		volume.setPoint(Points.POS_ONE, vec1);
-		volume.setPoint(Points.POS_TWO, vec2);
+		volume.setPoint(PointsBox.POS_ONE, vec1);
+		volume.setPoint(PointsBox.POS_TWO, vec2);
 	}
 
 	public <T extends Feature> T add(Plugin plugin, Class<T> clazz) {
