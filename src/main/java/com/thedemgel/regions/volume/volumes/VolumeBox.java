@@ -1,8 +1,10 @@
 package com.thedemgel.regions.volume.volumes;
 
-import com.thedemgel.regions.data.Points;
 import com.thedemgel.regions.volume.BBox;
 import com.thedemgel.regions.volume.Volume;
+import com.thedemgel.regions.volume.points.Points;
+import com.thedemgel.regions.volume.points.PointsBox;
+import org.spout.api.Spout;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
@@ -29,7 +31,15 @@ public class VolumeBox extends Volume {
 
 	@Override
 	public void setPoint(Points type, Vector3 point) {
-		switch (type) {
+		PointsBox points;
+		if (type instanceof PointsBox) {
+			points = (PointsBox) type;
+		} else {
+			Spout.getLogger().severe("Wrong type of ENUM of POINTS sent to VolumnBox.");
+			return;
+		}
+		
+		switch (points) {
 			case POS_ONE: {
 				box.setMin(point);
 				setMin(point);
@@ -102,15 +112,6 @@ public class VolumeBox extends Volume {
 	public float getHighZ() {
 		return box.getHighZ();
 	}
-
-	/*private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-		in.defaultReadObject();
-		
-		box = new BBox(minVol, maxVol);
-
-		//setPoint(Points.POS_ONE, min);
-		//setPoint(Points.POS_TWO, max);
-	}*/
 
 	@Override
 	public void reInit() {

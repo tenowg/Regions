@@ -1,6 +1,7 @@
 
 package com.thedemgel.regions.feature;
 
+import com.thedemgel.regions.annotations.FeatureCommandArgs;
 import com.thedemgel.regions.annotations.OnTickParser;
 import com.thedemgel.regions.annotations.RegionEventParser;
 import com.thedemgel.regions.data.EventRegion;
@@ -12,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.spout.api.Spout;
 import org.spout.api.component.impl.DatatableComponent;
+import org.spout.api.entity.Player;
 import org.spout.api.event.Event;
 import org.spout.api.event.Listener;
 import org.spout.api.plugin.Plugin;
@@ -25,7 +27,7 @@ import org.yaml.snakeyaml.constructor.Constructor;
  * attached to many RAZs.
  * @author tenowg
  */
-public class Feature implements Listener {
+public class Feature {
 	protected Plugin plugin;
 	private String pluginName;
 	
@@ -108,5 +110,28 @@ public class Feature implements Listener {
 
 	public void setPluginName(String value) {
 		this.pluginName = value;
+	}
+	
+	/**
+	 * This method should be overridden if you want special permissions checks
+	 * for FeatureCommandPermission, base it will just check for
+	 * <code>raz.feature.{regionname}.{stringpermission}</code>
+	 * regionname if a lowercase version of the actual region name.
+	 * 
+	 * @param stringpermission
+	 * @param command
+	 * @return 
+	 */
+	public boolean hasPermission(String stringpermission, FeatureCommandArgs command) {
+		// TODO: find a way to make this work for ParentFeatures and regions
+		// Currently only works based on regions.
+		// Probably something like "if holder is ParentFeatureHolder getParentName"
+		String perm;
+		if ("".equals(stringpermission)) {
+			perm = "raz.feature." + command.getRegion().getName().toLowerCase();
+		} else {
+			perm = "raz.feature." + command.getRegion().getName().toLowerCase() + "." + stringpermission;
+		}
+		return command.getPlayer().hasPermission(perm);
 	}
 }

@@ -25,6 +25,7 @@ import org.spout.api.chat.style.ChatStyle;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
 import org.spout.api.command.annotated.Command;
+import org.spout.api.command.annotated.CommandPermissions;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 import org.spout.api.geo.discrete.Point;
@@ -44,6 +45,7 @@ public class PlayerCommands {
 	}
 
 	@Command(aliases = "pos1", usage = "[-b]", flags = "b", desc = "Select the first Position of a cube (use -b to select block)", min = 0, max = 0)
+	@CommandPermissions("raz.command.position")
 	public void pos1(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 
@@ -61,6 +63,7 @@ public class PlayerCommands {
 	}
 	
 	@Command(aliases = "pos2", usage = "[-b]", flags = "b", desc = "Select the second Position of a cube. (use -b to select block)", min = 0, max = 1)
+	@CommandPermissions("raz.command.position")
 	public void pos2(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
@@ -80,6 +83,7 @@ public class PlayerCommands {
 	}
 	
 	@Command(aliases = "update", usage = "", desc = "Update Selected region")
+	@CommandPermissions("raz.command.update")
 	public void updateregion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
@@ -92,6 +96,7 @@ public class PlayerCommands {
 	}
 	
 	@Command(aliases = "create", usage = "(name)", desc = "Create a Region. (Should have 2 Positions selected.", min = 1, max = 1)
+	@CommandPermissions("raz.command.create")
 	public void createRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
@@ -116,6 +121,7 @@ public class PlayerCommands {
 	}
 	
 	@Command(aliases = "settype", usage = "(type)",  desc = "Set the type of Volume for selected region.")
+	@CommandPermissions("raz.command.settype")
 	public void setRegionType(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
@@ -131,6 +137,7 @@ public class PlayerCommands {
 	}
 	
 	@Command(aliases = "select", usage = "(name)", desc = "Select a region to edit it.")
+	@CommandPermissions("raz.command.select")
 	public void getRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
@@ -146,6 +153,7 @@ public class PlayerCommands {
 	}
 	
 	@Command(aliases = "remove", usage = "(name)", desc = "Remove region information based on name.")
+	@CommandPermissions("raz.command.remove")
 	public void removeRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
@@ -159,7 +167,8 @@ public class PlayerCommands {
 		}
 	}
 	
-	@Command(aliases = "new", desc = "Clear and initalize a new Region")
+	@Command(aliases = "new", desc = "Clear and initalize a new Region in a Players selection")
+	@CommandPermissions("raz.command.new")
 	public void newRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
@@ -180,6 +189,7 @@ public class PlayerCommands {
 	}
 	
 	@Command(aliases = "set", usage = "(feature) (command) [args...]", desc = "Sets or Executes a command on a Feature.")
+	@CommandPermissions("raz.command.set")
 	public void set(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
@@ -192,7 +202,7 @@ public class PlayerCommands {
 		
 		Feature feature = region.getHolder().get(args.getString(0));
 		
-		FeatureCommandArgs newargs = new FeatureCommandArgs(player, newArgs);
+		FeatureCommandArgs newargs = new FeatureCommandArgs(player, region, newArgs);
 		
 		FeatureCommandParser parser = new FeatureCommandParser();
 		try {

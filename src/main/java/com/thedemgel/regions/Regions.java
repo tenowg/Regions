@@ -54,7 +54,7 @@ public class Regions extends CommonPlugin {
 		final CommandRegistrationsFactory<Class<?>> commandRegFactory = new AnnotatedCommandRegistrationFactory(new SimpleInjector(this), new SimpleAnnotatedCommandExecutorFactory());
 		final RootCommand root = engine.getRootCommand();
 		//root.addSubCommands(this, PlayerCommands.class, commandRegFactory);
-		root.addSubCommand(this, "raz");
+		root.addSubCommand(this, "raz").setPermissions(true, "raz.commands");
 		root.getChild("raz").addSubCommands(this, PlayerCommands.class, commandRegFactory);
 
 		engine.getEventManager().registerEvents(new PlayerListener(this), this);

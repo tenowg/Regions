@@ -1,6 +1,6 @@
 package com.thedemgel.regions.volume;
 
-import com.thedemgel.regions.data.Points;
+import com.thedemgel.regions.volume.points.Points;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
@@ -11,7 +11,8 @@ public abstract class Volume {
 
 	public abstract boolean containsPoint(Point point);
 
-	public void setPoint(Points type, Point point) {
+	public final void setPoint(Points type, Point point) {
+		this.setPoint(type, point);
 	}
 
 	public void setPoint(Points type, Vector3 point) {
