@@ -31,7 +31,7 @@ import org.spout.api.util.list.concurrent.ConcurrentList;
 public class WorldRegionComponent extends WorldComponent {
 
 	private ConcurrentMap<UUID, Region> regions = new ConcurrentSkipListMap<UUID, Region>();
-	private ConcurrentMap<PointMap, ConcurrentList<Region>> xregions = new ConcurrentHashMap<PointMap, ConcurrentList<Region>>();
+	private ConcurrentMap<PointMap, Set<Region>> xregions = new ConcurrentHashMap<PointMap, Set<Region>>();
 
 	/**
 	 * Will add an already created Region to the Maps and parse its
@@ -58,7 +58,7 @@ public class WorldRegionComponent extends WorldComponent {
 	 */
 	public void removeRegion(Region region) {
 		for (PointMap mpoint : region.getPointCache()) {
-			ConcurrentList<Region> regs = xregions.get(mpoint);
+			Set<Region> regs = xregions.get(mpoint);
 			regs.remove(region);
 		}
 
@@ -80,7 +80,7 @@ public class WorldRegionComponent extends WorldComponent {
 		}
 		
 		for (PointMap mpoint : region.getPointCache()) {
-			ConcurrentList<Region> regs = xregions.get(mpoint);
+			Set<Region> regs = xregions.get(mpoint);
 			if (regs != null) {
 				regs.remove(region);
 			}
@@ -94,9 +94,9 @@ public class WorldRegionComponent extends WorldComponent {
 			for (ii = (int) (region.getVolume().getLowY() / 100); ii <= (int) (region.getVolume().getHighY() / 100); ii++) {
 				for (iii = (int) (region.getVolume().getLowZ() / 100); iii <= (int) (region.getVolume().getHighZ() / 100); iii++) {
 					PointMap mpoint = new PointMap(i, ii, iii);
-					ConcurrentList<Region> regs = xregions.get(mpoint);
+					Set<Region> regs = xregions.get(mpoint);
 					if (regs == null) {
-						regs = new ConcurrentList<Region>();
+						regs = Collections.newSetFromMap(new ConcurrentHashMap<Region, Boolean>());
 					}
 					region.addPointCache(mpoint);
 					regs.add(region);
