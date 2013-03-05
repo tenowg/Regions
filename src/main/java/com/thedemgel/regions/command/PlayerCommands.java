@@ -19,7 +19,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 import me.dzineit.selectionapi.SelectionPlayer;
 import org.spout.api.Client;
-import org.spout.api.Spout;
+import org.spout.api.Platform;
 import org.spout.api.chat.ChatSection;
 import org.spout.api.chat.style.ChatStyle;
 import org.spout.api.command.CommandContext;
@@ -28,7 +28,6 @@ import org.spout.api.command.annotated.Command;
 import org.spout.api.command.annotated.CommandPermissions;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
-import org.spout.api.plugin.Platform;
 
 /**
  *
@@ -140,7 +139,7 @@ public class PlayerCommands {
 	public void getRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		Region region = player.getWorld().getComponentHolder().get(WorldRegionComponent.class).getRegion(args.getString(0));
+		Region region = player.getWorld().get(WorldRegionComponent.class).getRegion(args.getString(0));
 		
 		if (region == null) {
 			player.sendMessage(ChatStyle.RED, "No region exists by that name.");
@@ -156,10 +155,10 @@ public class PlayerCommands {
 	public void removeRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		Region region = player.getWorld().getComponentHolder().get(WorldRegionComponent.class).getRegion(args.getString(0));
+		Region region = player.getWorld().get(WorldRegionComponent.class).getRegion(args.getString(0));
 		
 		if (region != null) {
-			player.getWorld().getComponentHolder().get(WorldRegionComponent.class).removeRegion(region);
+			player.getWorld().get(WorldRegionComponent.class).removeRegion(region);
 			player.sendMessage("Region Removed");
 		} else {
 			player.sendMessage("Region not found");
@@ -205,7 +204,7 @@ public class PlayerCommands {
 	public void listRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		ConcurrentMap<UUID, Region> regions = player.getWorld().getComponentHolder().get(WorldRegionComponent.class).getRegions();
+		ConcurrentMap<UUID, Region> regions = player.getWorld().get(WorldRegionComponent.class).getRegions();
 		
 		for (Region region : regions.values()) {
 			player.sendMessage(region.getName());
@@ -233,17 +232,17 @@ public class PlayerCommands {
 		try {
 			parser.parse(feature, newargs);
 		} catch (Exception ex) {
-			Spout.getLogger().info(ex.toString());
+			plugin.getLogger().info(ex.toString());
 		}
 	}
 	
 	private Player getPlayer(CommandSource source) {
 		Player player;
 		
-		if (Spout.getPlatform() != Platform.CLIENT) {
+		if (plugin.getEngine().getPlatform() != Platform.CLIENT) {
 			player = (Player) source;
 		} else {
-			player = ((Client) Spout.getEngine()).getActivePlayer();
+			player = ((Client) plugin.getEngine()).getActivePlayer();
 		}
 		
 		return player;

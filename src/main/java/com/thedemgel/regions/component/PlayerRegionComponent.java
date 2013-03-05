@@ -1,5 +1,6 @@
 package com.thedemgel.regions.component;
 
+import com.thedemgel.regions.Regions;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.data.UpdatedRegion;
 import com.thedemgel.regions.volume.Volume;
@@ -9,7 +10,6 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import me.dzineit.selectionapi.SelectionPlayer;
-import org.spout.api.Spout;
 import org.spout.api.component.type.EntityComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
@@ -118,7 +118,7 @@ public class PlayerRegionComponent extends EntityComponent {
 			selectedRegion.getVolume().setPoint(point.getKey(), point.getValue());
 		}
 
-		if(getOwner().getWorld().getComponentHolder().get(WorldRegionComponent.class).updateRegion(selectedRegion) == null) {
+		if(getOwner().getWorld().get(WorldRegionComponent.class).updateRegion(selectedRegion) == null) {
 			ureg.setExists(true);
 		}
 		
@@ -134,7 +134,7 @@ public class PlayerRegionComponent extends EntityComponent {
 		UpdatedRegion ureg = new UpdatedRegion(selectedRegion);
 		
 		for (Points pNum : selectedRegion.getVolume().getEnum()) {
-			Spout.getLogger().info(pNum.toString());
+			Regions.getInstance().getLogger().info(pNum.toString());
 			if (!points.containsKey(pNum)) {
 				ureg.setUpdated(false);
 				ureg.addErr(pNum);
@@ -149,7 +149,7 @@ public class PlayerRegionComponent extends EntityComponent {
 			selectedRegion.getVolume().setPoint(point.getKey(), point.getValue());
 		}
 
-		if (getOwner().getWorld().getComponentHolder().get(WorldRegionComponent.class).createRegion((Player) getOwner(), name) == null) {
+		if (getOwner().getWorld().get(WorldRegionComponent.class).createRegion((Player) getOwner(), name) == null) {
 			ureg.setExists(true);
 		}
 	
