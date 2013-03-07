@@ -1,5 +1,6 @@
 package com.thedemgel.regions.annotations;
 
+import com.thedemgel.regions.Regions;
 import com.thedemgel.regions.feature.Feature;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -26,12 +27,8 @@ public class FeatureCommandParser {
 				if (method.getAnnotation(FeatureCommand.class).alias().equalsIgnoreCase(command.getCommand())) {
 					try {
 						method.invoke(feature, command);
-					} catch (IllegalAccessException ex) {
-						Spout.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
-					} catch (IllegalArgumentException ex) {
-						Spout.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
-					} catch (InvocationTargetException ex) {
-						Spout.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
+					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+						Regions.getInstance().getLogger().log(Level.SEVERE, ex.getMessage(), ex);
 					}
 				}
 			}
