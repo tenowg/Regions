@@ -34,7 +34,7 @@ public class PlayerListener implements Listener {
 			return;
 		}
 
-		Player player = ((Client) plugin.getEngine()).getActivePlayer();
+		Player player = ((Client) plugin.getEngine()).getPlayer();
 		player.add(PlayerRegionComponent.class);
 	}
 
