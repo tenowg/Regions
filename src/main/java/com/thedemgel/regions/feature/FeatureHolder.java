@@ -34,10 +34,10 @@ import org.yaml.snakeyaml.Yaml;
 public class FeatureHolder implements Serializable {
 
 	private static final long serialVersionUID = 56L;
-	transient private ConcurrentMap<String, Class<? extends Feature>> featureNames = new ConcurrentSkipListMap<String, Class<? extends Feature>>(String.CASE_INSENSITIVE_ORDER);
-	transient private ConcurrentMap<Class<? extends Feature>, Feature> features = new ConcurrentHashMap<Class<? extends Feature>, Feature>();
-	transient private ConcurrentList<ParentFeatureHolder> parentFeatures = new ConcurrentList<ParentFeatureHolder>();
-	private List<String> yamls = new ArrayList<String>();
+	transient private ConcurrentMap<String, Class<? extends Feature>> featureNames = new ConcurrentSkipListMap<>(String.CASE_INSENSITIVE_ORDER);
+	transient private ConcurrentMap<Class<? extends Feature>, Feature> features = new ConcurrentHashMap<>();
+	transient private ConcurrentList<ParentFeatureHolder> parentFeatures = new ConcurrentList<>();
+	private List<String> yamls = new ArrayList<>();
 
 	public FeatureHolder() {
 	}
@@ -54,9 +54,7 @@ public class FeatureHolder implements Serializable {
 		Feature feature = null;
 		try {
 			feature = clazz.newInstance();
-		} catch (InstantiationException ex) {
-			Spout.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
-		} catch (IllegalAccessException ex) {
+		} catch (InstantiationException | IllegalAccessException ex) {
 			Spout.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
 		}
 
@@ -172,7 +170,7 @@ public class FeatureHolder implements Serializable {
 		Yaml beanWriter = new Yaml();
 
 		if (yamls == null) {
-			yamls = new ConcurrentList<String>();
+			yamls = new ConcurrentList<>();
 		}
 		yamls.clear();
 		for (Feature feat : features.values()) {
@@ -187,9 +185,9 @@ public class FeatureHolder implements Serializable {
 
 	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
-		parentFeatures = new ConcurrentList<ParentFeatureHolder>();
-		features = new ConcurrentHashMap<Class<? extends Feature>, Feature>();
-		featureNames = new ConcurrentSkipListMap<String, Class<? extends Feature>>(String.CASE_INSENSITIVE_ORDER);
+		parentFeatures = new ConcurrentList<>();
+		features = new ConcurrentHashMap<>();
+		featureNames = new ConcurrentSkipListMap<>(String.CASE_INSENSITIVE_ORDER);
 
 		Yaml loader = new Yaml(new RegionYamlConstructor());
 

@@ -5,9 +5,11 @@ import org.spout.api.math.Vector3;
 
 public class BBox {
 
+	// Adjusted Min/Max values
 	private Vector3 pos1;
 	private Vector3 pos2;
 	
+	// Original Min/Max values
 	private Vector3 min;
 	private Vector3 max;
 
