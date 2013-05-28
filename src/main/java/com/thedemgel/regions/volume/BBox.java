@@ -1,16 +1,17 @@
 package com.thedemgel.regions.volume;
 
-import org.spout.api.collision.BoundingBox;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
-public class BBox extends BoundingBox {
+public class BBox {
 
 	private Vector3 pos1;
 	private Vector3 pos2;
+	
+	private Vector3 min;
+	private Vector3 max;
 
 	public BBox(Vector3 pos1, Vector3 pos2) {
-		super(pos1, pos2);
 		adjustPos();
 	}
 
@@ -41,6 +42,14 @@ public class BBox extends BoundingBox {
 	public void setMax(Vector3 vec) {
 		this.max = vec;
 		adjustPos();
+	}
+	
+	public Vector3 getMin() {
+		return min;
+	}
+	
+	public Vector3 getMax() {
+		return max;
 	}
 
 	public float getLowX() {
