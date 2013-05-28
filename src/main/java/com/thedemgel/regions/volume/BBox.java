@@ -14,6 +14,8 @@ public class BBox {
 	private Vector3 max;
 
 	public BBox(Vector3 pos1, Vector3 pos2) {
+		this.min = pos1;
+		this.max = pos2;
 		adjustPos();
 	}
 

@@ -9,7 +9,6 @@ import com.thedemgel.regions.volume.volumes.VolumeBox;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import me.dzineit.selectionapi.SelectionPlayer;
 import org.spout.api.component.type.EntityComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
@@ -21,7 +20,7 @@ import org.spout.api.math.Vector3;
 public class PlayerRegionComponent extends EntityComponent {
 
 	private Region selectedRegion;
-	private SelectionPlayer playerSel;
+	//private SelectionPlayer playerSel;
 	private Vector3 pos1 = null;
 	private Vector3 pos2 = null;
 	private boolean isBlock1 = false;
@@ -32,7 +31,7 @@ public class PlayerRegionComponent extends EntityComponent {
 
 	@Override
 	public void onAttached() {
-		playerSel = getOwner().add(SelectionPlayer.class);
+		//playerSel = getOwner().add(SelectionPlayer.class);
 	}
 
 	/**

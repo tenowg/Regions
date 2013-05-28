@@ -2,6 +2,7 @@
 package com.thedemgel.regions;
 
 import com.thedemgel.regions.command.PlayerCommands;
+import com.thedemgel.regions.command.RazCommand;
 import com.thedemgel.regions.data.PluginFeatures;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.feature.features.InRegion;
@@ -48,11 +49,11 @@ public class Regions extends CommonPlugin {
 	@Override
 	public void onEnable() {
 		//Commands
-		final CommandRegistrationsFactory<Class<?>> commandRegFactory = new AnnotatedCommandRegistrationFactory(getEngine(), new SimpleAnnotatedCommandExecutorFactory());
-		final RootCommand root = engine.getRootCommand();
-		//root.addSubCommands(this, PlayerCommands.class, commandRegFactory);
-		root.addSubCommand(this, "raz").setPermissions(true, "raz.commands");
-		root.getChild("raz").addSubCommands(this, PlayerCommands.class, commandRegFactory);
+		CommandRegistrationsFactory<Class<?>> commandRegFactory = new AnnotatedCommandRegistrationFactory(getEngine(), new SimpleInjector(this), new SimpleAnnotatedCommandExecutorFactory());
+		RootCommand root = engine.getRootCommand();
+		root.addSubCommands(this, RazCommand.class, commandRegFactory);
+		//root.addSubCommand(this, "raz").setPermissions(true, "raz.commands");
+		//root.getChild("raz").addSubCommands(this, PlayerCommands.class, commandRegFactory);
 
 		engine.getEventManager().registerEvents(new PlayerListener(this), this);
 		

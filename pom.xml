@@ -37,10 +37,6 @@
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</repository>
-		<repository>
-			<id>xem-repo</id>
-			<url>http://repo.xemsdoom.com</url>
-		</repository>
 	</repositories>
     
 	<dependencies>
@@ -50,11 +46,6 @@
 			<artifactId>spoutapi</artifactId>
 			<version>${spoutVersion}</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>me.dzineit</groupId>
-			<artifactId>selectionapi</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.yaml</groupId>

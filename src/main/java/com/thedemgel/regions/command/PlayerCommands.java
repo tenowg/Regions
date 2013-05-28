@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
-import me.dzineit.selectionapi.SelectionPlayer;
 import org.spout.api.Client;
 import org.spout.api.Platform;
 import org.spout.api.chat.ChatSection;
@@ -46,10 +45,10 @@ public class PlayerCommands {
 	public void pos(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		SelectionPlayer comp = player.get(SelectionPlayer.class);
+		//SelectionPlayer comp = player.get(SelectionPlayer.class);
 		PlayerRegionComponent preg = player.get(PlayerRegionComponent.class);
 		
-		comp.getSelection().setPos2(player.getScene().getPosition());
+		//comp.getSelection().setPos2(player.getScene().getPosition());
 		
 		if (preg.setPos(args.getString(0), player.getScene().getPosition()) == null) {
 			player.sendMessage(ChatStyle.CYAN, "Position ", args.getString(0).toUpperCase()," not Set. (Not an position value)");

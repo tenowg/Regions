@@ -35,6 +35,7 @@ public class VolumeBox extends Volume {
 		}
 	}
 
+	@Override
 	public Points[] getEnum() {
 		return PointsBox.values();
 	}
