@@ -14,7 +14,6 @@ import org.spout.api.component.type.WorldComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.event.Event;
 import org.spout.api.geo.discrete.Point;
-import org.spout.api.util.list.concurrent.ConcurrentList;
 
 /**
  * WorldRegionComponent is where all the regions are stored, and 99% of all
@@ -30,8 +29,8 @@ import org.spout.api.util.list.concurrent.ConcurrentList;
  */
 public class WorldRegionComponent extends WorldComponent {
 
-	private ConcurrentMap<UUID, Region> regions = new ConcurrentSkipListMap<UUID, Region>();
-	private ConcurrentMap<PointMap, Set<Region>> xregions = new ConcurrentHashMap<PointMap, Set<Region>>();
+	private ConcurrentMap<UUID, Region> regions = new ConcurrentSkipListMap<>();
+	private ConcurrentMap<PointMap, Set<Region>> xregions = new ConcurrentHashMap<>();
 
 	/**
 	 * Will add an already created Region to the Maps and parse its
@@ -180,7 +179,7 @@ public class WorldRegionComponent extends WorldComponent {
 	 */
 	public Set<Region> getRegion(Point point) {
 		PointMap mpoint = new PointMap(point);
-		Set<Region> regionsRet = new HashSet<Region>();
+		Set<Region> regionsRet = new HashSet<>();
 		if (xregions.containsKey(mpoint)) {
 			for (Region region : xregions.get(mpoint)) {
 				if (region.getVolume().containsPoint(point)) {

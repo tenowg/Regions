@@ -218,7 +218,7 @@ public class PlayerCommands {
 		
 		Region region = player.get(PlayerRegionComponent.class).getSelectedRegion();
 		
-		List<ChatSection> test = new ArrayList<ChatSection>();
+		List<ChatSection> test = new ArrayList<>();
 		test.addAll(args.getRawArgs().subList(2, args.getRawArgs().size()));
 		
 		CommandContext newArgs = new CommandContext(args.getString(1), test, args.getFlags());

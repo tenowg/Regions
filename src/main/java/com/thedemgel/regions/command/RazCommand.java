@@ -15,9 +15,7 @@ public class RazCommand {
 		this.plugin = instance;
 	}
 
-	// This is the command. Will detail all the options later.
 	@Command(aliases = {"region", "raz"}, usage = "", desc = "Access region commands")
-	// This is the class with all subcommands under /config
 	@NestedCommand(PlayerCommands.class)
 	public void raz(CommandContext args, CommandSource source) throws CommandException {
 	}

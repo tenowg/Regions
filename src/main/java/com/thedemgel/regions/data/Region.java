@@ -24,7 +24,7 @@ public class Region implements Serializable {
 	private UUID ident = null;
 	private String name;
 	private UUID world;
-	private ConcurrentList<PointMap> pointCache = new ConcurrentList<PointMap>();
+	private ConcurrentList<PointMap> pointCache = new ConcurrentList<>();
 	private FeatureHolder holder = new FeatureHolder();
 	
 	private String volumeYaml;
@@ -37,9 +37,7 @@ public class Region implements Serializable {
 				Yaml beanWriter = new Yaml();
 				volumeYaml = "";
 				volumeYaml = beanWriter.dump(volume);
-			} catch (InstantiationException ex) {
-				Spout.getLogger().log(Level.SEVERE, null, ex);
-			} catch (IllegalAccessException ex) {
+			} catch (InstantiationException | IllegalAccessException ex) {
 				Spout.getLogger().log(Level.SEVERE, null, ex);
 			}
 		}
@@ -51,9 +49,7 @@ public class Region implements Serializable {
 			Yaml beanWriter = new Yaml();
 			volumeYaml = "";
 			volumeYaml = beanWriter.dump(volume);
-		} catch (InstantiationException ex) {
-			Spout.getLogger().log(Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
+		} catch (InstantiationException | IllegalAccessException ex) {
 			Spout.getLogger().log(Level.SEVERE, null, ex);
 		}
 	}

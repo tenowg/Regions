@@ -9,7 +9,7 @@ public class FeaturePlugin implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String plugin;
-	private ConcurrentList<String> features = new ConcurrentList<String>();
+	private ConcurrentList<String> features = new ConcurrentList<>();
 	
 	public FeaturePlugin(String plugin) {
 		this.plugin = plugin;

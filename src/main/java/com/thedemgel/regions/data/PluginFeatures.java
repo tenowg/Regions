@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 
 public class PluginFeatures {
-	private Map<String, Class<? extends Feature>> features = new ConcurrentHashMap<String, Class<? extends Feature>>();
+	private Map<String, Class<? extends Feature>> features = new ConcurrentHashMap<>();
 	
 	public Map<String, Class<? extends Feature>> getFeatures() {
 		return features;

@@ -20,18 +20,12 @@ import org.spout.api.math.Vector3;
 public class PlayerRegionComponent extends EntityComponent {
 
 	private Region selectedRegion;
-	//private SelectionPlayer playerSel;
-	private Vector3 pos1 = null;
-	private Vector3 pos2 = null;
-	private boolean isBlock1 = false;
-	private boolean isBlock2 = false;
 	private Class<? extends Volume> volType = VolumeBox.class;
 	
-	private ConcurrentMap<Points, Vector3> points = new ConcurrentHashMap<Points, Vector3>();
+	private ConcurrentMap<Points, Vector3> points = new ConcurrentHashMap<>();
 
 	@Override
 	public void onAttached() {
-		//playerSel = getOwner().add(SelectionPlayer.class);
 	}
 
 	/**
@@ -70,8 +64,6 @@ public class PlayerRegionComponent extends EntityComponent {
 	 */
 	public void setSelectedRegion(Region region) {
 		this.selectedRegion = region;
-		pos1 = region.getVolume().getMin();
-		pos2 = region.getVolume().getMax();
 		volType = region.getVolume().getClass();
 	}
 

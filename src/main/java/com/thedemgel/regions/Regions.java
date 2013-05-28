@@ -1,7 +1,6 @@
 
 package com.thedemgel.regions;
 
-import com.thedemgel.regions.command.PlayerCommands;
 import com.thedemgel.regions.command.RazCommand;
 import com.thedemgel.regions.data.PluginFeatures;
 import com.thedemgel.regions.feature.Feature;
@@ -32,10 +31,10 @@ public class Regions extends CommonPlugin {
 	private static Regions instance;
 	private TicksPerSecondMonitor tpsMonitor;
 	
-	private Map<String, Class<? extends Volume>> volumes = new HashMap<String, Class<? extends Volume>>();
-	private Map<String, String> volumeDesc = new HashMap<String, String>();
+	private Map<String, Class<? extends Volume>> volumes = new HashMap<>();
+	private Map<String, String> volumeDesc = new HashMap<>();
 	
-	private Map<CommonPlugin, PluginFeatures> features = new ConcurrentHashMap<CommonPlugin, PluginFeatures>();
+	private Map<CommonPlugin, PluginFeatures> features = new ConcurrentHashMap<>();
 
 	@Override
 	public void onLoad() {

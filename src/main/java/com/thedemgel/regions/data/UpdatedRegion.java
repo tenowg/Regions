@@ -13,7 +13,7 @@ import java.util.Set;
 public class UpdatedRegion {
 	private boolean updated = true;
 	private boolean exists = false;
-	private Set<Points> errPoints = new HashSet<Points>();
+	private Set<Points> errPoints = new HashSet<>();
 	private Region region;
 	
 	public UpdatedRegion(Region region) {
