@@ -6,6 +6,11 @@ import com.thedemgel.regions.annotations.OnTickParser;
 import com.thedemgel.regions.annotations.RegionEventParser;
 import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.Region;
+import com.thedemgel.regions.detectors.Detector;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.spout.api.Spout;
 import org.spout.api.event.Event;
 import org.spout.api.plugin.Plugin;
@@ -21,6 +26,8 @@ import org.spout.api.plugin.Plugin;
 public class Feature {
 	protected Plugin plugin;
 	private String pluginName;
+	
+	private ConcurrentMap<Class<? extends Detector>, Detector> detectors = new ConcurrentHashMap<>();
 	
 	private FeatureHolder holder;
 	/**
@@ -133,5 +140,29 @@ public class Feature {
 			perm = "raz.feature." + command.getRegion().getName().toLowerCase() + "." + stringpermission;
 		}
 		return command.getPlayer().hasPermission(perm);
+	}
+	
+	public <T extends Detector> T get(Class<T> clazz) {
+		if (detectors.containsKey(clazz)) {
+			return (T) detectors.get(clazz);
+		}
+		
+		return null;
+	}
+	
+	public <T extends Detector> T add(Class<T> clazz) {
+		if (detectors.containsKey(clazz)) {
+			return (T) detectors.get(clazz);
+		}
+		
+		Detector detector = null;
+		try {
+			detector = clazz.newInstance();
+		} catch (InstantiationException | IllegalAccessException ex) {
+			Spout.getLogger().log(Level.SEVERE, "Error create Detector Class " + clazz.getName());
+		}
+		
+		detectors.put(clazz, detector);
+		return (T) detector;
 	}
 }

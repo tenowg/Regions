@@ -6,10 +6,12 @@ import com.thedemgel.regions.annotations.FeatureCommandArgs;
 import com.thedemgel.regions.annotations.Intensity;
 import com.thedemgel.regions.annotations.OnTick;
 import com.thedemgel.regions.annotations.RegionEvent;
+import com.thedemgel.regions.annotations.RegionDetector;
 import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.feature.Tickable;
+import com.thedemgel.regions.detectors.PlayerInRegion;
 import org.spout.api.Spout;
 import org.spout.api.chat.ChatSection;
 import org.spout.api.event.player.PlayerChatEvent;
@@ -34,7 +36,9 @@ public class InRegion extends Feature implements Tickable {
 	}
 	
 	@OnTick
+	@RegionDetector({PlayerInRegion.class})
 	public void tickTask(float dt, Region region) {
+		this.get(PlayerInRegion.class);
 		// Will always run, as the default load is Intensity.IGNORE
 	}
 	
