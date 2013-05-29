@@ -7,8 +7,11 @@ import com.thedemgel.regions.annotations.RegionEventParser;
 import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.detectors.Detector;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.locks.Lock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.spout.api.Spout;
@@ -28,6 +31,7 @@ public class Feature {
 	private String pluginName;
 	
 	private ConcurrentMap<Class<? extends Detector>, Detector> detectors = new ConcurrentHashMap<>();
+	private final ConcurrentMap<String, Integer> timers = new ConcurrentHashMap<>();
 	
 	private FeatureHolder holder;
 	/**
@@ -164,5 +168,29 @@ public class Feature {
 		
 		detectors.put(clazz, detector);
 		return (T) detector;
+	}
+	
+	public int getTimer(String method) {
+		Integer timer = timers.get(method);
+
+		if (timer == null) {
+			return 0;
+		}
+		
+		return timer;
+	}
+	
+	public void setTimer(String method, Integer value) {
+		timers.put(method, value);
+	}
+	
+	public int incrementTimer(String method) {
+		Integer timer = timers.get(method);
+		
+		if (timer == null) {
+			timer = 0;
+		}
+		
+		return timers.put(method, timer + 1);
 	}
 }

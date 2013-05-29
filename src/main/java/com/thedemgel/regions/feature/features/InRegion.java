@@ -35,16 +35,17 @@ public class InRegion extends Feature implements Tickable {
 		chatEvent.getPlayer().sendMessage("You Chatted in " + region.getRegion().getName() + " " + total_chats + " times.");
 	}
 	
-	@OnTick
-	@RegionDetector({PlayerInRegion.class})
+	@OnTick(freq = 140)
 	public void tickTask(float dt, Region region) {
-		this.get(PlayerInRegion.class);
 		// Will always run, as the default load is Intensity.IGNORE
+		// Will only run every 40 ticks (2 seconds)
+		System.out.println("Its runs: tickTask 140");
 	}
 	
-	@OnTick(load = Intensity.LOW)
+	@OnTick(load = Intensity.LOW, freq = 400)
 	public void someTask(float dt, Region region) {
 		// Do Something on Tick, will not run if TPS is 8 or lower
+		System.out.println("Its runs: tickTask 400");
 	}
 	
 	@OnTick(load = Intensity.HIGHEST)
