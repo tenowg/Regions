@@ -128,7 +128,6 @@ public class Region implements Serializable {
 	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
 		Yaml loader = new Yaml(new RegionYamlConstructor());
-		Spout.getLogger().info(volumeYaml);
 		if (!"".equals(volumeYaml)) {
 			volume = (Volume) loader.load(volumeYaml);
 			volume.reInit();
@@ -145,8 +144,6 @@ public class Region implements Serializable {
 		volumeYaml = "";
 
 		volumeYaml = beanWriter.dump(volume);
-		
-		Spout.getLogger().info(volumeYaml);
 			
 		oos.defaultWriteObject();
 	}

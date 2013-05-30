@@ -5,11 +5,11 @@ import com.thedemgel.regions.component.WorldRegionComponent;
 import com.thedemgel.regions.feature.Feature;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.logging.Level;
 import org.spout.api.event.Event;
 import org.spout.api.event.EventExecutor;
 import org.spout.api.event.Order;
 import org.spout.api.exception.EventException;
-import org.spout.api.geo.World;
 
 public class RegisterEvents {
 
@@ -40,6 +40,8 @@ public class RegisterEvents {
 							
 							worldpoint.getWorld().get(WorldRegionComponent.class).execute(event, worldpoint.getLoc());
 
+						} catch (NoSuchMethodException e) {
+							plugin.getLogger().log(Level.WARNING, "Event (" + checkClass + ") is missing from EventParser, please contact developer to add.");
 						} catch (InvocationTargetException e) {
 							if (e.getCause() instanceof EventException) {
 								throw (EventException) e.getCause();

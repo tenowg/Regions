@@ -15,6 +15,7 @@ import com.thedemgel.regions.detectors.PlayerInRegion;
 import org.spout.api.Spout;
 import org.spout.api.chat.ChatSection;
 import org.spout.api.event.player.PlayerChatEvent;
+import org.spout.api.event.player.PlayerJoinEvent;
 
 
 public class InRegion extends Feature implements Tickable {
@@ -33,6 +34,11 @@ public class InRegion extends Feature implements Tickable {
 		total_chats++;
 		
 		chatEvent.getPlayer().sendMessage("You Chatted in " + region.getRegion().getName() + " " + total_chats + " times.");
+	}
+	
+	@RegionEvent
+	public void error(PlayerJoinEvent event, EventRegion region) {
+		
 	}
 	
 	@OnTick(freq = 140)

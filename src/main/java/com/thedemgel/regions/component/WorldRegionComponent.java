@@ -10,6 +10,9 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import org.spout.api.component.type.WorldComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.event.Event;
@@ -31,6 +34,8 @@ public class WorldRegionComponent extends WorldComponent {
 
 	private ConcurrentMap<UUID, Region> regions = new ConcurrentSkipListMap<>();
 	private ConcurrentMap<PointMap, Set<Region>> xregions = new ConcurrentHashMap<>();
+	
+	private Executor executor = Executors.newSingleThreadExecutor();
 
 	/**
 	 * Will add an already created Region to the Maps and parse its
@@ -73,11 +78,11 @@ public class WorldRegionComponent extends WorldComponent {
 	 * @param region Region after it has been updated with new Coords.
 	 */
 	public Region updateRegion(Region region) {
-		
+
 		if (region.getUUID() == null) {
 			return null;
 		}
-		
+
 		for (PointMap mpoint : region.getPointCache()) {
 			Set<Region> regs = xregions.get(mpoint);
 			if (regs != null) {
@@ -103,7 +108,7 @@ public class WorldRegionComponent extends WorldComponent {
 				}
 			}
 		}
-		
+
 		return region;
 	}
 
@@ -123,7 +128,7 @@ public class WorldRegionComponent extends WorldComponent {
 
 		return null;
 	}
-	
+
 	/**
 	 * Gets a region by UUID. Developers should store UUIDs instead of Names
 	 * in their plugins As they should never change once the regions are
@@ -135,17 +140,17 @@ public class WorldRegionComponent extends WorldComponent {
 	public Region getRegion(UUID uuid) {
 		return regions.get(uuid);
 	}
-	
+
 	/**
 	 * Gets a regions a Player is in.
-	 * 
+	 *
 	 * @param player The player to check
 	 * @return Regions the player is currently in
 	 */
 	public Set<Region> getRegion(Player player) {
 		return getRegion(player.getScene().getPosition());
 	}
-	
+
 	/**
 	 * Creates a Region from SelectPlayer selections.
 	 *
@@ -158,11 +163,11 @@ public class WorldRegionComponent extends WorldComponent {
 		if (region.getUUID() != null) {
 			return null;
 		}
-		
+
 		if (getRegion(name) != null) {
 			return null;
 		}
-		
+
 		region.setName(name);
 		region.setUUID(UUID.randomUUID());
 		region.setWorld(player.getWorld().getUID());
@@ -171,8 +176,8 @@ public class WorldRegionComponent extends WorldComponent {
 	}
 
 	/**
-	 * Will return the Regions that contains a specific point.
-	 * The return is unmodifiable.
+	 * Will return the Regions that contains a specific point. The return is
+	 * unmodifiable.
 	 *
 	 * @param point
 	 * @return Unmodifiable Set of Regions that contain the point
@@ -185,7 +190,7 @@ public class WorldRegionComponent extends WorldComponent {
 				if (region.getVolume().containsPoint(point)) {
 					regionsRet.add(region);
 				}
-				
+
 				// NEW CODE
 				if (region.getVolume().containsPoint(point)) {
 					regionsRet.add(region);
@@ -198,12 +203,13 @@ public class WorldRegionComponent extends WorldComponent {
 
 	/**
 	 * The complete set of Regions for this World
+	 *
 	 * @return ConcurrentMap regions
 	 */
 	public ConcurrentMap<UUID, Region> getRegions() {
 		return regions;
 	}
-	
+
 	/**
 	 * Lets get this all setup.
 	 */
@@ -299,8 +305,26 @@ public class WorldRegionComponent extends WorldComponent {
 	 */
 	@Override
 	public void onTick(float dt) {
-		for (Region reg : regions.values()) {
-			reg.getHolder().onTick(dt, reg);
+		//for (Region reg : regions.values()) {
+		//	reg.getHolder().onTick(dt, reg);
+		//}
+		
+		TickRunnable ontick = new TickRunnable(dt);
+		executor.execute(ontick);
+	}
+
+	private class TickRunnable implements Runnable {
+		private final float dt;
+		
+		public TickRunnable(float dt) {
+			this.dt = dt;
+		}
+
+		@Override
+		public void run() {
+			for (Region reg : regions.values()) {
+				reg.getHolder().onTick(dt, reg);
+			}
 		}
 	}
 }
