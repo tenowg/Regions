@@ -2,6 +2,8 @@
 package com.thedemgel.regions.detectors;
 
 
-public interface Detector {
+public abstract class Detector {
 
+	public abstract void execute();
+	
 }

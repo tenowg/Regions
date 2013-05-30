@@ -104,11 +104,7 @@ public class Feature {
 	 */
 	public final void tick(float dt, Region region) {
 		OnTickParser parser = new OnTickParser();
-		try {
-			parser.parse(this, dt, region);
-		} catch (Exception ex) {
-			Spout.getLogger().info(ex.getMessage());
-		}
+		parser.parse(this, dt, region);
 	}
 	
 	/**
@@ -188,7 +184,8 @@ public class Feature {
 		Integer timer = timers.get(method);
 		
 		if (timer == null) {
-			timer = 0;
+			timers.put(method, 1);
+			return 1;
 		}
 		
 		return timers.put(method, timer + 1);

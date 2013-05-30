@@ -43,9 +43,4 @@ public class PlayerListener implements Listener {
 		World world = event.getWorld();
 		world.add(WorldRegionComponent.class).init();
 	}
-	
-	@EventHandler
-	public void onPlayerChat(PlayerChatEvent event) {
-		event.getPlayer().getWorld().get(WorldRegionComponent.class).execute(event, event.getPlayer().getScene().getPosition());
-	}
 }

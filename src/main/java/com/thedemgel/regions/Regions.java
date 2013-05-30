@@ -30,6 +30,8 @@ public class Regions extends CommonPlugin {
 	private Engine engine;
 	private static Regions instance;
 	private TicksPerSecondMonitor tpsMonitor;
+	private EventParser eventParser;
+	private RegisterEvents eventRegister;
 	
 	private Map<String, Class<? extends Volume>> volumes = new HashMap<>();
 	private Map<String, String> volumeDesc = new HashMap<>();
@@ -47,12 +49,12 @@ public class Regions extends CommonPlugin {
 	
 	@Override
 	public void onEnable() {
+		eventParser = new EventParser();
+		eventRegister = new RegisterEvents(this);
 		//Commands
 		CommandRegistrationsFactory<Class<?>> commandRegFactory = new AnnotatedCommandRegistrationFactory(getEngine(), new SimpleInjector(this), new SimpleAnnotatedCommandExecutorFactory());
 		RootCommand root = engine.getRootCommand();
 		root.addSubCommands(this, RazCommand.class, commandRegFactory);
-		//root.addSubCommand(this, "raz").setPermissions(true, "raz.commands");
-		//root.getChild("raz").addSubCommands(this, PlayerCommands.class, commandRegFactory);
 
 		engine.getEventManager().registerEvents(new PlayerListener(this), this);
 		
@@ -89,10 +91,16 @@ public class Regions extends CommonPlugin {
 	}
 	
 	public void registerFeature(CommonPlugin plugin, Class<? extends Feature> feature) {
+		registerFeature(plugin, feature, eventParser);
+	}
+	
+	public void registerFeature(CommonPlugin plugin, Class<? extends Feature> feature, EventParser parser) {
 		if (!features.containsKey(plugin)) {
 			features.put(plugin, new PluginFeatures());
 		}
 		features.get(plugin).getFeatures().put(feature.getSimpleName(), feature);
+		
+		eventRegister.registerEvents(feature, parser);
 	}
 	
 	public Class<? extends Feature> getFeature(CommonPlugin plugin, String SimpleName) {

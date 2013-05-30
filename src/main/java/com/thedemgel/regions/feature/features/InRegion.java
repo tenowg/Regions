@@ -36,9 +36,10 @@ public class InRegion extends Feature implements Tickable {
 	}
 	
 	@OnTick(freq = 140)
+	@RegionDetector({PlayerInRegion.class})
 	public void tickTask(float dt, Region region) {
 		// Will always run, as the default load is Intensity.IGNORE
-		// Will only run every 40 ticks (2 seconds)
+		// Will only run every 140 ticks (2 seconds)
 		System.out.println("Its runs: tickTask 140");
 	}
 	

@@ -4,7 +4,10 @@ import com.thedemgel.regions.Regions;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.feature.Tickable;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.logging.Level;
+import org.spout.api.Spout;
 
 /**
  * Parser to handle
@@ -13,7 +16,7 @@ import java.lang.reflect.Method;
  */
 public class OnTickParser {
 
-	public void parse(Feature feature, float dt, Region region) throws Exception {
+	public void parse(Feature feature, float dt, Region region) /*throws Exception*/ {
 		if (!(feature instanceof Tickable)) {
 			return;
 		}
@@ -57,26 +60,33 @@ public class OnTickParser {
 					}
 				}
 
-				method.invoke(feature, dt, region);
+				if (method.isAnnotationPresent(RegionDetector.class)) {
+					RegionDetector anno = method.getAnnotation(RegionDetector.class);
+					
+					for(Class clazz : anno.value()) {
+						feature.add(clazz).execute();
+					}
+				}
+				
+				try {
+					method.invoke(feature, dt, region);
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+					Spout.getLogger().log(Level.SEVERE, ex.getMessage());
+				}
 			}
 		}
 	}
 
-	private boolean test;
 	private boolean doTick(Feature feature, Method method, OnTick ontick) {
-		//	while(test) {}
-		//test = true;
+
 		Integer count = feature.incrementTimer(method.toString());
-		//feature.setTimer(method.toString(), count + 1);
+
 		Integer interval = ontick.freq();
 
 		if (count % interval == 0) {
-			//System.out.println (count % interval);
 			feature.setTimer(method.toString(), 1);
-			//test = false;
 			return true;
 		}
-//test = false;
 
 		return false;
 	}
