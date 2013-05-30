@@ -1,6 +1,5 @@
 package com.thedemgel.regions.volume.volumes;
 
-import com.thedemgel.regions.volume.BBox;
 import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.volume.points.Points;
 import com.thedemgel.regions.volume.points.PointsBox;
@@ -10,7 +9,10 @@ import org.spout.api.math.Vector3;
 
 public class VolumeBox extends Volume {
 
-	private BBox box = new BBox(Vector3.ZERO, Vector3.ZERO);
+	// Adjusted Min/Max values
+	private Vector3 pos1;
+	private Vector3 pos2;
+	
 	private Vector3 minVol;
 	private Vector3 maxVol;
 	// Used for serialization
@@ -23,7 +25,14 @@ public class VolumeBox extends Volume {
 
 	@Override
 	public boolean containsPoint(Point point) {
-		return box.containsPoint(point);
+		if (getLowX() <= point.getX() && getHighX() >= point.getX()) {
+			if (getLowY() <= point.getY() && getHighY() >= point.getY()) {
+				if (getLowZ() <= point.getZ() && getHighZ() >= point.getZ()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -52,18 +61,24 @@ public class VolumeBox extends Volume {
 
 		switch (points) {
 			case ONE: {
-				box.setMin(point);
 				setMin(point);
 				break;
 			}
 			case TWO: {
-				box.setMax(point);
 				setMax(point);
 				break;
 			}
 		}
 	}
 
+	public Vector3 getAdjustedMin() {
+		return pos1;
+	}
+	
+	public Vector3 getAdjustedMax() {
+		return pos2;
+	}
+	
 	@Override
 	public Vector3 getMin() {
 		return minVol;
@@ -80,6 +95,7 @@ public class VolumeBox extends Volume {
 		minx = minVol.getX();
 		miny = minVol.getY();
 		minz = minVol.getZ();
+		adjustPos();
 	}
 
 	@Override
@@ -88,47 +104,110 @@ public class VolumeBox extends Volume {
 		maxx = maxVol.getX();
 		maxy = maxVol.getY();
 		maxz = maxVol.getZ();
-	}
-
-	public BBox getBounding() {
-		return box;
+		adjustPos();
 	}
 
 	@Override
 	public float getLowX() {
-		return box.getLowX();
-	}
+		if (pos1.getX() < pos2.getX()) {
+			return pos1.getX();
+		}
 
-	@Override
-	public float getLowY() {
-		return box.getLowY();
-	}
-
-	@Override
-	public float getLowZ() {
-		return box.getLowZ();
+		return pos2.getX();
 	}
 
 	@Override
 	public float getHighX() {
-		return box.getHighX();
+		if (pos1.getX() > pos2.getX()) {
+			return pos1.getX();
+		}
+
+		return pos2.getX();
+	}
+
+	@Override
+	public float getLowY() {
+		if (pos1.getY() < pos2.getY()) {
+			return pos1.getY();
+		}
+
+		return pos2.getY();
 	}
 
 	@Override
 	public float getHighY() {
-		return box.getHighY();
+		if (pos1.getY() > pos2.getY()) {
+			return pos1.getY();
+		}
+
+		return pos2.getY();
+	}
+
+	@Override
+	public float getLowZ() {
+		if (pos1.getZ() < pos2.getZ()) {
+			return pos1.getZ();
+		}
+
+		return pos2.getZ();
 	}
 
 	@Override
 	public float getHighZ() {
-		return box.getHighZ();
+		if (pos1.getZ() > pos2.getZ()) {
+			return pos1.getZ();
+		}
+
+		return pos2.getZ();
+	}
+
+	private void adjustPos() {
+		Vector3 a = getMin();
+		Vector3 b = getMax();
+
+		float x, y, z;
+
+		if (a.getX() > b.getX()) {
+			x = (float) Math.ceil(a.getX());
+		} else {
+			x = (float) Math.floor(a.getX());
+		}
+		if (a.getY() > b.getY()) {
+			y = (float) Math.ceil(a.getY());
+		} else {
+			y = (float) Math.floor(a.getY());
+		}
+		if (a.getZ() > b.getZ()) {
+			z = (float) Math.ceil(a.getZ());
+		} else {
+			z = (float) Math.floor(a.getZ());
+		}
+
+		pos1 = new Vector3(x, y, z);
+
+		if (b.getX() > a.getX()) {
+			x = (float) Math.ceil(b.getX());
+		} else {
+			x = (float) Math.floor(b.getX());
+		}
+		if (b.getY() > a.getY()) {
+			y = (float) Math.ceil(b.getY());
+		} else {
+			y = (float) Math.floor(b.getY());
+		}
+		if (b.getZ() > a.getZ()) {
+			z = (float) Math.ceil(b.getZ());
+		} else {
+			z = (float) Math.floor(b.getZ());
+		}
+
+		pos2 = new Vector3(x, y, z);
 	}
 
 	@Override
 	public void reInit() {
 		minVol = new Vector3(minx, miny, minz);
 		maxVol = new Vector3(maxx, maxy, maxz);
-		box.setMin(minVol);
-		box.setMax(maxVol);
+		adjustPos();
 	}
 }
