@@ -3,10 +3,12 @@ package com.thedemgel.regions.command;
 import com.thedemgel.regions.Regions;
 import com.thedemgel.regions.annotations.FeatureCommandArgs;
 import com.thedemgel.regions.annotations.FeatureCommandParser;
+import com.thedemgel.regions.api.RegionAPI;
 import com.thedemgel.regions.component.PlayerRegionComponent;
 import com.thedemgel.regions.component.WorldRegionComponent;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.data.UpdatedRegion;
+import com.thedemgel.regions.exception.NoSuchRegion;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.volume.points.Points;
@@ -15,6 +17,8 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.spout.api.Client;
 import org.spout.api.Platform;
 import org.spout.api.chat.ChatSection;
@@ -134,14 +138,13 @@ public class PlayerCommands {
 	public void getRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		Region region = player.getWorld().get(WorldRegionComponent.class).getRegion(args.getString(0));
-		
-		if (region == null) {
-			player.sendMessage(ChatStyle.RED, "No region exists by that name.");
+		Region region;
+		try {
+			region = RegionAPI.selectRegion(player, args.getString(0));
+		} catch (NoSuchRegion ex) {
+			plugin.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
 			return;
 		}
-		
-		player.get(PlayerRegionComponent.class).setSelectedRegion(region);
 		player.sendMessage("Region Selected: " + region.getName());
 	}
 	
