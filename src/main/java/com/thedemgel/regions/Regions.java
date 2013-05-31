@@ -1,11 +1,10 @@
 
 package com.thedemgel.regions;
 
+import com.thedemgel.regions.parser.EventParser;
 import com.thedemgel.regions.command.RazCommand;
 import com.thedemgel.regions.data.PluginFeatures;
 import com.thedemgel.regions.feature.Feature;
-import com.thedemgel.regions.feature.features.InRegion;
-import com.thedemgel.regions.feature.features.Owner;
 import com.thedemgel.regions.util.TicksPerSecondMonitor;
 import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.volume.volumes.VolumeBox;
@@ -62,8 +61,6 @@ public class Regions extends CommonPlugin {
 		getEngine().getScheduler().scheduleSyncRepeatingTask(this, tpsMonitor, 0, 50, TaskPriority.CRITICAL);
 
 		registerVolume("box", "Basic BoundingBox", VolumeBox.class);
-		registerFeature(this, InRegion.class, new CustomEventParser());
-		registerFeature(this, Owner.class);
 		
 		getLogger().log(Level.INFO, "v" + getDescription().getVersion() + " enabled.");
 	}

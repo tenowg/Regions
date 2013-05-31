@@ -1,4 +1,4 @@
-package com.thedemgel.regions;
+package com.thedemgel.regions.parser;
 
 import java.util.UUID;
 import org.spout.api.geo.World;

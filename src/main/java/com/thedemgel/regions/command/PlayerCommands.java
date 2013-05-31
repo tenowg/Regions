@@ -8,8 +8,6 @@ import com.thedemgel.regions.component.WorldRegionComponent;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.data.UpdatedRegion;
 import com.thedemgel.regions.feature.Feature;
-import com.thedemgel.regions.feature.features.InRegion;
-import com.thedemgel.regions.feature.features.Owner;
 import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.volume.points.Points;
 import java.util.ArrayList;
@@ -99,8 +97,6 @@ public class PlayerCommands {
 		Region region = ureg.getRegion();
 		
 		if (!ureg.getExists()) {
-			region.add(plugin, InRegion.class);
-			region.add(plugin, Owner.class);
 			player.sendMessage(ChatStyle.CYAN, "Region Created...");
 		} else {
 			player.sendMessage(ChatStyle.RED, "Region already exists, try updating instead.");

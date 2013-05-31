@@ -1,4 +1,4 @@
-package com.thedemgel.regions;
+package com.thedemgel.regions.parser;
 
 import org.spout.api.geo.World;
 import org.spout.api.geo.discrete.Point;

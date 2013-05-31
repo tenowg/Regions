@@ -1,4 +1,4 @@
-package com.thedemgel.regions;
+package com.thedemgel.regions.parser;
 
 import org.spout.api.event.block.BlockChangeEvent;
 import org.spout.api.event.block.BlockEvent;
