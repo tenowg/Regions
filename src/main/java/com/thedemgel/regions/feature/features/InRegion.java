@@ -13,6 +13,8 @@ import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.feature.Tickable;
 import com.thedemgel.regions.detectors.PlayerInRegion;
 import com.thedemgel.regions.detectors.PlayersInRegion;
+import com.thedemgel.regions.events.EnterRegionEvent;
+import com.thedemgel.regions.events.LeaveRegionEvent;
 import org.spout.api.Spout;
 import org.spout.api.chat.ChatSection;
 import org.spout.api.entity.Player;
@@ -39,8 +41,13 @@ public class InRegion extends Feature implements Tickable {
 	}
 	
 	@RegionEvent
-	public void error(PlayerJoinEvent event, EventRegion region) {
-		
+	public void error(EnterRegionEvent event, EventRegion region) {
+		System.out.println(event.getPlayer().getName() + " has entered " + region.getRegion().getName());
+	}
+	
+	@RegionEvent
+	public void leave(LeaveRegionEvent event, EventRegion region) {
+		System.out.println(event.getPlayer().getName() + " has left " + region.getRegion().getName());
 	}
 	
 	@OnTick(freq = 140)

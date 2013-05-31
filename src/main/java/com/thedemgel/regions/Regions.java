@@ -62,7 +62,7 @@ public class Regions extends CommonPlugin {
 		getEngine().getScheduler().scheduleSyncRepeatingTask(this, tpsMonitor, 0, 50, TaskPriority.CRITICAL);
 
 		registerVolume("box", "Basic BoundingBox", VolumeBox.class);
-		registerFeature(this, InRegion.class);
+		registerFeature(this, InRegion.class, new CustomEventParser());
 		registerFeature(this, Owner.class);
 		
 		getLogger().log(Level.INFO, "v" + getDescription().getVersion() + " enabled.");

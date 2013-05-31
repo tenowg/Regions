@@ -16,6 +16,7 @@ public class RegionEventParser {
 			if (method.isAnnotationPresent(RegionEvent.class)) {
 				Class<?>[] params = method.getParameterTypes();
 				if (params[0] == event.getClass()) {
+					
 					method.invoke(feature, event, region);
 				}
 			}

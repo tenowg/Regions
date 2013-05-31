@@ -35,11 +35,15 @@ public class RegisterEvents {
 								throw new EventException("Wrong event type passed to registered method");
 							}
 							
-							Method parseMethod = parser.getClass().getDeclaredMethod("parse", checkClass);
-							WorldPoint worldpoint = (WorldPoint) parseMethod.invoke(parser, event);
-							
-							worldpoint.getWorld().get(WorldRegionComponent.class).execute(event, worldpoint.getLoc());
-
+							//Method parseMethod = parser.getClass().getDeclaredMethod("parse", checkClass);
+							Method parseMethod = parser.getClass().getMethod("parse", checkClass);
+							if (parseMethod.getGenericReturnType().equals(WorldPoint.class)) {
+								WorldPoint worldpoint = (WorldPoint) parseMethod.invoke(parser, event);
+								worldpoint.getWorld().get(WorldRegionComponent.class).execute(event, worldpoint.getLoc());
+							} else if(parseMethod.getGenericReturnType().equals(WorldUUID.class)) {
+								WorldUUID worldpoint = (WorldUUID) parseMethod.invoke(parser, event);
+								worldpoint.getWorld().get(WorldRegionComponent.class).execute(event, worldpoint.getUUID());
+							}
 						} catch (NoSuchMethodException e) {
 							plugin.getLogger().log(Level.WARNING, "Event (" + checkClass + ") is missing from EventParser, please contact developer to add.");
 						} catch (InvocationTargetException e) {
