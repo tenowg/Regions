@@ -12,8 +12,10 @@ import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.feature.Tickable;
 import com.thedemgel.regions.detectors.PlayerInRegion;
+import com.thedemgel.regions.detectors.PlayersInRegion;
 import org.spout.api.Spout;
 import org.spout.api.chat.ChatSection;
+import org.spout.api.entity.Player;
 import org.spout.api.event.player.PlayerChatEvent;
 import org.spout.api.event.player.PlayerJoinEvent;
 
@@ -42,11 +44,14 @@ public class InRegion extends Feature implements Tickable {
 	}
 	
 	@OnTick(freq = 140)
-	@RegionDetector({PlayerInRegion.class})
+	@RegionDetector({PlayersInRegion.class})
 	public void tickTask(float dt, Region region) {
 		// Will always run, as the default load is Intensity.IGNORE
 		// Will only run every 140 ticks (2 seconds)
 		System.out.println("Its runs: tickTask 140");
+		for (Player player : get(PlayersInRegion.class).getPlayers()) {
+			System.out.println(player.getName() + " is in region");
+		}
 	}
 	
 	@OnTick(load = Intensity.LOW, freq = 400)

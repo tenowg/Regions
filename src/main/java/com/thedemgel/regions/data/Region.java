@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.UUID;
 import java.util.logging.Level;
 import org.spout.api.Spout;
+import org.spout.api.geo.World;
 import org.spout.api.plugin.Plugin;
 import org.spout.api.util.list.concurrent.ConcurrentList;
 import org.yaml.snakeyaml.Yaml;
@@ -41,6 +42,7 @@ public class Region implements Serializable {
 				Spout.getLogger().log(Level.SEVERE, null, ex);
 			}
 		}
+		holder.setRegion(this);
 	}
 
 	public Region(Class<? extends Volume> type) {
@@ -52,6 +54,7 @@ public class Region implements Serializable {
 		} catch (InstantiationException | IllegalAccessException ex) {
 			Spout.getLogger().log(Level.SEVERE, null, ex);
 		}
+		holder.setRegion(this);
 	}
 
 	public <T extends Feature> T add(Plugin plugin, Class<T> clazz) {
@@ -105,8 +108,12 @@ public class Region implements Serializable {
 		this.ident = value;
 	}
 
-	public UUID getWorld() {
+	public UUID getWorldUUID() {
 		return world;
+	}
+	
+	public World getWorld() {
+		return Spout.getEngine().getWorld(world);
 	}
 
 	public void setWorld(UUID world) {

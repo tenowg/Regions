@@ -1,6 +1,7 @@
 package com.thedemgel.regions.feature;
 
 import com.thedemgel.regions.Regions;
+import com.thedemgel.regions.component.WorldRegionComponent;
 import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.util.RegionYamlConstructor;
@@ -10,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -38,6 +40,7 @@ public class FeatureHolder implements Serializable {
 	transient private ConcurrentMap<Class<? extends Feature>, Feature> features = new ConcurrentHashMap<>();
 	transient private ConcurrentList<ParentFeatureHolder> parentFeatures = new ConcurrentList<>();
 	private List<String> yamls = new ArrayList<>();
+	private Region region;
 
 	public FeatureHolder() {
 	}
@@ -165,6 +168,14 @@ public class FeatureHolder implements Serializable {
 	public ConcurrentMap<Class<? extends Feature>, Feature> getFeatures() {
 		return features;
 	}
+	
+	public Region getRegion() {
+		return region;
+	}
+	
+	public void setRegion(Region region) {
+		this.region = region;
+	}
 
 	private void writeObject(ObjectOutputStream oos) throws IOException {
 		Yaml beanWriter = new Yaml();
@@ -176,10 +187,7 @@ public class FeatureHolder implements Serializable {
 		for (Feature feat : features.values()) {
 			yamls.add(beanWriter.dump(feat));
 		}
-		
-		for (String yam : yamls) {
-			Spout.getLogger().info(yam);
-		}
+
 		oos.defaultWriteObject();
 	}
 

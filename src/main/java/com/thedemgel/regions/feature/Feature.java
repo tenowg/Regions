@@ -158,6 +158,7 @@ public class Feature {
 		Detector detector = null;
 		try {
 			detector = clazz.newInstance();
+			detector.setFeature(this);
 		} catch (InstantiationException | IllegalAccessException ex) {
 			Spout.getLogger().log(Level.SEVERE, "Error create Detector Class " + clazz.getName());
 		}

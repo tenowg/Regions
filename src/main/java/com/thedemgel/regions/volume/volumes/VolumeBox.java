@@ -13,8 +13,8 @@ public class VolumeBox extends Volume {
 	private Vector3 pos1;
 	private Vector3 pos2;
 	
-	private Vector3 minVol;
-	private Vector3 maxVol;
+	private Vector3 minVol = Vector3.ZERO;
+	private Vector3 maxVol = Vector3.ZERO;
 	// Used for serialization
 	public float minx;
 	public float miny;
