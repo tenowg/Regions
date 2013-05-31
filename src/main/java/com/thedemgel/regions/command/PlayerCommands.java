@@ -8,7 +8,11 @@ import com.thedemgel.regions.component.PlayerRegionComponent;
 import com.thedemgel.regions.component.WorldRegionComponent;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.data.UpdatedRegion;
-import com.thedemgel.regions.exception.NoSuchRegion;
+import com.thedemgel.regions.exception.InvalidPointPosition;
+import com.thedemgel.regions.exception.RegionNotFoundException;
+import com.thedemgel.regions.exception.PointsNotSetException;
+import com.thedemgel.regions.exception.RegionAlreadyExistsException;
+import com.thedemgel.regions.exception.VolumeTypeNotFoundException;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.volume.points.Points;
@@ -47,16 +51,15 @@ public class PlayerCommands {
 	public void pos(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		//SelectionPlayer comp = player.get(SelectionPlayer.class);
-		PlayerRegionComponent preg = player.get(PlayerRegionComponent.class);
-		
-		//comp.getSelection().setPos2(player.getScene().getPosition());
-		
-		if (preg.setPos(args.getString(0), player.getScene().getPosition()) == null) {
+		Points point;
+		try {
+			point = RegionAPI.setPosition(player, args.getString(0));
+		} catch (InvalidPointPosition ex) {
 			player.sendMessage(ChatStyle.CYAN, "Position ", args.getString(0).toUpperCase()," not Set. (Not an position value)");
+			return;
 		}
 		
-		player.sendMessage(ChatStyle.CYAN, "Position ", args.getString(0).toUpperCase()," Set. ");
+		player.sendMessage(ChatStyle.CYAN, "Position ", point, " set.");
 	}
 	
 	@Command(aliases = "update", usage = "", desc = "Update Selected region")
@@ -64,7 +67,7 @@ public class PlayerCommands {
 	public void updateregion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		UpdatedRegion ureg = player.get(PlayerRegionComponent.class).updateSelected();
+		/*UpdatedRegion ureg = player.get(PlayerRegionComponent.class).updateSelected();
 		
 		if (!ureg.getUpdated()) {
 			for (Points point : ureg.getErrorPoints()) {
@@ -75,11 +78,23 @@ public class PlayerCommands {
 		}
 		
 		if (ureg.getExists()) {
-			player.sendMessage(ChatStyle.RED, "Region already exists, try updating.");
+			player.sendMessage(ChatStyle.RED, "Region already exists, try creating first.");
 			return;
 		} 
 		
-		player.sendMessage(ChatStyle.CYAN, "Region updated.");
+		player.sendMessage(ChatStyle.CYAN, "Region updated.");*/
+		
+		try {
+			Region region = RegionAPI.updateRegion(player);
+			player.sendMessage(ChatStyle.CYAN, "Region updated.");
+		} catch (PointsNotSetException ex) {
+			for (Points point : ex.getPoints()) {
+				player.sendMessage(ChatStyle.RED, point, " is not set. (", point.desc());
+			}
+			player.sendMessage(ChatStyle.RED, "Failed to Update Region.");
+		} catch (RegionNotFoundException ex) {
+			player.sendMessage(ChatStyle.RED, "Region no found, try creating first.");
+		}
 	}
 	
 	@Command(aliases = "create", usage = "(name)", desc = "Create a Region. (Should have 2 Positions selected.", min = 1, max = 1)
@@ -87,7 +102,7 @@ public class PlayerCommands {
 	public void createRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		UpdatedRegion ureg = player.get(PlayerRegionComponent.class).createSelected(args.getString(0));
+		/*UpdatedRegion ureg = player.get(PlayerRegionComponent.class).createSelected(args.getString(0));
 		
 		if (!ureg.getUpdated()) {
 			// Do failed stuff
@@ -98,12 +113,24 @@ public class PlayerCommands {
 			return;
 		}
 		
-		Region region = ureg.getRegion();
+		//Region region = ureg.getRegion();
 		
 		if (!ureg.getExists()) {
 			player.sendMessage(ChatStyle.CYAN, "Region Created...");
 		} else {
 			player.sendMessage(ChatStyle.RED, "Region already exists, try updating instead.");
+		}*/
+		
+		try {
+			Region region = RegionAPI.createRegion(player);
+			player.sendMessage(ChatStyle.CYAN, "Region created.");
+		} catch (PointsNotSetException ex) {
+			for (Points point : ex.getPoints()) {
+				player.sendMessage(ChatStyle.RED, point, " is not set. (", point.desc());
+			}
+			player.sendMessage(ChatStyle.RED, "Failed to Create Region.");
+		} catch (RegionAlreadyExistsException ex) {
+			player.sendMessage(ChatStyle.RED, "Region already exists, try updating.");
 		}
 	}
 	
@@ -122,7 +149,7 @@ public class PlayerCommands {
 	public void setRegionType(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		Class<? extends Volume> volume = plugin.getVolume(args.getString(0));
+		/* Class<? extends Volume> volume = plugin.getVolume(args.getString(0));
 		
 		if (volume != null) {
 			player.get(PlayerRegionComponent.class).setVolumeType(volume);
@@ -130,7 +157,14 @@ public class PlayerCommands {
 			return;
 		}
 		
-		player.sendMessage("Volume Type not found.");
+		player.sendMessage("Volume Type not found.");*/
+		
+		try {
+			Class<? extends Volume> volume = RegionAPI.setSelectedVolumeType(player, args.getString(0));
+			player.sendMessage("Selection set to: " + volume.getSimpleName());
+		} catch (VolumeTypeNotFoundException ex) {
+			player.sendMessage("Volume Type not found.");
+		}
 	}
 	
 	@Command(aliases = "select", usage = "(name)", desc = "Select a region to edit it.")
@@ -138,14 +172,13 @@ public class PlayerCommands {
 	public void getRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		Region region;
 		try {
-			region = RegionAPI.selectRegion(player, args.getString(0));
-		} catch (NoSuchRegion ex) {
+			Region region = RegionAPI.selectRegion(player, args.getString(0));
+			player.sendMessage("Region Selected: " + region.getName());
+		} catch (RegionNotFoundException ex) {
 			plugin.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
-			return;
 		}
-		player.sendMessage("Region Selected: " + region.getName());
+		
 	}
 	
 	@Command(aliases = "remove", usage = "(name)", desc = "Remove region information based on name.")
@@ -153,12 +186,18 @@ public class PlayerCommands {
 	public void removeRegion(CommandContext args, CommandSource source) throws CommandException {
 		Player player = getPlayer(source);
 		
-		Region region = player.getWorld().get(WorldRegionComponent.class).getRegion(args.getString(0));
+		/*Region region = player.getWorld().get(WorldRegionComponent.class).getRegion(args.getString(0));
 		
 		if (region != null) {
 			player.getWorld().get(WorldRegionComponent.class).removeRegion(region);
 			player.sendMessage("Region Removed");
 		} else {
+			player.sendMessage("Region not found");
+		}*/
+		try {
+			RegionAPI.removeRegion(player, args.getString(0));
+			player.sendMessage("Region Removed");
+		} catch (RegionNotFoundException ex) {
 			player.sendMessage("Region not found");
 		}
 	}
