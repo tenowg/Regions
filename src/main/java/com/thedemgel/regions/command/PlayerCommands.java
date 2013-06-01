@@ -249,6 +249,12 @@ public class PlayerCommands {
 		}
 	}
 	
+	@Command(aliases = {"listfeatures", "lf"}, usage = "[plugin]", desc = "Lists all the available Features.")
+	@CommandPermissions("raz.command.listfeatures")
+	public void listFeatures(CommandContext args, CommandSource source) throws CommandException {
+		
+	}
+	
 	@Command(aliases = "set", usage = "(feature) (command) [args...]", desc = "Sets or Executes a command on a Feature.")
 	@CommandPermissions("raz.command.set")
 	public void set(CommandContext args, CommandSource source) throws CommandException {
