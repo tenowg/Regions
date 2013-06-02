@@ -94,6 +94,7 @@ public class PlayerRegionComponent extends EntityComponent {
 		//selectedRegion.setMinMax(pos1, pos2);
 		UpdatedRegion ureg = new UpdatedRegion(selectedRegion);
 		
+		// TODO: Move Points validation to Volume
 		for (Points pNum : selectedRegion.getVolume().getEnum()) {
 			if (!points.containsKey(pNum)) {
 				ureg.setUpdated(false);

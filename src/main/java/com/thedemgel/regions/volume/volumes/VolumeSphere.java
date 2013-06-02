@@ -5,6 +5,8 @@ import com.thedemgel.regions.volume.BSphere;
 import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.volume.points.Points;
 import com.thedemgel.regions.volume.points.PointsSphere;
+import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
 import org.spout.api.Spout;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
@@ -160,6 +162,11 @@ public class VolumeSphere extends Volume {
 
 	@Override
 	public Points getEnum(String name) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public Set<Points> validatePoints(ConcurrentMap<Points, Vector3> points) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 

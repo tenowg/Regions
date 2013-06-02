@@ -1,6 +1,8 @@
 package com.thedemgel.regions.volume;
 
 import com.thedemgel.regions.volume.points.Points;
+import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
@@ -14,9 +16,10 @@ public abstract class Volume {
 		this.setPoint(type, point);
 	}
 
-	public void setPoint(Points type, Vector3 point) {
-	}
+	public abstract void setPoint(Points type, Vector3 point);
 
+	public abstract Set<Points> validatePoints(ConcurrentMap<Points, Vector3> points);
+	
 	public abstract Vector3 getMin();
 
 	public abstract Vector3 getMax();

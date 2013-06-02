@@ -3,6 +3,8 @@ package com.thedemgel.regions.volume.volumes;
 import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.volume.points.Points;
 import com.thedemgel.regions.volume.points.PointsBox;
+import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
 import org.spout.api.Spout;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
@@ -209,5 +211,10 @@ public class VolumeBox extends Volume {
 		minVol = new Vector3(minx, miny, minz);
 		maxVol = new Vector3(maxx, maxy, maxz);
 		adjustPos();
+	}
+
+	@Override
+	public Set<Points> validatePoints(ConcurrentMap<Points, Vector3> points) {
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 }
