@@ -4,7 +4,6 @@ import org.spout.api.event.block.BlockChangeEvent;
 import org.spout.api.event.block.BlockEvent;
 import org.spout.api.event.entity.AnimationEndEvent;
 import org.spout.api.event.entity.EntityChangeWorldEvent;
-import org.spout.api.event.entity.EntityDeathEvent;
 import org.spout.api.event.entity.EntityDespawnEvent;
 import org.spout.api.event.entity.EntityEvent;
 import org.spout.api.event.entity.EntityHiddenEvent;
@@ -19,7 +18,6 @@ import org.spout.api.event.inventory.InventoryOpenEvent;
 import org.spout.api.event.player.PlayerBanKickEvent;
 import org.spout.api.event.player.PlayerChatEvent;
 import org.spout.api.event.player.PlayerEvent;
-import org.spout.api.event.player.PlayerInteractEvent;
 import org.spout.api.event.player.PlayerJoinEvent;
 import org.spout.api.event.player.PlayerKickEvent;
 import org.spout.api.event.player.PlayerLeaveEvent;
@@ -28,8 +26,8 @@ import org.spout.api.event.player.PlayerWhitelistKickEvent;
 import org.spout.api.event.player.input.PlayerClickEvent;
 import org.spout.api.event.player.input.PlayerInputEvent;
 import org.spout.api.event.player.input.PlayerKeyEvent;
-import org.spout.api.event.world.PlayerEnterWorldEvent;
-import org.spout.api.event.world.PlayerExitWorldEvent;
+import org.spout.api.event.world.EntityEnterWorldEvent;
+import org.spout.api.event.world.EntityExitWorldEvent;
 
 public class EventParser {
 	// Spout event found in SpoutAPI
@@ -74,12 +72,12 @@ public class EventParser {
 		return wp;
 	}
 	
-	public WorldPoint parse(EntityDeathEvent event) {
+	/*public WorldPoint parse(EntityDeathEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getEntity().getWorld());
 		wp.setLoc(event.getEntity().getScene().getPosition());
 		return wp;
-	}
+	}*/
 	
 	public WorldPoint parse(EntityDespawnEvent event) {
 		WorldPoint wp = new WorldPoint();
@@ -227,12 +225,12 @@ public class EventParser {
 		return wp;
 	}
 	
-	public WorldPoint parse(PlayerInteractEvent event) {
+	/*public WorldPoint parse(PlayerInteractEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
 		wp.setLoc(event.getPlayer().getScene().getPosition());
 		return wp;
-	}
+	}*/
 	
 	public WorldPoint parse(PlayerJoinEvent event) {
 		WorldPoint wp = new WorldPoint();
@@ -277,17 +275,17 @@ public class EventParser {
 	// Server Protection Events
 	// Storage Events
 	// World Events
-	public WorldPoint parse(PlayerEnterWorldEvent event) {
+	public WorldPoint parse(EntityEnterWorldEvent event) {
 		WorldPoint wp = new WorldPoint();
-		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setWorld(event.getWorld());
+		wp.setLoc(event.getEntity().getScene().getPosition());
 		return wp;
 	}
 	
-	public WorldPoint parse(PlayerExitWorldEvent event) {
+	public WorldPoint parse(EntityExitWorldEvent event) {
 		WorldPoint wp = new WorldPoint();
-		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setWorld(event.getWorld());
+		wp.setLoc(event.getEntity().getScene().getPosition());
 		return wp;
 	}
 	

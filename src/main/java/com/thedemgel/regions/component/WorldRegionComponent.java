@@ -11,9 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import org.spout.api.component.type.WorldComponent;
+import org.spout.api.component.world.WorldComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.event.Event;
 import org.spout.api.geo.discrete.Point;
@@ -47,8 +46,8 @@ public class WorldRegionComponent extends WorldComponent {
 	 */
 	public void addRegion(Region region) {
 		if (!regions.containsValue(region)) {
-			getData().get("regions", new ConcurrentSkipListMap<UUID, Region>()).put(region.getUUID(), region);
-			regions = getData().get("regions", new ConcurrentSkipListMap<UUID, Region>());
+			getDatatable().get("regions", new ConcurrentSkipListMap<UUID, Region>()).put(region.getUUID(), region);
+			regions = getDatatable().get("regions", new ConcurrentSkipListMap<UUID, Region>());
 		}
 
 		updateRegion(region);
@@ -66,8 +65,8 @@ public class WorldRegionComponent extends WorldComponent {
 			regs.remove(region);
 		}
 
-		getData().get("regions", new ConcurrentSkipListMap<UUID, Region>()).remove(region.getUUID());
-		regions = getData().get("regions", new ConcurrentSkipListMap<UUID, Region>());
+		getDatatable().get("regions", new ConcurrentSkipListMap<UUID, Region>()).remove(region.getUUID());
+		regions = getDatatable().get("regions", new ConcurrentSkipListMap<UUID, Region>());
 	}
 
 	/**
@@ -214,7 +213,7 @@ public class WorldRegionComponent extends WorldComponent {
 	 * Lets get this all setup.
 	 */
 	public void init() {
-		regions = getData().get("regions", new ConcurrentSkipListMap<UUID, Region>());
+		regions = getDatatable().get("regions", new ConcurrentSkipListMap<UUID, Region>());
 		for (Region region : regions.values()) {
 			addRegion(region);
 		}

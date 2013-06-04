@@ -1,10 +1,10 @@
 package com.thedemgel.regions.command;
 
 import com.thedemgel.regions.Regions;
-import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
 import org.spout.api.command.annotated.Command;
-import org.spout.api.command.annotated.NestedCommand;
+import org.spout.api.command.annotated.Permissible;
 import org.spout.api.exception.CommandException;
 
 public class RazCommand {
@@ -16,7 +16,8 @@ public class RazCommand {
 	}
 
 	@Command(aliases = {"region", "raz"}, usage = "", desc = "Access region commands")
-	@NestedCommand(PlayerCommands.class)
-	public void raz(CommandContext args, CommandSource source) throws CommandException {
+	@Permissible("regions.command.region")
+	public void raz(CommandSource source, CommandArguments args) throws CommandException {
+		source.sendMessage("Do Regions help here.");
 	}
 }

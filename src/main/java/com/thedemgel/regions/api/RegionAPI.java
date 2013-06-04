@@ -10,6 +10,8 @@ import com.thedemgel.regions.exception.PointsNotSetException;
 import com.thedemgel.regions.exception.RegionAlreadyExistsException;
 import com.thedemgel.regions.exception.RegionNotFoundException;
 import com.thedemgel.regions.exception.VolumeTypeNotFoundException;
+import com.thedemgel.regions.feature.Feature;
+import com.thedemgel.regions.parser.EventParser;
 import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.volume.points.Points;
 import java.util.Collections;
@@ -17,9 +19,39 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import org.spout.api.entity.Player;
+import org.spout.api.plugin.CommonPlugin;
 
 public class RegionAPI {
 
+	/**
+	 * Register your feature with Regions, this process will automatically register
+	 * any Event listed with Spout to be fired in the WorldRegionComponent and
+	 * thus be pasted to the Features attached to Regions.
+	 * 
+	 * This method will use the Default EventParser.
+	 * 
+	 * @param plugin
+	 * @param feature
+	 */
+	public static void registerFeature(CommonPlugin plugin, Class<? extends Feature> feature) {
+		Regions.getInstance().registerFeature(plugin, feature);
+	}
+	
+	/**
+	 * Register your feature with Regions, this process will automatically register
+	 * any Event listed with Spout to be fired in the WorldRegionComponent and
+	 * thus be pasted to the Features attached to Regions.
+	 * 
+	 * This method will use the EventParser that is pasted to it.
+	 * 
+	 * @param plugin
+	 * @param feature
+	 * @param parser
+	 */
+	public static void registerFeature(CommonPlugin plugin, Class<? extends Feature> feature, EventParser parser) {
+		Regions.getInstance().registerFeature(plugin, feature, parser);
+	}
+	
 	/**
 	 * Will search for and return a region by String name and place that into
 	 * Players selected region slot.

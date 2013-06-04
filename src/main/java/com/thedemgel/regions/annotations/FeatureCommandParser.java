@@ -1,17 +1,16 @@
 package com.thedemgel.regions.annotations;
 
+import com.thedemgel.regions.ChatStyle;
 import com.thedemgel.regions.Regions;
+import com.thedemgel.regions.exception.InvalidFeatureCommandException;
 import com.thedemgel.regions.feature.Feature;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.spout.api.Spout;
-import org.spout.api.chat.style.ChatStyle;
 
 public class FeatureCommandParser {
 
-	public void parse(Feature feature, FeatureCommandArgs command)  {
+	public void parse(Feature feature, FeatureCommandArgs command) throws InvalidFeatureCommandException  {
 		//Method[] methods = feature.getClass().getMethods();
 		Method[] methods = feature.getClass().getDeclaredMethods();
 
@@ -20,16 +19,20 @@ public class FeatureCommandParser {
 				// Check for Permissions
 				if (method.isAnnotationPresent(FeatureCommandPermission.class)) {
 					if(!feature.hasPermission(method.getAnnotation(FeatureCommandPermission.class).perm(), command)) {
-						command.getPlayer().sendMessage(ChatStyle.RED, "You do not have permission to use that command.");
+						command.getPlayer().sendMessage(ChatStyle.RED + "You do not have permission to use that command.");
 						return;
 					}
 				}
-				if (method.getAnnotation(FeatureCommand.class).alias().equalsIgnoreCase(command.getCommand())) {
-					try {
-						method.invoke(feature, command);
-					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-						Regions.getInstance().getLogger().log(Level.SEVERE, ex.getMessage(), ex);
+				try {
+					if (method.getAnnotation(FeatureCommand.class).alias().equalsIgnoreCase(command.getCommand())) {
+						try {
+							method.invoke(feature, command);
+						} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+							Regions.getInstance().getLogger().log(Level.SEVERE, ex.getMessage(), ex);
+						}
 					}
+				} catch (InvalidFeatureCommandException ex) {
+					throw ex;
 				}
 			}
 		}
