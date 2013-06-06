@@ -1,14 +1,16 @@
 package com.thedemgel.regions.api;
 
 import com.thedemgel.regions.Regions;
+import com.thedemgel.regions.api.event.SelectRegionEvent;
 import com.thedemgel.regions.component.PlayerRegionComponent;
 import com.thedemgel.regions.component.WorldRegionComponent;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.data.UpdatedRegion;
-import com.thedemgel.regions.exception.InvalidPointPosition;
+import com.thedemgel.regions.exception.InvalidPointPositionException;
 import com.thedemgel.regions.exception.PointsNotSetException;
 import com.thedemgel.regions.exception.RegionAlreadyExistsException;
 import com.thedemgel.regions.exception.RegionNotFoundException;
+import com.thedemgel.regions.exception.SelectionCancelledException;
 import com.thedemgel.regions.exception.VolumeTypeNotFoundException;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.parser.EventParser;
@@ -18,8 +20,10 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import org.spout.api.Spout;
 import org.spout.api.entity.Player;
 import org.spout.api.plugin.CommonPlugin;
+import org.spout.api.plugin.Plugin;
 
 public class RegionAPI {
 
@@ -60,10 +64,12 @@ public class RegionAPI {
 	 * @param regionname
 	 * @return Region that was selected
 	 * @throws RegionNotFoundException
+	 * @throws SelectionCancelledException
 	 */
-	public static Region selectRegion(Player player, String regionname) throws RegionNotFoundException {
+	public static Region selectRegion(Player player, String regionname, Plugin plugin) throws RegionNotFoundException, SelectionCancelledException {		
 		Region region = player.getWorld().get(WorldRegionComponent.class).getRegion(regionname);
-		return selectRegion(player, region);
+
+		return selectRegion(player, region, plugin);
 	}
 	
 	/**
@@ -74,10 +80,12 @@ public class RegionAPI {
 	 * @param regionuuid
 	 * @return Region that was selected
 	 * @throws RegionNotFoundException
+	 * @throws SelectionCancelledException
 	 */
-	public static Region selectRegion(Player player, UUID regionuuid) throws RegionNotFoundException {
+	public static Region selectRegion(Player player, UUID regionuuid, Plugin plugin) throws RegionNotFoundException, SelectionCancelledException {
 		Region region = player.getWorld().get(WorldRegionComponent.class).getRegion(regionuuid);
-		return selectRegion(player, region);
+		
+		return selectRegion(player, region, plugin);
 	}
 	/**
 	 * Will place the region passed it no the players Selected Region slot.
@@ -86,35 +94,42 @@ public class RegionAPI {
 	 * @param region
 	 * @return Region that was selected
 	 * @throws RegionNotFoundException
+	 * @throws SelectionCancelledException
 	 */
-	public static Region selectRegion(Player player, Region region) throws RegionNotFoundException {
+	public static Region selectRegion(Player player, Region region, Plugin plugin) throws RegionNotFoundException, SelectionCancelledException {
 		if (region == null) {
-			//player.sendMessage(ChatStyle.RED, "No region exists by that name.");
-			throw new RegionNotFoundException();
+			throw new RegionNotFoundException("Region is Null");
+		}
+		
+		SelectRegionEvent event = new SelectRegionEvent(player, region, plugin);
+		
+		Spout.getEventManager().callEvent(event);
+		
+		if (event.isCancelled()) {
+			throw new SelectionCancelledException("Selection was Cancelled, either another plugin or permissions is preventing selection.");
 		}
 
 		player.get(PlayerRegionComponent.class).setSelectedRegion(region);
-		//player.sendMessage("Region Selected: " + region.getName());
 		return region;
 	}
 
 	/**
 	 * Will set and return the Points that was set by this method. Will throw
-	 * a InvalidPointPosition Exception if an invalid ENUM or point was not settable.
+	 * a InvalidPointPositionException Exception if an invalid ENUM or point was not settable.
 	 * 
 	 * @param player
 	 * @param enumString
 	 * @return The Points that was set.
-	 * @throws InvalidPointPosition
+	 * @throws InvalidPointPositionException
 	 */
-	public static Points setPosition(Player player, String enumString) throws InvalidPointPosition {
+	public static Points setPosition(Player player, String enumString) throws InvalidPointPositionException {
 		PlayerRegionComponent preg = player.get(PlayerRegionComponent.class);
 
 		Points point = preg.setPos(enumString, player.getScene().getPosition());
 
 		if (point == null) {
 			//player.sendMessage(ChatStyle.CYAN, "Position ", args.getString(0).toUpperCase()," not Set. (Not an position value)");
-			throw new InvalidPointPosition();
+			throw new InvalidPointPositionException("Not a proper POS was passed to setPosition.");
 		}
 
 		return point;
@@ -142,12 +157,12 @@ public class RegionAPI {
 				points.add(point);
 			}
 			//player.sendMessage(ChatStyle.RED, "Failed to Update Region.");
-			throw new PointsNotSetException(points);
+			throw new PointsNotSetException(points, "These positions need to be set.");
 		}
 
 		if (ureg.getExists()) {
 			//player.sendMessage(ChatStyle.RED, "Region already exists, try creating first.");
-			throw new RegionNotFoundException();
+			throw new RegionNotFoundException("No region was found.");
 		}
 
 		return ureg.getRegion();
@@ -175,12 +190,12 @@ public class RegionAPI {
 				points.add(point);
 			}
 			//player.sendMessage(ChatStyle.RED, "Failed to Update Region.");
-			throw new PointsNotSetException(points);
+			throw new PointsNotSetException(points, "Some positions were not set.");
 		}
 
 		if (!ureg.getExists()) {
 			//player.sendMessage(ChatStyle.RED, "Region already exists, try creating first.");
-			throw new RegionAlreadyExistsException();
+			throw new RegionAlreadyExistsException("Region already exists, try creating region first");
 		}
 
 		return ureg.getRegion();
@@ -202,7 +217,7 @@ public class RegionAPI {
 		Class<? extends Volume> volume = Regions.getInstance().getVolume(volumeString);
 
 		if (volume == null) {
-			throw new VolumeTypeNotFoundException();
+			throw new VolumeTypeNotFoundException("Invalid Volume type (" + volumeString + ")");
 		}
 
 		player.get(PlayerRegionComponent.class).setVolumeType(volume);
@@ -252,7 +267,7 @@ public class RegionAPI {
 		if (region != null) {
 			player.getWorld().get(WorldRegionComponent.class).removeRegion(region);
 		} else {
-			throw new RegionNotFoundException();
+			throw new RegionNotFoundException("No matching region was found.");
 		}
 	}
 }

@@ -8,10 +8,11 @@ import com.thedemgel.regions.api.RegionAPI;
 import com.thedemgel.regions.component.PlayerRegionComponent;
 import com.thedemgel.regions.component.WorldRegionComponent;
 import com.thedemgel.regions.data.Region;
-import com.thedemgel.regions.exception.InvalidPointPosition;
+import com.thedemgel.regions.exception.InvalidPointPositionException;
 import com.thedemgel.regions.exception.PointsNotSetException;
 import com.thedemgel.regions.exception.RegionAlreadyExistsException;
 import com.thedemgel.regions.exception.RegionNotFoundException;
+import com.thedemgel.regions.exception.SelectionCancelledException;
 import com.thedemgel.regions.exception.VolumeTypeNotFoundException;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.volume.Volume;
@@ -51,7 +52,7 @@ public class PlayerCommands {
 		Points point;
 		try {
 			point = RegionAPI.setPosition(player, args.getString(0));
-		} catch (InvalidPointPosition ex) {
+		} catch (InvalidPointPositionException ex) {
 			player.sendMessage(ChatStyle.AQUA + "Position " + args.getString(0).toUpperCase() + " not Set. (Not an position value)");
 			return;
 		}
@@ -170,11 +171,11 @@ public class PlayerCommands {
 		Player player = getPlayer(source);
 		
 		try {
-			Region region = RegionAPI.selectRegion(player, args.getString(0));
-			player.sendMessage("Region Selected: " + region.getName());
-		} catch (RegionNotFoundException ex) {
+			Region region = RegionAPI.selectRegion(player, args.getString(0), plugin);
+			player.sendMessage(ChatStyle.AQUA + "Region Selected: " + region.getName());
+		} catch (RegionNotFoundException | SelectionCancelledException ex) {
 			plugin.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
-		}
+		} 
 		
 	}
 	

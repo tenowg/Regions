@@ -35,7 +35,7 @@ public class FeatureCommandArgs {
 		try {
 			return args.getString(0);
 		} catch (CommandException ex) {
-			throw new InvalidFeatureCommandException();
+			throw new InvalidFeatureCommandException("Invalid Feature Command");
 		}
 	}
 	

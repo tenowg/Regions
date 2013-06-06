@@ -10,7 +10,12 @@ public class PointsNotSetException extends Exception {
 	public PointsNotSetException() {
 	}
 
-	public PointsNotSetException(Set<Points> points) {
+	public PointsNotSetException(String message) {
+		super(message);
+	}
+	
+	public PointsNotSetException(Set<Points> points, String message) {
+		super(message);
 		this.points = points;
 	}
 
