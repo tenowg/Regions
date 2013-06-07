@@ -7,7 +7,10 @@ import com.thedemgel.regions.annotations.FeatureCommandParser;
 import com.thedemgel.regions.api.RegionAPI;
 import com.thedemgel.regions.component.PlayerRegionComponent;
 import com.thedemgel.regions.component.WorldRegionComponent;
+import com.thedemgel.regions.data.PluginFeatures;
 import com.thedemgel.regions.data.Region;
+import com.thedemgel.regions.exception.FeaturePermissionException;
+import com.thedemgel.regions.exception.InvalidFeatureCommandException;
 import com.thedemgel.regions.exception.InvalidPointPositionException;
 import com.thedemgel.regions.exception.PointsNotSetException;
 import com.thedemgel.regions.exception.RegionAlreadyExistsException;
@@ -31,6 +34,7 @@ import org.spout.api.command.annotated.Command;
 import org.spout.api.command.annotated.Permissible;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
+import org.spout.api.plugin.CommonPlugin;
 
 /**
  *
@@ -91,7 +95,7 @@ public class PlayerCommands {
 			}
 			player.sendMessage(ChatStyle.RED + "Failed to Update Region.");
 		} catch (RegionNotFoundException ex) {
-			player.sendMessage(ChatStyle.RED + "Region no found, try creating first.");
+			player.sendMessage(ChatStyle.RED + "Region not found, try creating first.");
 		}
 	}
 	
@@ -183,17 +187,9 @@ public class PlayerCommands {
 	@Permissible("regions.command.remove")
 	public void removeRegion(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = getPlayer(source);
-		
-		/*Region region = player.getWorld().get(WorldRegionComponent.class).getRegion(args.getString(0));
-		
-		if (region != null) {
-			player.getWorld().get(WorldRegionComponent.class).removeRegion(region);
-			player.sendMessage("Region Removed");
-		} else {
-			player.sendMessage("Region not found");
-		}*/
+
 		try {
-			RegionAPI.removeRegion(player, args.getString(0));
+			RegionAPI.removeRegion(player, args.getString(0), plugin);
 			player.sendMessage("Region Removed");
 		} catch (RegionNotFoundException ex) {
 			player.sendMessage("Region not found");
@@ -205,8 +201,10 @@ public class PlayerCommands {
 	public void newRegion(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = getPlayer(source);
 		
+		RegionAPI.newRegion(player);
+		
 		PlayerRegionComponent regComp = player.get(PlayerRegionComponent.class);
-		regComp.newSelection();
+
 		player.sendMessage(ChatStyle.AQUA + "New region put into player selection (Region not saved)");
 		player.sendMessage(ChatStyle.AQUA + "Current volume type: " + regComp.getVolumeType().getSimpleName());
 		player.sendMessage(ChatStyle.AQUA + "To choose a different type use: /raz types and /raz settype <type>");
@@ -250,10 +248,22 @@ public class PlayerCommands {
 	@Command(aliases = {"listfeatures", "lf"}, usage = "[plugin]", desc = "Lists all the available Features.")
 	@Permissible("regions.command.listfeatures")
 	public void listFeatures(CommandSource source, CommandArguments args) throws CommandException {
+		Player player = getPlayer(source);
+		for (Entry<CommonPlugin, PluginFeatures> plugins : plugin.getFeatures().entrySet()) {
+			player.sendMessage(ChatStyle.AQUA + "" + plugins.getKey().getName());
+			for (Entry<String, Class<? extends Feature>> features : plugins.getValue().getFeatures().entrySet()) {
+				player.sendMessage("    " + features.getValue().getSimpleName());
+			}
+		}
+	}
+	
+	@Command(aliases = {"addfeature", "af"}, usage = "[plugin] [feature]", desc = "Attempts to add a Feature to a region.")
+	@Permissible("regions.command.addfeature")
+	public void addFeature(CommandSource source, CommandArguments args) throws CommandException {
 		
 	}
 	
-	@Command(aliases = "set", usage = "(feature) (command) [args...]", desc = "Sets or Executes a command on a Feature.")
+	@Command(aliases = {"set", "fc", "featurecommand"}, usage = "(feature) (command) [args...]", desc = "Sets or Executes a command on a Feature.")
 	@Permissible("regions.command.set")
 	public void set(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = getPlayer(source);
@@ -277,7 +287,7 @@ public class PlayerCommands {
 		FeatureCommandParser parser = new FeatureCommandParser();
 		try {
 			parser.parse(feature, newargs);
-		} catch (Exception ex) {
+		} catch (InvalidFeatureCommandException | FeaturePermissionException ex) {
 			plugin.getLogger().info(ex.toString());
 		}
 	}

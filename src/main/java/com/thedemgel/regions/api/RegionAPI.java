@@ -1,6 +1,7 @@
 package com.thedemgel.regions.api;
 
 import com.thedemgel.regions.Regions;
+import com.thedemgel.regions.api.event.RemoveRegionEvent;
 import com.thedemgel.regions.api.event.SelectRegionEvent;
 import com.thedemgel.regions.component.PlayerRegionComponent;
 import com.thedemgel.regions.component.WorldRegionComponent;
@@ -201,6 +202,11 @@ public class RegionAPI {
 		return ureg.getRegion();
 	}
 
+	public static void newRegion(Player player) {
+		PlayerRegionComponent regComp = player.get(PlayerRegionComponent.class);
+		regComp.newSelection();
+	}
+	
 	/**
 	 * Sets the VolumeType of the Volume in the players Selected Region Slot.
 	 * This will reset the bounds of the Region Volume immediately.
@@ -233,10 +239,10 @@ public class RegionAPI {
 	 * @param regionString
 	 * @throws RegionNotFoundException
 	 */
-	public static void removeRegion(Player player, String regionString) throws RegionNotFoundException {
+	public static void removeRegion(Player player, String regionString, Plugin plugin) throws RegionNotFoundException {
 		Region region = player.getWorld().get(WorldRegionComponent.class).getRegion(regionString);
 
-		removeRegion(player, region);
+		removeRegion(player, region, plugin);
 	}
 	
 	/**
@@ -248,10 +254,10 @@ public class RegionAPI {
 	 * @param regionuuid
 	 * @throws RegionNotFoundException
 	 */
-	public static void removeRegion(Player player, UUID regionuuid) throws RegionNotFoundException {
+	public static void removeRegion(Player player, UUID regionuuid, Plugin plugin) throws RegionNotFoundException {
 		Region region = player.getWorld().get(WorldRegionComponent.class).getRegion(regionuuid);
 		
-		removeRegion(player, region);
+		removeRegion(player, region, plugin);
 	}
 	
 	/**
@@ -263,11 +269,15 @@ public class RegionAPI {
 	 * @param region
 	 * @throws RegionNotFoundException
 	 */
-	public static void removeRegion(Player player, Region region) throws RegionNotFoundException {
+	public static void removeRegion(Player player, Region region, Plugin plugin) throws RegionNotFoundException {
 		if (region != null) {
-			player.getWorld().get(WorldRegionComponent.class).removeRegion(region);
+			if(!Spout.getEventManager().callEvent(new RemoveRegionEvent(player, region, plugin)).hasBeenCalled()) {
+				player.getWorld().get(WorldRegionComponent.class).removeRegion(region);
+			}
 		} else {
 			throw new RegionNotFoundException("No matching region was found.");
 		}
 	}
+	
+	public static void featureCommand() {}
 }

@@ -98,6 +98,10 @@ public class Regions extends CommonPlugin {
 		eventRegister.registerEvents(feature, parser);
 	}
 	
+	public Map<CommonPlugin, PluginFeatures> getFeatures() {
+		return features;
+	}
+	
 	public Class<? extends Feature> getFeature(CommonPlugin plugin, String SimpleName) {
 		if (features.containsKey(plugin)) {
 			return features.get(plugin).getFeatures().get(SimpleName);
