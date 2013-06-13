@@ -1,7 +1,6 @@
 package com.thedemgel.regions.feature;
 
 import com.thedemgel.regions.Regions;
-import com.thedemgel.regions.component.WorldRegionComponent;
 import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.util.RegionYamlConstructor;
@@ -11,14 +10,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.logging.Level;
 import org.spout.api.Spout;
 import org.spout.api.event.Event;
-import org.spout.api.plugin.CommonPlugin;
 import org.spout.api.plugin.Plugin;
 import org.spout.api.util.list.concurrent.ConcurrentList;
 import org.yaml.snakeyaml.Yaml;
@@ -217,7 +214,7 @@ public class FeatureHolder implements Serializable {
 						plug = plug.substring(0, plug.indexOf("}"));
 					}
 					Plugin lookupPlugin = Spout.getPluginManager().getPlugin(plug);
-					Class featureClazz = Regions.getInstance().getFeature((CommonPlugin) lookupPlugin, string);
+					Class featureClazz = Regions.getInstance().getFeature((Plugin) lookupPlugin, string);
 					add(lookupPlugin, featureClazz);
 					continue;
 				}

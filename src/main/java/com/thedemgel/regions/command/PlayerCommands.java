@@ -34,7 +34,7 @@ import org.spout.api.command.annotated.Command;
 import org.spout.api.command.annotated.Permissible;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
-import org.spout.api.plugin.CommonPlugin;
+import org.spout.api.plugin.Plugin;
 
 /**
  *
@@ -249,7 +249,7 @@ public class PlayerCommands {
 	@Permissible("regions.command.listfeatures")
 	public void listFeatures(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = getPlayer(source);
-		for (Entry<CommonPlugin, PluginFeatures> plugins : plugin.getFeatures().entrySet()) {
+		for (Entry<Plugin, PluginFeatures> plugins : plugin.getFeatures().entrySet()) {
 			player.sendMessage(ChatStyle.AQUA + "" + plugins.getKey().getName());
 			for (Entry<String, Class<? extends Feature>> features : plugins.getValue().getFeatures().entrySet()) {
 				player.sendMessage("    " + features.getValue().getSimpleName());

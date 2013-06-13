@@ -13,15 +13,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
-import org.spout.api.Engine;
 import org.spout.api.command.annotated.AnnotatedCommandExecutorFactory;
-import org.spout.api.plugin.CommonPlugin;
+import org.spout.api.plugin.Plugin;
 import org.spout.api.plugin.PluginLogger;
 import org.spout.api.scheduler.TaskPriority;
 
 
-public class Regions extends CommonPlugin {
-	private Engine engine;
+public class Regions extends Plugin {
+	//private Engine engine;
 	private static Regions instance;
 	private TicksPerSecondMonitor tpsMonitor;
 	private EventParser eventParser;
@@ -30,7 +29,7 @@ public class Regions extends CommonPlugin {
 	private Map<String, Class<? extends Volume>> volumes = new HashMap<>();
 	private Map<String, String> volumeDesc = new HashMap<>();
 	
-	private Map<CommonPlugin, PluginFeatures> features = new ConcurrentHashMap<>();
+	private Map<Plugin, PluginFeatures> features = new ConcurrentHashMap<>();
 
 	@Override
 	public void onLoad() {
@@ -85,11 +84,11 @@ public class Regions extends CommonPlugin {
 		return volumeDesc;
 	}
 	
-	public void registerFeature(CommonPlugin plugin, Class<? extends Feature> feature) {
+	public void registerFeature(Plugin plugin, Class<? extends Feature> feature) {
 		registerFeature(plugin, feature, eventParser);
 	}
 	
-	public void registerFeature(CommonPlugin plugin, Class<? extends Feature> feature, EventParser parser) {
+	public void registerFeature(Plugin plugin, Class<? extends Feature> feature, EventParser parser) {
 		if (!features.containsKey(plugin)) {
 			features.put(plugin, new PluginFeatures());
 		}
@@ -98,11 +97,11 @@ public class Regions extends CommonPlugin {
 		eventRegister.registerEvents(feature, parser);
 	}
 	
-	public Map<CommonPlugin, PluginFeatures> getFeatures() {
+	public Map<Plugin, PluginFeatures> getFeatures() {
 		return features;
 	}
 	
-	public Class<? extends Feature> getFeature(CommonPlugin plugin, String SimpleName) {
+	public Class<? extends Feature> getFeature(Plugin plugin, String SimpleName) {
 		if (features.containsKey(plugin)) {
 			return features.get(plugin).getFeatures().get(SimpleName);
 		}

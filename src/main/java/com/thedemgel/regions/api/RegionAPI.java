@@ -23,7 +23,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import org.spout.api.Spout;
 import org.spout.api.entity.Player;
-import org.spout.api.plugin.CommonPlugin;
 import org.spout.api.plugin.Plugin;
 
 public class RegionAPI {
@@ -38,7 +37,7 @@ public class RegionAPI {
 	 * @param plugin
 	 * @param feature
 	 */
-	public static void registerFeature(CommonPlugin plugin, Class<? extends Feature> feature) {
+	public static void registerFeature(Plugin plugin, Class<? extends Feature> feature) {
 		Regions.getInstance().registerFeature(plugin, feature);
 	}
 	
@@ -53,7 +52,7 @@ public class RegionAPI {
 	 * @param feature
 	 * @param parser
 	 */
-	public static void registerFeature(CommonPlugin plugin, Class<? extends Feature> feature, EventParser parser) {
+	public static void registerFeature(Plugin plugin, Class<? extends Feature> feature, EventParser parser) {
 		Regions.getInstance().registerFeature(plugin, feature, parser);
 	}
 	
