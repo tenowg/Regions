@@ -3,6 +3,7 @@ package com.thedemgel.regions.feature;
 import com.thedemgel.regions.Regions;
 import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.Region;
+import com.thedemgel.regions.exception.FeatureNotFoundException;
 import com.thedemgel.regions.util.RegionYamlConstructor;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -82,11 +83,11 @@ public class FeatureHolder implements Serializable {
 	 * @param clazz
 	 * @return Feature if one if found, otherwise null
 	 */
-	public <T extends Feature> T get(Class<T> clazz) {
+	public <T extends Feature> T get(Class<T> clazz) throws FeatureNotFoundException {
 		if (features.containsKey(clazz)) {
 			return (T) features.get(clazz);
 		}
-		return null;
+		throw new FeatureNotFoundException(clazz.toString() + " not found.");
 	}
 
 	/**
@@ -95,12 +96,12 @@ public class FeatureHolder implements Serializable {
 	 * @param name String value to search
 	 * @return Feature if one if found, otherwise null
 	 */
-	public <T extends Feature> T get(String name) {
+	public <T extends Feature> T get(String name) throws FeatureNotFoundException {
 		Class<? extends Feature> feat = featureNames.get(name);
 		if (feat != null) {
 			return (T) features.get(feat);
 		}
-		return null;
+		throw new FeatureNotFoundException("Feature " + name + " not found.");
 	}
 	/**
 	 * Remove a Feature that is attached to this FeatureHolder

@@ -46,8 +46,8 @@ public class WorldRegionComponent extends WorldComponent {
 	 */
 	public void addRegion(Region region) {
 		if (!regions.containsValue(region)) {
-			getDatatable().get("regions", new ConcurrentSkipListMap<UUID, Region>()).put(region.getUUID(), region);
-			regions = getDatatable().get("regions", new ConcurrentSkipListMap<UUID, Region>());
+			getData().get("regions", new ConcurrentSkipListMap<UUID, Region>()).put(region.getUUID(), region);
+			regions = getData().get("regions", new ConcurrentSkipListMap<UUID, Region>());
 		}
 
 		updateRegion(region);
@@ -65,8 +65,8 @@ public class WorldRegionComponent extends WorldComponent {
 			regs.remove(region);
 		}
 
-		getDatatable().get("regions", new ConcurrentSkipListMap<UUID, Region>()).remove(region.getUUID());
-		regions = getDatatable().get("regions", new ConcurrentSkipListMap<UUID, Region>());
+		getData().get("regions", new ConcurrentSkipListMap<UUID, Region>()).remove(region.getUUID());
+		regions = getData().get("regions", new ConcurrentSkipListMap<UUID, Region>());
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class WorldRegionComponent extends WorldComponent {
 	 * Lets get this all setup.
 	 */
 	public void init() {
-		regions = getDatatable().get("regions", new ConcurrentSkipListMap<UUID, Region>());
+		regions = getData().get("regions", new ConcurrentSkipListMap<UUID, Region>());
 		for (Region region : regions.values()) {
 			addRegion(region);
 		}
