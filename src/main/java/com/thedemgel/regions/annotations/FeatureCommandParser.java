@@ -32,7 +32,7 @@ public class FeatureCommandParser {
 							Regions.getInstance().getLogger().log(Level.SEVERE, ex.getMessage(), ex);
 						}
 					}
-				} catch (InvalidFeatureCommandException ex) {
+				} catch (Exception ex) {
 					throw ex;
 				}
 			}

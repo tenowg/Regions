@@ -1,6 +1,7 @@
 package com.thedemgel.regions.data;
 
 import com.thedemgel.regions.Regions;
+import com.thedemgel.regions.exception.FeatureNotFoundException;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.feature.FeatureHolder;
 import com.thedemgel.regions.util.PointRepresenter;
@@ -24,7 +25,7 @@ public class Region implements Serializable {
 	transient private Volume volume;
 	private UUID ident = null;
 	private String name;
-	private UUID world;
+	private String world;
 	private ConcurrentList<PointMap> pointCache = new ConcurrentList<>();
 	private FeatureHolder holder = new FeatureHolder();
 	
@@ -65,7 +66,7 @@ public class Region implements Serializable {
 		holder.detach(clazz);
 	}
 
-	public <T extends Feature> T get(Class<T> clazz) {
+	public <T extends Feature> T get(Class<T> clazz) throws FeatureNotFoundException {
 		return holder.get(clazz);
 	}
 
@@ -108,15 +109,15 @@ public class Region implements Serializable {
 		this.ident = value;
 	}
 
-	public UUID getWorldUUID() {
+	public String getWorldUUID() {
 		return world;
 	}
 	
 	public World getWorld() {
-		return Spout.getEngine().getWorld(world);
+		return Spout.getEngine().getWorld(world, true);
 	}
 
-	public void setWorld(UUID world) {
+	public void setWorld(String world) {
 		this.world = world;
 	}
 

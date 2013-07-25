@@ -3,7 +3,7 @@ package com.thedemgel.regions.command;
 import com.thedemgel.regions.Regions;
 import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
-import org.spout.api.command.annotated.Command;
+import org.spout.api.command.annotated.CommandDescription;
 import org.spout.api.command.annotated.Permissible;
 import org.spout.api.exception.CommandException;
 
@@ -15,7 +15,7 @@ public class RazCommand {
 		this.plugin = instance;
 	}
 
-	@Command(aliases = {"region", "raz"}, usage = "", desc = "Access region commands")
+	@CommandDescription(aliases = {"region", "raz"}, usage = "", desc = "Access region commands")
 	@Permissible("regions.command.region")
 	public void raz(CommandSource source, CommandArguments args) throws CommandException {
 		source.sendMessage("Do Regions help here.");

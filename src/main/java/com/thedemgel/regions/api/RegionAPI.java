@@ -125,7 +125,7 @@ public class RegionAPI {
 	public static Points setPosition(Player player, String enumString) throws InvalidPointPositionException {
 		PlayerRegionComponent preg = player.get(PlayerRegionComponent.class);
 
-		Points point = preg.setPos(enumString, player.getScene().getPosition());
+		Points point = preg.setPos(enumString, player.getPhysics().getPosition());
 
 		if (point == null) {
 			//player.sendMessage(ChatStyle.CYAN, "Position ", args.getString(0).toUpperCase()," not Set. (Not an position value)");

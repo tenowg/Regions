@@ -147,7 +147,7 @@ public class WorldRegionComponent extends WorldComponent {
 	 * @return Regions the player is currently in
 	 */
 	public Set<Region> getRegion(Player player) {
-		return getRegion(player.getScene().getPosition());
+		return getRegion(player.getPhysics().getPosition());
 	}
 
 	/**
@@ -169,7 +169,7 @@ public class WorldRegionComponent extends WorldComponent {
 
 		region.setName(name);
 		region.setUUID(UUID.randomUUID());
-		region.setWorld(player.getWorld().getUID());
+		region.setWorld(player.getWorld().getName());
 		addRegion(region);
 		return region;
 	}
@@ -303,11 +303,7 @@ public class WorldRegionComponent extends WorldComponent {
 	 * @param dt
 	 */
 	@Override
-	public void onTick(float dt) {
-		//for (Region reg : regions.values()) {
-		//	reg.getHolder().onTick(dt, reg);
-		//}
-		
+	public void onTick(float dt) {		
 		TickRunnable ontick = new TickRunnable(dt);
 		executor.execute(ontick);
 	}

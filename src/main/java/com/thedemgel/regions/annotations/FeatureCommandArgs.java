@@ -2,12 +2,8 @@
 package com.thedemgel.regions.annotations;
 
 import com.thedemgel.regions.data.Region;
-import com.thedemgel.regions.exception.InvalidFeatureCommandException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.spout.api.command.CommandArguments;
 import org.spout.api.entity.Player;
-import org.spout.api.exception.CommandException;
 
 
 public class FeatureCommandArgs {
@@ -28,15 +24,11 @@ public class FeatureCommandArgs {
 	}
 	
 	public CommandArguments getArgs() {
-		return new CommandArguments(args.get().subList(1, args.length()));
+		return new CommandArguments("commands", args.get().subList(1, args.length()));
 	}
 	
-	public String getCommand() throws InvalidFeatureCommandException {
-		try {
-			return args.getString(0);
-		} catch (CommandException ex) {
-			throw new InvalidFeatureCommandException("Invalid Feature Command");
-		}
+	public String getCommand() {
+			return args.get().get(0);
 	}
 	
 	public Region getRegion() {

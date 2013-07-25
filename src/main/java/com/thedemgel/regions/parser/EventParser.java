@@ -61,84 +61,84 @@ public class EventParser {
 	public WorldPoint parse(AnimationEndEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getEntity().getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(EntityChangeWorldEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getEntity().getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}
 	
 	/*public WorldPoint parse(EntityDeathEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getEntity().getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}*/
 	
 	public WorldPoint parse(EntityDespawnEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getEntity().getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(EntityEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getEntity().getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(EntityHiddenEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getEntity().getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(EntityInteractBlockEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getEntity().getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(EntityInteractEntityEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getEntity().getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(EntityInteractEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getEntity().getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(EntityShownEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getEntity().getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(EntitySpawnEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getEntity().getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(EntityTeleportEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getEntity().getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}
 	
@@ -146,7 +146,7 @@ public class EventParser {
 	public WorldPoint parse(InventoryCloseEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getViewer().getWorld());
-		wp.setLoc(event.getViewer().getScene().getPosition());
+		wp.setLoc(event.getViewer().getPhysics().getPosition());
 		return wp;
 	}
 	
@@ -154,14 +154,14 @@ public class EventParser {
 	/*public WorldPoint parse(InventoryEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getInventory()..getWorld());
-		wp.setLoc(event.getViewer().getScene().getPosition());
+		wp.setLoc(event.getViewer().getPhysics().getPosition());
 		return wp;
 	}*/
 	
 	public WorldPoint parse(InventoryOpenEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getOpener().getWorld());
-		wp.setLoc(event.getOpener().getScene().getPosition());
+		wp.setLoc(event.getOpener().getPhysics().getPosition());
 		return wp;
 	}
 	
@@ -169,21 +169,21 @@ public class EventParser {
 	public WorldPoint parse(PlayerClickEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(PlayerInputEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(PlayerKeyEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}
 	
@@ -192,21 +192,21 @@ public class EventParser {
 	/*public WorldPoint parse(ClientPlayerConnectedEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event..getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}*/
 	
 	public WorldPoint parse(PlayerBanKickEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(PlayerChatEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}
 	
@@ -214,56 +214,56 @@ public class EventParser {
 	/*public WorldPoint parse(PlayerConnectEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}*/
 	
 	public WorldPoint parse(PlayerEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}
 	
 	/*public WorldPoint parse(PlayerInteractEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}*/
 	
 	public WorldPoint parse(PlayerJoinEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(PlayerKickEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(PlayerLeaveEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(PlayerLoginEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(PlayerWhitelistKickEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getPlayer().getWorld());
-		wp.setLoc(event.getPlayer().getScene().getPosition());
+		wp.setLoc(event.getPlayer().getPhysics().getPosition());
 		return wp;
 	}
 	
@@ -278,14 +278,14 @@ public class EventParser {
 	public WorldPoint parse(EntityEnterWorldEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}
 	
 	public WorldPoint parse(EntityExitWorldEvent event) {
 		WorldPoint wp = new WorldPoint();
 		wp.setWorld(event.getWorld());
-		wp.setLoc(event.getEntity().getScene().getPosition());
+		wp.setLoc(event.getEntity().getPhysics().getPosition());
 		return wp;
 	}
 	
