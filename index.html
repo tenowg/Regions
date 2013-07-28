@@ -24,52 +24,10 @@ title: Regions by tenowg
 <p>As mentioned before, Region is designed to be extended, therefore it doesn't have all the bell and whisles to its permissions system that more detailed plugins will have. As the system was ment to be used by admins, almost all permissions are based on whether you are admin or not. While it is still possible to give permissions to regular users it is not advisable, let the plugins that extend Regions do the work.</p>
 
 <h3>Example Feature Code</h3>
-<pre><code>
-  public class InRegion extends Feature implements Tickable { 
-    /*
-    * Marking something as @RegionEvent will make this method
-    * fire everytime the event Type (in this case PlayerChatEvent) is
-    * fired by Spout. Each Features events are parsed on loadup and
-    * automaticly registered with Spout's EventManager.
-    */
-    @RegionEvent
-    public void executeIt(PlayerChatEvent event, EventRegion region) {
-        chatEvent.getPlayer().sendMessage("You Chatted in " + region.getName());
-    }
-    
-    @RegionEvent
-    @EventOrder(Order.EARLY)
-    public void execute(PlayerQuitEvent event, EventRegion region) {
-        // Do something when a player quits while in region.
-        // EventOrder tells the Spout EventManager to run the event early.
-    }
-
-    @FeatureCommand(alias = "test")
-    @FearureCommandPermission("test")
-    public void commandTest(FeatureCommandArgs args) {
-        // Do some command based on permission "raz.feature.{regionname}.test"
-    }
-
-    @OnTick
-    public void tickTask(float dt) {
-        // Will always run, as the default load is Intensity.IGNORE
-    }
-
-    @OnTick(load = Intensity.LOW)
-    public void someTask(float dt) {
-        // Do Something on Tick, will not run if TPS is 8 or lower
-    }
-}
-</code></pre>
-
 {% gist 6097536 %}
 
 <h3>Authors and Contributors</h3>
 
 <p><a href="http://github.com/tenowg">tenowg</a></p>
 <p>If you would like to be included in this list feel free to submit a PR</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
 
