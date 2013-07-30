@@ -11,8 +11,8 @@ There are only a few basic commands available to Regions, Regions was designed t
 > I don't know what this is going to look like
 
 ### Some other Command
-> **permission.can.do.it** <br />
-> `/command something usage`
+> Permission: **permission.can.do.it** <br />
+> Usage: **/command something usage**
 >
 > Can you do this command?
 
