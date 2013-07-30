@@ -1,3 +1,5 @@
 ---
+layout: default
+title: Regions by tenowg
 ---
-[get the PDF]({{ site.url }}/assets/mydoc.pdf)
+This is purely a test page
