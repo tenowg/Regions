@@ -97,3 +97,7 @@ get(PlayerHasSkill.class).getPlayers();
 {% endhighlight %}
 
 The first being all the players in the Region, the second being a list of all the Players in the region that have a specific skill (at this point that would be coded into the detector). Configurations can be set within the code. As you can add a Detector manually in the onAttached() and the annotation will use that detector when it processes the annotation. If no Detector is added manually, the Annotation will add it for you.
+
+### @Data
+* Type: Field Annotation
+* Description: Used to mark a public field in a feature to be saved.
