@@ -5,9 +5,6 @@ title: Regions - Annotations
 # Annotations
 Each feature is built up by a set of annotations on Methods and fields. Method annotations will determine what each methods does, either firing on ticks, how often they fire, or if they get fired on Events.
 
-## Event Annotations
-These will likely give your regions the most life, as any Event (Event custom events, with come extra code) can be used within any Feature.
-
 ### @RegionEvent
 * Type: Method Annotation
 * Description: Used to mark a method to be fired on an Event
