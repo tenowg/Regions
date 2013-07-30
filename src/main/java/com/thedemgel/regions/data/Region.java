@@ -1,6 +1,7 @@
 package com.thedemgel.regions.data;
 
 import com.thedemgel.regions.Regions;
+import com.thedemgel.regions.datasave.RegionData;
 import com.thedemgel.regions.exception.FeatureNotFoundException;
 import com.thedemgel.regions.feature.Feature;
 import com.thedemgel.regions.feature.FeatureHolder;
@@ -28,6 +29,7 @@ public class Region implements Serializable {
 	private String world;
 	private ConcurrentList<PointMap> pointCache = new ConcurrentList<>();
 	private FeatureHolder holder = new FeatureHolder();
+	transient private RegionData regionData;
 	
 	private String volumeYaml;
 
@@ -44,6 +46,7 @@ public class Region implements Serializable {
 			}
 		}
 		holder.setRegion(this);
+		initData();
 	}
 
 	public Region(Class<? extends Volume> type) {
@@ -56,6 +59,11 @@ public class Region implements Serializable {
 			Spout.getLogger().log(Level.SEVERE, null, ex);
 		}
 		holder.setRegion(this);
+		initData();
+	}
+	
+	private void initData() {
+		regionData = new RegionData(this);
 	}
 
 	public <T extends Feature> T add(Plugin plugin, Class<T> clazz) {
@@ -134,6 +142,7 @@ public class Region implements Serializable {
 	}
 
 	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+		regionData.load();
 		in.defaultReadObject();
 		Yaml loader = new Yaml(new RegionYamlConstructor());
 		if (!"".equals(volumeYaml)) {
@@ -146,6 +155,7 @@ public class Region implements Serializable {
 	
 	// HANDLE SERIALIZING VOLUME
 	private void writeObject(ObjectOutputStream oos) throws IOException {
+		regionData.save();
 
 		Yaml beanWriter = new Yaml(new PointRepresenter());
 		

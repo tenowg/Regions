@@ -1,5 +1,6 @@
 package com.thedemgel.regions;
 
+import com.thedemgel.regions.annotations.EventOrder;
 import com.thedemgel.regions.parser.WorldUUID;
 import com.thedemgel.regions.parser.WorldPoint;
 import com.thedemgel.regions.parser.EventParser;
@@ -29,6 +30,12 @@ public class RegisterEvents {
 			if (method.isAnnotationPresent(RegionEvent.class)) {
 				final Class<?> checkClass = method.getParameterTypes()[0];
 				final Class<? extends Event> eventClass = checkClass.asSubclass(Event.class);
+                                
+                                // Order processing\
+                                Order order = Order.LATE;
+                                if (method.isAnnotationPresent(EventOrder.class)) {
+                                        order = method.getAnnotation(EventOrder.class).value();
+                                }
 
 				EventExecutor executor = new EventExecutor() {
 					@Override
@@ -61,7 +68,7 @@ public class RegisterEvents {
 					}
 				};
 				
-				plugin.getEngine().getEventManager().registerEvent(eventClass, Order.LATE, executor, plugin);
+				plugin.getEngine().getEventManager().registerEvent(eventClass, order, executor, plugin);
 			}
 		}
 	}

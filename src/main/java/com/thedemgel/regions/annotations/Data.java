@@ -9,9 +9,8 @@ import java.lang.annotation.Target;
 /**
  *
  */
-@Target(ElementType.METHOD)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FeatureCommand {
-	Intensity load() default Intensity.IGNORE;
-	String alias();
+public @interface Data {
+	Class converter() default Object.class;
 }
