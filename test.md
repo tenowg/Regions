@@ -4,7 +4,7 @@ title: Regions by tenowg
 ---
 
 ###test
-somethint else
+something else
 
 * list
 * yes
