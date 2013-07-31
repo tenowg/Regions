@@ -37,10 +37,8 @@ RegionAPI.registerFeature(this, InRegion.class);
 
 Each plugin should control adding and removing features to regions, this can easily be done.
 
-{% highlight java %}
 Region region = world.get(WorldRegionComponent.class).get(region);
 region.add(Feature.class);
-{% endhighlight %}
 
 Which should be controlled with commands or actions from each plugin with help from the RegionAPI static methods.
 
@@ -74,4 +72,4 @@ After you create the EventParser for your Custom Event you will just need to pas
 
 RegionAPI.registerFeature(this, InRegion.class, new CustomEventParser());
 
-Currently Regions supports 90% of all Spout Server events, and will have support to handle Vanilla Events in the future
+Currently Regions supports 90 percent of all Spout Server events, and will have support to handle Vanilla Events in the future.
