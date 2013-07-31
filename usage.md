@@ -14,13 +14,3 @@ public class InRegion extends Feature implements Tickable {
 }
 
 Then each method and field of the class can be annotated with any Region Annotation
-
-@Data
-public String somethingtosave;
-
-@RegionEvent
-@EventOrder(Order.EARLY)
-public void execute(PlayerQuitEvent event, EventRegion region) {
-    // Do something when a player quits while in region.
-    // EventOrder tells the Spout EventManager to run the event early.
-}
