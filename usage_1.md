@@ -1,7 +1,3 @@
----
-layout: default
-title: Regions - Usage
----
 
 ### Plugin Development
 Regions is designed from the bottom up to be developer friendly.
@@ -76,6 +72,8 @@ public class CustomEventParser extends EventParser {
 
 After you create the EventParser for your Custom Event you will just need to pass it when you register a Feature that uses that Event.
 
+{% highlight java %}
 RegionAPI.registerFeature(this, InRegion.class, new CustomEventParser());
+{% endhighlight %}
 
 Currently Regions supports 90% of all Spout Server events, and will have support to handle Vanilla Events in the future
