@@ -1,3 +1,8 @@
+---
+layout: default
+title: Regions - Usage
+---
+
 ### Plugin Development
 Regions is designed from the bottom up to be developer friendly.
 
@@ -10,7 +15,7 @@ public class InRegion extends Feature implements Tickable {
 }
 {% endhighlight %}
 
-Then each method/field of the class can be annotated with any Region Annotation
+Then each method and field of the class can be annotated with any Region Annotation
 
 {% highlight java %}
 @Data
@@ -37,7 +42,7 @@ Region region = world.get(WorldRegionComponent.class).get(region);
 region.add(Feature.class);
 {% endhighlight %}
 
-Which should be controlled with commands/actions from each plugin with help from the RegionAPI static methods.
+Which should be controlled with commands or actions from each plugin with help from the RegionAPI static methods.
 
 {% highlight java %}
 RegionAPI to be expanded on.
