@@ -1,3 +1,8 @@
+---
+layout: default
+title: Regions - Commands
+---
+
 ## Direct Region Commands
 There are only a few basic commands available to Regions, Regions was designed to be extended and used by other plugins. With that in mind most commands either focus on Features, or manual Admin activitiy, most of these commands should not be give to regular users.
 

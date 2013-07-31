@@ -1,8 +1,3 @@
----
-layout: default
-title: Regions - Usage
----
-
 ### Plugin Development
 Regions is designed from the bottom up to be developer friendly.
 
