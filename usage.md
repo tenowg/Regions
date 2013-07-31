@@ -17,7 +17,6 @@ public class InRegion extends Feature implements Tickable {
 
 Then each method and field of the class can be annotated with any Region Annotation
 
-{% highlight java %}
 @Data
 public String somethingtosave;
 
@@ -27,7 +26,6 @@ public void execute(PlayerQuitEvent event, EventRegion region) {
     // Do something when a player quits while in region.
     // EventOrder tells the Spout EventManager to run the event early.
 }
-{% endhighlight %}
 
 Then simply register the feature with Regions.
 
