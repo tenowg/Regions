@@ -22,7 +22,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<currentYear>2013</currentYear>
 		<spoutVersion>1.0.0-SNAPSHOT</spoutVersion>
-		<vanillaVersion>1.5.2-SNAPSHOT</vanillaVersion>	<buildNumber>0</buildNumber>
+		<vanillaVersion>1.5.2-SNAPSHOT</vanillaVersion>	
+		<buildNumber>0</buildNumber>
 		<mainClass>com.thedemgel.regions.Regions</mainClass>
 	</properties>
 
@@ -127,7 +128,6 @@
 									<type>${project.packaging}</type>
 								</artifactItem>
 							</artifactItems>
-							<outputDirectory>/home/tenowg/spout/plugins/</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
@@ -156,4 +156,44 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>local</value>
+				</property>
+			</activation>
+			<id>local</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<version>2.6</version>
+						<executions>
+							<execution>
+								<id>copy-plugin</id>
+								<phase>install</phase>
+								<goals>
+									<goal>copy</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>${project.groupId}</groupId>
+											<artifactId>${project.artifactId}</artifactId>
+											<version>${project.version}</version>
+											<type>${project.packaging}</type>
+										</artifactItem>
+									</artifactItems>
+									<outputDirectory>/home/tenowg/spout/plugins/</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
