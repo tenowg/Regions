@@ -31,9 +31,7 @@ public void execute(PlayerQuitEvent event, EventRegion region) {
 
 Then simply register the feature with Regions.
 
-{% highlight java %}
 RegionAPI.registerFeature(this, InRegion.class);
-{% endhighlight %}
 
 Each plugin should control adding and removing features to regions, this can easily be done.
 
