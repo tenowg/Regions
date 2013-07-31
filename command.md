@@ -89,4 +89,4 @@ There are only a few basic commands available to Regions, Regions was designed t
 
 ## Managing Features
 
-As Admins you should be able to have complete control over the features and effects that each region has, so there are some basic commands that can remove/add and modify all features on all regions.
+As Admin you should be able to have complete control over the features and effects that each region has, so there are some basic commands that can remove/add and modify all features on all regions.
