@@ -44,9 +44,7 @@ region.add(Feature.class);
 
 Which should be controlled with commands or actions from each plugin with help from the RegionAPI static methods.
 
-{% highlight java %}
 RegionAPI to be expanded on.
-{% endhighlight %}
 
 ### Special Events
 Most events will be pre-configured to work with Regions, and will be automatically registered when a feature is registered with Regions.
