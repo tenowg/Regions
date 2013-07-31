@@ -55,7 +55,6 @@ Sometimes, however, some developers like to create their own Custom Events. And 
 
 All that needs to done is to `extends EventParser` and add a parser for your Custom Event that returns either `WorldPoint` or `WorldUUID`. Once this is done and returns the right information, everything is ready to be registered with Regions.
 
-{% highlight java %}
 public class CustomEventParser extends EventParser {
     // Custom Events
     public WorldPoint parse(EnterRegionEvent event) {
@@ -72,7 +71,6 @@ public class CustomEventParser extends EventParser {
         return wp;
     }
 }
-{% endhighlight %}
 
 After you create the EventParser for your Custom Event you will just need to pass it when you register a Feature that uses that Event.
 
