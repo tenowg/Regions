@@ -81,7 +81,7 @@ There are only a few basic commands available to Regions, Regions was designed t
 >
 > This will list the available Volume types that can be used by Regions.
 
-### REGION
+### REMOVE
 > Permission: **regions.command.remove** <br />
 > Usage: **/region remove (name)**
 > Todo: Remove selected Region from game.
