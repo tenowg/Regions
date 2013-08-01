@@ -18,7 +18,6 @@ public class InRegion extends Feature implements Tickable {
 Then each method and field of the class can be annotated with any Region Annotation
 
 {% highlight java %}
-@Data
 public String somethingtosave;
 
 @RegionEvent
