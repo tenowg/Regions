@@ -101,3 +101,25 @@ The first being all the players in the Region, the second being a list of all th
 ### @Data
 * Type: Field Annotation
 * Description: Used to mark a public field in a feature to be saved.
+
+{% highlight java %}
+// Standard (uses name of field in data files)
+@Data
+public String valuetosave;
+
+// Named (uses specified name in data files to help with readability
+@Data("name")
+public String datatosave; // Will be saved as "name" in data files.
+{% endhighlight %}
+
+## Not Implemented Yet Annotations
+
+### @FeatureName("name")
+* Type: Class Annotation
+* Description: If you wish to use a different name for this feature in data files.
+
+{% highlight java %}
+@FeatureName("name")
+public class SomeFeature implements Feature { // will use "name" instead of "somefeature" in data files.
+}
+{% endhighlight %}

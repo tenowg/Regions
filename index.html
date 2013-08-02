@@ -1,14 +1,16 @@
 ---
 layout: default
-title: Regions by tenowg
+title: Regions
 ---
 <h3>What is Regions</h3>
 
 <p>Regions was a simple project to help create regions for a spout server, it is intended to be extended and used by other plugins by the creation of "Features". Each regions is basicly a container to hold several features that can be maintained and updated by external plugins.</p>
 
+<p>As a general warning, Regions is not ment to be Shaded into a plugin, it is required to have Regions installed on a server for use.</p>
+
 <h3>Features</h3>
 <ul>
-  <li>Unlimited Features (Developers can create thier own)</li>
+  <li>Unlimited Features (Developers can create their own)</li>
   <li>Annotation Driven (Very simple to create)</li>
   <li>Region/Feature commands (Each feature can be programmed with commands)</li>
   <li>Very little or no configuration needed (just drop in and restart)</li>
@@ -17,11 +19,12 @@ title: Regions by tenowg
 <h3>Commands</h3>
 
 <p>The commands in regions are designed for administration and manually "fixing" any problems that might arise (plugin conflicts?). There are some very special commands that can cause alot of damage to a server if used by the wrong user, so be careful and remember, most of these commands are pretty raw and as mentioned a dozen times, ment for admin use only.</p>
-<p><a href="http://tenowg.github.io/Regions/commands.html">Region Commands</a></p>
+<p><a href="http://tenowg.github.io/Regions/command">Region Commands</a></p>
 
 <h3>Permissions</h3>
 
 <p>As mentioned before, Region is designed to be extended, therefore it doesn't have all the bell and whisles to its permissions system that more detailed plugins will have. As the system was ment to be used by admins, almost all permissions are based on whether you are admin or not. While it is still possible to give permissions to regular users it is not advisable, let the plugins that extend Regions do the work.</p>
+<p><a href="http://tenowg.github.io/Regions/permission">Permissions</a></p>
 
 <h3>Example Feature Code</h3>
 {% highlight java %}
