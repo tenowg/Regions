@@ -23,14 +23,14 @@ You can include Regions in your plugin by adding the following Maven dependency 
 
 **Do Not Shade** Regions into your plugin, this will cause issues with server, and will limit what can be done. Require administrators to install this plugin on their server for optimum use.
 
-<pre><code><repository>
-    <id>demgel-repo</id>
-    <url>http://repository-tenowg.forge.cloudbees.com/release/</url>
-</repository>
+<pre><code>&lt;repository>
+    &lt;id>demgel-repo&lt;/id>
+    &lt;url>http://repository-tenowg.forge.cloudbees.com/release/&lt;/url>
+&lt;/repository>
 
-<dependency>
-    <groupId>com.thedemgel</groupId>
-    <artifactId>Regions</artifactId>
-    <version>1.0-SNAPSHOT</version>
-</dependency>
+&lt;dependency>
+    &lt;groupId>com.thedemgel&lt;/groupId>
+    &lt;artifactId>Regions&lt;/artifactId>
+    &lt;version>1.0-SNAPSHOT&lt;/version>
+&lt;/dependency>
 </code></pre>
