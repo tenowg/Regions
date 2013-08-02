@@ -10,16 +10,27 @@ plugin to utilize.
 On it's own Regions does very little for a server, it requires plugins to use it's functionality.
 
 ### Recommended (Jenkins)
+There are no real Recommended Builds yet, as Spout isn't ready for public use.
 
-### Developer (Jenkins)
+### Development (Jenkins)
+The development builds can be found on my Jenkins: <a href="https://tenowg.ci.cloudbees.com/job/RAZs">Jenkins Page</a>
 
 ### Source Code (Github)
+You can download source from github: <a href="https://github.com/tenowg/Regions/zipball/master">.ZIP</a> or <a href="https://github.com/tenowg/Regions/tarball/master">.TAR.GZ</a>
 
 ## Maven Integration
 You can include Regions in your plugin by adding the following Maven dependency and repository to your plugin.
 
 **Do Not Shade** Regions into your plugin, this will cause issues with server, and will limit what can be done. Require administrators to install this plugin on their server for optimum use.
 
-<pre><code>
-Maven repo/dependency code.
+<pre><code><repository>
+    <id>demgel-repo</id>
+    <url>http://repository-tenowg.forge.cloudbees.com/release/</url>
+</repository>
+
+<dependency>
+    <groupId>com.thedemgel</groupId>
+    <artifactId>Regions</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
 </code></pre>
