@@ -25,7 +25,7 @@ You can include Regions in your plugin by adding the following Maven dependency 
 
 <pre><code>&lt;repository>
     &lt;id>demgel-repo&lt;/id>
-    &lt;url>http://repository-tenowg.forge.cloudbees.com/release/&lt;/url>
+    &lt;url>http://repository-tenowg.forge.cloudbees.com/snapshot/&lt;/url>
 &lt;/repository>
 
 &lt;dependency>
