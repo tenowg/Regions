@@ -10,9 +10,8 @@ import java.util.logging.Level;
 import org.spout.api.Spout;
 
 /**
- * Parser to handle
- *
- * @OnTick
+ * Parser to handle @OnTick
+ * Any class that has a method with @OnTick attached needs to implement Tickable interface.
  */
 public class OnTickParser {
 

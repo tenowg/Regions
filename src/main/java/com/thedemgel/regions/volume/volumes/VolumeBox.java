@@ -1,5 +1,6 @@
 package com.thedemgel.regions.volume.volumes;
 
+import com.thedemgel.regions.annotations.Data;
 import com.thedemgel.regions.volume.Volume;
 import com.thedemgel.regions.volume.points.Points;
 import com.thedemgel.regions.volume.points.PointsBox;
@@ -18,11 +19,17 @@ public class VolumeBox extends Volume {
 	private Vector3 minVol = Vector3.ZERO;
 	private Vector3 maxVol = Vector3.ZERO;
 	// Used for serialization
+	@Data
 	public float minx;
+	@Data
 	public float miny;
+	@Data
 	public float minz;
+	@Data
 	public float maxx;
+	@Data
 	public float maxy;
+	@Data
 	public float maxz;
 
 	@Override

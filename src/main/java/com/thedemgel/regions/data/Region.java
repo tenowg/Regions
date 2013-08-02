@@ -91,7 +91,7 @@ public class Region implements Serializable {
 	/**
 	 * Get the FeatureHolder for this RAZ
 	 *
-	 * @return
+	 * @return FeatureHolder
 	 */
 	public FeatureHolder getHolder() {
 		return holder;

@@ -7,13 +7,9 @@ import com.thedemgel.regions.annotations.RegionEventParser;
 import com.thedemgel.regions.data.EventRegion;
 import com.thedemgel.regions.data.Region;
 import com.thedemgel.regions.detectors.Detector;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.locks.Lock;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.spout.api.Spout;
 import org.spout.api.event.Event;
 import org.spout.api.plugin.Plugin;
@@ -127,7 +123,7 @@ public class Feature {
 	 * 
 	 * @param stringpermission
 	 * @param command
-	 * @return 
+	 * @return Boolean if has permission
 	 */
 	public boolean hasPermission(String stringpermission, FeatureCommandArgs command) {
 		// TODO: find a way to make this work for ParentFeatures and regions

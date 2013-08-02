@@ -48,7 +48,19 @@ public class PlayerCommands {
 		this.plugin = instance;
 	}
 	
-	@CommandDescription(aliases = "pos", usage = "[point type]", desc = "Select the second Position of a cube. (use -b to select block)")
+	@CommandDescription(aliases = "info", usage = "[name]", desc = "Print out various information about a region.")
+	@Permissible("regions.command.info")
+	public void info(CommandSource source, CommandArguments args) throws CommandException {
+		Player player = args.checkPlayer(source);
+		String regionname = args.popString("regionname");
+		
+		Region region = player.getWorld().get(WorldRegionComponent.class).getRegion(regionname);
+		
+		player.sendMessage("Name: " + region.getName());
+		player.sendMessage("Id: " + region.getUUID().toString());
+	}
+	
+	@CommandDescription(aliases = "pos", usage = "[point type]", desc = "Select the Position point of a volume.")
 	@Permissible("regions.command.position")
 	public void pos(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = args.checkPlayer(source);

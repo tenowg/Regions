@@ -35,7 +35,8 @@ public class UpdatedRegion {
 	/**
 	 * Any positions that were not set when region was attempted
 	 * to be created.
-	 * @return 
+	 * 
+	 * @return Set<Points> of unset Points
 	 */
 	public Set<Points> getErrorPoints() {
 		return errPoints;
