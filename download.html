@@ -8,7 +8,7 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>Regions for Spout Server</title>
+		<title>Direct Download | Regions</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="" />
 		<meta http-equiv="content-language" content="en" />
@@ -33,7 +33,7 @@
 <link rel="author" href="https://github.com/tenowg"/>
 	</head>
 
-	<body class="page-index project-regions" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
+	<body class="page-download project-regions" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
 
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
@@ -46,12 +46,12 @@
 					<a class="brand" href="./">Regions</a>
 					<div class="nav-collapse">
 						<ul class="nav pull-right">
-							<li><a href="download.html" title="Download">Download </a></li>
-							<li class="dropdown active">
+							<li class="active"><a href="" title="Download">Download </a></li>
+							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Main <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li class="active"><a href="./" title="Home">Home </a></li>
-									<li class="active"><a href="./" title="GitHub project">GitHub project </a></li>
+									<li><a href="./" title="Home">Home </a></li>
+									<li><a href="./" title="GitHub project">GitHub project </a></li>
 									<li><a href="changes-report.html" title="Release notes">Release notes </a></li>
 								</ul>
 							</li>
@@ -64,7 +64,7 @@
 									<li><a href="usage.html" title="Usage">Usage </a></li>
 								</ul>
 							</li>
-							<li class="dropdown active">
+							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Maven Documentation <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li class="dropdown-submenu">
@@ -72,7 +72,7 @@
 										<ul class="dropdown-menu">
 											<li><a href="integration.html" title="Continuous Integration">Continuous Integration </a></li>
 											<li><a href="distribution-management.html" title="Distribution Management">Distribution Management </a></li>
-											<li class="active"><a href="" title="About">About </a></li>
+											<li><a href="index.html" title="About">About </a></li>
 											<li><a href="issue-tracking.html" title="Issue Tracking">Issue Tracking </a></li>
 											<li><a href="license.html" title="Project License">Project License </a></li>
 											<li><a href="mail-lists.html" title="Mailing Lists">Mailing Lists </a></li>
@@ -121,75 +121,73 @@
 				</div>
 			</div>
 		</div>
-	</header>
-
-	<div class="main-body">
-	<div id="carousel0" class="carousel slide">
-		<div class="carousel-inner">
-			<div class="item active">
-				<a href="skin/themes/"><img src="images/3d-cube-hd-wallpaper.jpg" alt="Bootswatch themes" /></a>
-				<div class="carousel-caption">
-					<h4 id="Bootstrap_themes_from_Bootswatch"><a href="skin/themes/">Bootstrap themes from Bootswatch</a></h4>  
-<p>Select a free theme for your website from an excellent gallery at [Bootswatch][bootswatch]. Out of the box support for these and other custom [Bootstrap][bootstrap] themes.</p> 
-<div class="section"> 
-</div>
-				</div>
-			</div>
-			<div class="item ">
-				<a href="skin/themes/"><img src="images/3d-cube-hd-wallpaper.jpg" alt="Bootswatch themes" /></a>
-				<div class="carousel-caption">
-					<h4 id="Bootstrap_themes_from_Bootswatch"><a href="skin/themes/">Bootstrap themes from Bootswatch</a></h4>  
-<p>Select a free theme for your website from an excellent gallery at [Bootswatch][bootswatch]. Out of the box support for these and other custom [Bootstrap][bootstrap] themes.</p>
+		<div>
+			<ul class="breadcrumb">
+				<li><a href="./" title="Regions">Regions </a></li>
+				<li class="divider">/</li>
+				<li>Direct Download</li>
+			</ul>
+		</div>
+		<hr class="toc-separator" />
+		<div id="toc-bar" class="navbar">
+			<div class="navbar-inner">
+				<div id="toc-scroll-target" class="container">
+					<ul id="toc" class="nav">
+						<li class="toplevel"><a href="#Direct_Download" title="Direct Download">Direct Download</a></li>
+						<li class="toplevel"><a href="#Recommended_Jenkins" title="Recommended (Jenkins)">Recommended (Jenkins)</a></li>
+						<li class="toplevel"><a href="#Development_Jenkins" title="Development (Jenkins)">Development (Jenkins)</a></li>
+						<li class="toplevel"><a href="#Source_Code_Github" title="Source Code (Github)">Source Code (Github)</a></li>
+						<li class="divider-vertical"></li>
+						<li class="toplevel"><a href="#Maven_Integration" title="Maven Integration">Maven Integration</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
-		<a class="left carousel-control" href="#carousel0" data-slide="prev">&lsaquo;</a>
-		<a class="right carousel-control" href="#carousel0" data-slide="next">&rsaquo;</a>
-	</div>
+	</header>
+
+	<div class="main-body">
 	<div class="row">
-		<div class="span8">
+		<div class="span12">
 			<div class="body-content">
-				<div class="section"> 
+<div class="section"> 
  <div class="page-header">
-  <h2 id="Something">Something</h2>
+  <h2 id="Direct_Download">Direct Download</h2>
+ </div> 
+ <p>Direct download is required for Server administrators that wish or need to include this plugin on their server for another plugin to utilize.</p> 
+ <p>On it’s own Regions does very little for a server, it requires plugins to use it’s functionality.</p> 
+ <div class="section"> 
+  <h3 id="Recommended_Jenkins">Recommended (Jenkins)</h3> 
+  <p>There are no real Recommended Builds yet, as Spout isn’t ready for public use.</p> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Development_Jenkins">Development (Jenkins)</h3> 
+  <p>The development builds can be found on my Jenkins: <a class="externalLink" href="https://tenowg.ci.cloudbees.com/job/RAZs">Jenkins Page</a></p> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Source_Code_Github">Source Code (Github)</h3> 
+  <p>You can download source from github: <a class="externalLink" href="https://github.com/tenowg/Regions/zipball/master">.ZIP</a> or <a class="externalLink" href="https://github.com/tenowg/Regions/tarball/master">.TAR.GZ</a></p> 
+ </div> 
+</div> 
+<div class="section"> 
+ <h2 id="Maven_Integration">Maven Integration</h2> 
+ <p>You can include Regions in your plugin by adding the following Maven dependency and repository to your plugin.</p> 
+ <p><b>Do Not Shade</b> Regions into your plugin, this will cause issues with server, and will limit what can be done. Require administrators to install this plugin on their server for optimum use.</p> 
+ <div> 
+  <pre><tt>&lt;repository&gt;
+    &lt;id&gt;demgel-repo&lt;/id&gt;
+    &lt;url&gt;http://repository-tenowg.forge.cloudbees.com/snapshot/&lt;/url&gt;
+&lt;/repository&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;com.thedemgel&lt;/groupId&gt;
+    &lt;artifactId&gt;Regions&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+&lt;/dependency&gt;
+</tt></pre> 
  </div> 
 </div>
 			</div>
 		</div>
-		<div class="span4">
-			<div class="well sidebar">
-	<h2 id="Another_Something">Another Something</h2>
-			</div>
-		</div>
-	</div>
-	<div class="row thumbnail-row">
-		<div class="span12">
-			<ul class="thumbnails">
-				<li class="span6">
-					<div class="thumbnail">
-						<div class="caption"><h2 id="and_something_else">and something else</h2>
-</div>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="row columns columns3">
-		<div class="span4">
-			<h2 id="Nothing">Nothing</h2>
-<div class="section">  
-</div>
-		</div>
-		<div class="span4">
-			<h2 id="And_More">And More</h2>
-<div class="section">  
-</div>
-		</div>
-		<div class="span4">
-			<h2 id="Nothing">Nothing</h2>
-		</div>
-	</div>
-	<div class="row">
 	</div>
 	</div>
 
@@ -203,11 +201,11 @@
 				<div class="span3 bottom-nav">
 					<ul class="nav nav-list">
 						<li class="nav-header">Main</li>
-						<li class="active">
-							<a href="#" title="Home">Home </a>
+						<li>
+							<a href="./" title="Home">Home </a>
 						</li>
-						<li class="active">
-							<a href="#" title="GitHub project">GitHub project </a>
+						<li>
+							<a href="./" title="GitHub project">GitHub project </a>
 						</li>
 						<li>
 							<a href="changes-report.html" title="Release notes">Release notes </a>
@@ -235,36 +233,7 @@
 					<ul class="nav nav-list">
 						<li class="nav-header">Maven Documentation</li>
 						<li>
-							<a href="project-info.html" title="Project Information">Project Information <i class="icon-chevron-down"></i></a>
-							<ul class="nav nav-list">
-						<li>
-							<a href="integration.html" title="Continuous Integration">Continuous Integration </a>
-						</li>
-						<li>
-							<a href="distribution-management.html" title="Distribution Management">Distribution Management </a>
-						</li>
-						<li class="active">
-							<a href="#" title="About">About </a>
-						</li>
-						<li>
-							<a href="issue-tracking.html" title="Issue Tracking">Issue Tracking </a>
-						</li>
-						<li>
-							<a href="license.html" title="Project License">Project License </a>
-						</li>
-						<li>
-							<a href="mail-lists.html" title="Mailing Lists">Mailing Lists </a>
-						</li>
-						<li>
-							<a href="team-list.html" title="Project Team">Project Team </a>
-						</li>
-						<li>
-							<a href="source-repository.html" title="Source Repository">Source Repository </a>
-						</li>
-						<li>
-							<a href="project-summary.html" title="Project Summary">Project Summary </a>
-						</li>
-							</ul>
+							<a href="project-info.html" title="Project Information">Project Information <i class="icon-chevron-right"></i></a>
 						</li>
 						<li>
 							<a href="project-reports.html" title="Project Reports">Project Reports <i class="icon-chevron-right"></i></a>

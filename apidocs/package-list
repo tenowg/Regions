@@ -1,0 +1,16 @@
+com.thedemgel.regions
+com.thedemgel.regions.annotations
+com.thedemgel.regions.api
+com.thedemgel.regions.api.event
+com.thedemgel.regions.command
+com.thedemgel.regions.component
+com.thedemgel.regions.data
+com.thedemgel.regions.datasave
+com.thedemgel.regions.detectors
+com.thedemgel.regions.exception
+com.thedemgel.regions.feature
+com.thedemgel.regions.parser
+com.thedemgel.regions.util
+com.thedemgel.regions.volume
+com.thedemgel.regions.volume.points
+com.thedemgel.regions.volume.volumes

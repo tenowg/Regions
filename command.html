@@ -8,7 +8,7 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>Regions for Spout Server</title>
+		<title>Commands | Regions</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="" />
 		<meta http-equiv="content-language" content="en" />
@@ -33,7 +33,7 @@
 <link rel="author" href="https://github.com/tenowg"/>
 	</head>
 
-	<body class="page-index project-regions" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
+	<body class="page-command project-regions" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
 
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
@@ -47,24 +47,24 @@
 					<div class="nav-collapse">
 						<ul class="nav pull-right">
 							<li><a href="download.html" title="Download">Download </a></li>
-							<li class="dropdown active">
+							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Main <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li class="active"><a href="./" title="Home">Home </a></li>
-									<li class="active"><a href="./" title="GitHub project">GitHub project </a></li>
+									<li><a href="./" title="Home">Home </a></li>
+									<li><a href="./" title="GitHub project">GitHub project </a></li>
 									<li><a href="changes-report.html" title="Release notes">Release notes </a></li>
 								</ul>
 							</li>
-							<li class="dropdown">
+							<li class="dropdown active">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a href="annotation.html" title="Annotations">Annotations </a></li>
-									<li><a href="command.html" title="Commands">Commands </a></li>
+									<li class="active"><a href="" title="Commands">Commands </a></li>
 									<li><a href="permission.html" title="Permissions">Permissions </a></li>
 									<li><a href="usage.html" title="Usage">Usage </a></li>
 								</ul>
 							</li>
-							<li class="dropdown active">
+							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Maven Documentation <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li class="dropdown-submenu">
@@ -72,7 +72,7 @@
 										<ul class="dropdown-menu">
 											<li><a href="integration.html" title="Continuous Integration">Continuous Integration </a></li>
 											<li><a href="distribution-management.html" title="Distribution Management">Distribution Management </a></li>
-											<li class="active"><a href="" title="About">About </a></li>
+											<li><a href="index.html" title="About">About </a></li>
 											<li><a href="issue-tracking.html" title="Issue Tracking">Issue Tracking </a></li>
 											<li><a href="license.html" title="Project License">Project License </a></li>
 											<li><a href="mail-lists.html" title="Mailing Lists">Mailing Lists </a></li>
@@ -121,75 +121,146 @@
 				</div>
 			</div>
 		</div>
+		<div>
+			<ul class="breadcrumb">
+				<li><a href="./" title="Regions">Regions </a></li>
+				<li class="divider">/</li>
+				<li>Commands</li>
+			</ul>
+		</div>
 	</header>
 
 	<div class="main-body">
-	<div id="carousel0" class="carousel slide">
-		<div class="carousel-inner">
-			<div class="item active">
-				<a href="skin/themes/"><img src="images/3d-cube-hd-wallpaper.jpg" alt="Bootswatch themes" /></a>
-				<div class="carousel-caption">
-					<h4 id="Bootstrap_themes_from_Bootswatch"><a href="skin/themes/">Bootstrap themes from Bootswatch</a></h4>  
-<p>Select a free theme for your website from an excellent gallery at [Bootswatch][bootswatch]. Out of the box support for these and other custom [Bootstrap][bootstrap] themes.</p> 
-<div class="section"> 
-</div>
-				</div>
-			</div>
-			<div class="item ">
-				<a href="skin/themes/"><img src="images/3d-cube-hd-wallpaper.jpg" alt="Bootswatch themes" /></a>
-				<div class="carousel-caption">
-					<h4 id="Bootstrap_themes_from_Bootswatch"><a href="skin/themes/">Bootstrap themes from Bootswatch</a></h4>  
-<p>Select a free theme for your website from an excellent gallery at [Bootswatch][bootswatch]. Out of the box support for these and other custom [Bootstrap][bootstrap] themes.</p>
-				</div>
-			</div>
-		</div>
-		<a class="left carousel-control" href="#carousel0" data-slide="prev">&lsaquo;</a>
-		<a class="right carousel-control" href="#carousel0" data-slide="next">&rsaquo;</a>
-	</div>
 	<div class="row">
 		<div class="span8">
 			<div class="body-content">
-				<div class="section"> 
+<div class="section"> 
  <div class="page-header">
-  <h2 id="Something">Something</h2>
+  <h2 id="Commands">Commands</h2>
+ </div> 
+ <p>There are only a few basic commands available to Regions, Regions was designed to be extended and used by other plugins. With that in mind most commands either focus on Features, or manual Admin activitiy, most of these commands should not be give to regular users.</p> 
+ <div class="section"> 
+  <h3 id="ADDFEATURE">ADDFEATURE</h3> 
+  <blockquote> 
+   <p>Permission: <b>regions.command.addfeature</b> <br /> Usage: <b>/region addfeature plugin feature</b></p> 
+   <p>This will attempt to add a feature to a region you have selected.</p> 
+  </blockquote> 
+ </div> 
+ <div class="section"> 
+  <h3 id="CREATE">CREATE</h3> 
+  <blockquote> 
+   <p>Permission: <b>regions.command.create</b> <br /> Usage: <b>/region create (name)</b></p> 
+   <p>This command will be used after you create a new region <tt>/region new</tt>. If a region is new and not saved yet, use this command to save it.</p> 
+  </blockquote> 
+ </div> 
+ <div class="section"> 
+  <h3 id="LIST">LIST</h3> 
+  <blockquote> 
+   <p>Permission: <b>regions.command.list</b> <br /> Usage: <b>/region list</b></p> 
+   <p>This will list all the regions in the current world.</p> 
+  </blockquote> 
+ </div> 
+ <div class="section"> 
+  <h3 id="LISTFEATURES">LISTFEATURES</h3> 
+  <blockquote> 
+   <p>Permission: <b>regions.command.listfeatures</b> <br /> Usage: <b>/region listfeatures</b></p> 
+   <p>This will list all available features in the game.</p> 
+  </blockquote> 
+ </div> 
+ <div class="section"> 
+  <h3 id="NEW">NEW</h3> 
+  <blockquote> 
+   <p>Permission: <b>regions.command.new</b> <br /> Usage: <b>/region new</b></p> 
+   <p>This will create a new region and place it into the selected region in player memory, this region is not yet saved and has no impact on the world yet, use <tt>/region create (name)</tt> to save the region.</p> 
+  </blockquote> 
+ </div> 
+ <div class="section"> 
+  <h3 id="POINTS">POINTS</h3> 
+  <blockquote> 
+   <p>Permission: <b>regions.command.points</b> <br /> Usage: <b>/region points</b></p> 
+   <p>This will list all the points that need to be set in a Region while editing.</p> 
+  </blockquote> 
+ </div> 
+ <div class="section"> 
+  <h3 id="POS">POS</h3> 
+  <blockquote> 
+   <p>Permission: <b>regions.command.position</b> <br /> Usage: <b>/region pos ONE</b></p> 
+   <p>Select the Position point of a volume.</p> 
+   <p>Every Volume type can come with several different positions available to be set, and likely each one will be required to be set before the region can be saved/updated.</p> 
+  </blockquote> 
+ </div> 
+ <div class="section"> 
+  <h3 id="UPDATE">UPDATE</h3> 
+  <blockquote> 
+   <p>Permission: <b>regions.command.update</b> <br /> Usage: <b>/region update</b></p> 
+   <p>After a region has been selected <tt>/region select</tt> and edited this command will force the update of the region.</p> 
+  </blockquote> 
+ </div> 
+ <div class="section"> 
+  <h3 id="SELECT">SELECT</h3> 
+  <blockquote> 
+   <p>Permission: <b>regions.command.select</b> <br /> Usage: <b>/region select (name)</b> Todo: Allow a select to be used with the name argument, if player is in one region, it is selected.</p> 
+   <p>This will select a region to be edited or commands to be used against.</p> 
+  </blockquote> 
+ </div> 
+ <div class="section"> 
+  <h3 id="SET">SET</h3> 
+  <blockquote> 
+   <p>Permission: <b>regions.command.set</b> <br /> Usage: <b>/region set (feature) (commands) [args]</b></p> 
+   <p>This is used to execute a command on a feature that you have selected. It is intended to set a variable or config, but can be used for anything that can be coded into a @FeatureCommand</p> 
+  </blockquote> 
+ </div> 
+ <div class="section"> 
+  <h3 id="SETTYPE">SETTYPE</h3> 
+  <blockquote> 
+   <p>Permission: <b>regions.command.settype</b> <br /> Usage: <b>/region settype (type)</b></p> 
+   <p>This will set the type of a new/selected region that is being edited, once this is set you will need to reset all positions using <tt>/regions pos POS</tt>, you can get a list of all types with <tt>/region types</tt></p> 
+  </blockquote> 
+ </div> 
+ <div class="section"> 
+  <h3 id="TYPES">TYPES</h3> 
+  <blockquote> 
+   <p>Permission: <b>regions.command.types</b> <br /> Usage: <b>/region types</b></p> 
+   <p>This will list the available Volume types that can be used by Regions.</p> 
+  </blockquote> 
+ </div> 
+ <div class="section"> 
+  <h3 id="REMOVE">REMOVE</h3> 
+  <blockquote> 
+   <p>Permission: <b>regions.command.remove</b> <br /> Usage: <b>/region remove (name)</b> Todo: Remove selected Region from game.</p> 
+   <p>This will remove a region from the game.</p> 
+  </blockquote> 
  </div> 
 </div>
 			</div>
 		</div>
 		<div class="span4">
-			<div class="well sidebar">
-	<h2 id="Another_Something">Another Something</h2>
+			<div id="toc-sidebar">
+				<div class="well">
+					<ul class="nav nav-list">
+						<li class="nav-header">Table of Contents</li>
+		<li class="dropdown"><a href="#Commands" title="Commands">Commands <b class="caret"></b></a>
+			<ul class="nav nav-list">
+		<li><a href="#ADDFEATURE" title="ADDFEATURE">ADDFEATURE</a>
+		<li><a href="#CREATE" title="CREATE">CREATE</a>
+		<li><a href="#LIST" title="LIST">LIST</a>
+		<li><a href="#LISTFEATURES" title="LISTFEATURES">LISTFEATURES</a>
+		<li><a href="#NEW" title="NEW">NEW</a>
+		<li><a href="#POINTS" title="POINTS">POINTS</a>
+		<li><a href="#POS" title="POS">POS</a>
+		<li><a href="#UPDATE" title="UPDATE">UPDATE</a>
+		<li><a href="#SELECT" title="SELECT">SELECT</a>
+		<li><a href="#SET" title="SET">SET</a>
+		<li><a href="#SETTYPE" title="SETTYPE">SETTYPE</a>
+		<li><a href="#TYPES" title="TYPES">TYPES</a>
+		<li><a href="#REMOVE" title="REMOVE">REMOVE</a>
+				<li class="divider"></li>
+			</ul>
+		</li>
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row thumbnail-row">
-		<div class="span12">
-			<ul class="thumbnails">
-				<li class="span6">
-					<div class="thumbnail">
-						<div class="caption"><h2 id="and_something_else">and something else</h2>
-</div>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="row columns columns3">
-		<div class="span4">
-			<h2 id="Nothing">Nothing</h2>
-<div class="section">  
-</div>
-		</div>
-		<div class="span4">
-			<h2 id="And_More">And More</h2>
-<div class="section">  
-</div>
-		</div>
-		<div class="span4">
-			<h2 id="Nothing">Nothing</h2>
-		</div>
-	</div>
-	<div class="row">
 	</div>
 	</div>
 
@@ -203,11 +274,11 @@
 				<div class="span3 bottom-nav">
 					<ul class="nav nav-list">
 						<li class="nav-header">Main</li>
-						<li class="active">
-							<a href="#" title="Home">Home </a>
+						<li>
+							<a href="./" title="Home">Home </a>
 						</li>
-						<li class="active">
-							<a href="#" title="GitHub project">GitHub project </a>
+						<li>
+							<a href="./" title="GitHub project">GitHub project </a>
 						</li>
 						<li>
 							<a href="changes-report.html" title="Release notes">Release notes </a>
@@ -220,8 +291,8 @@
 						<li>
 							<a href="annotation.html" title="Annotations">Annotations </a>
 						</li>
-						<li>
-							<a href="command.html" title="Commands">Commands </a>
+						<li class="active">
+							<a href="#" title="Commands">Commands </a>
 						</li>
 						<li>
 							<a href="permission.html" title="Permissions">Permissions </a>
@@ -235,36 +306,7 @@
 					<ul class="nav nav-list">
 						<li class="nav-header">Maven Documentation</li>
 						<li>
-							<a href="project-info.html" title="Project Information">Project Information <i class="icon-chevron-down"></i></a>
-							<ul class="nav nav-list">
-						<li>
-							<a href="integration.html" title="Continuous Integration">Continuous Integration </a>
-						</li>
-						<li>
-							<a href="distribution-management.html" title="Distribution Management">Distribution Management </a>
-						</li>
-						<li class="active">
-							<a href="#" title="About">About </a>
-						</li>
-						<li>
-							<a href="issue-tracking.html" title="Issue Tracking">Issue Tracking </a>
-						</li>
-						<li>
-							<a href="license.html" title="Project License">Project License </a>
-						</li>
-						<li>
-							<a href="mail-lists.html" title="Mailing Lists">Mailing Lists </a>
-						</li>
-						<li>
-							<a href="team-list.html" title="Project Team">Project Team </a>
-						</li>
-						<li>
-							<a href="source-repository.html" title="Source Repository">Source Repository </a>
-						</li>
-						<li>
-							<a href="project-summary.html" title="Project Summary">Project Summary </a>
-						</li>
-							</ul>
+							<a href="project-info.html" title="Project Information">Project Information <i class="icon-chevron-right"></i></a>
 						</li>
 						<li>
 							<a href="project-reports.html" title="Project Reports">Project Reports <i class="icon-chevron-right"></i></a>
