@@ -8,7 +8,7 @@
 	<packaging>jar</packaging>
 
 	<name>Regions</name>
-	<url>http://github.com/tenowg/Regions</url>
+	<url>http://tenowg.github.io/Regions</url>
 	<inceptionYear>2013</inceptionYear>
 	<description>Regions for Spout</description>
     
@@ -138,19 +138,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

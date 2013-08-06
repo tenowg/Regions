@@ -9,12 +9,11 @@ RegionEvents are automatically registered with Spout at start up.
 
 To use a RegionEvent you just need to use the following format:
 
-{% highlight java %}
-@RegionEvent
+<div class="source"><pre class="java"><code>@RegionEvent
 public execute(PlayerChatEvent event, EventRegion region) {
     // Do something on Player Chat
 }
-{% endhighlight %}
+</code></pre></div>
 
 If a player chats while in the region, this code will get executed.
 
@@ -28,12 +27,11 @@ OnTick can also be used with the optional Intensity Enum `@OnTick(load = Intensi
 * Lowest: Will not run if server TPS is 8 or lower
 * Highest: Will not run if server TPS is 16 or lower
 
-{% highlight java %}
-@OnTick(load = Intensity.LOW)
+<div class="source"><pre class="java"><code>@OnTick(load = Intensity.LOW)
 public void someTask(float dt) {
     // Do Something on Tick, will not run if TPS is 8 or lower
 }
-{% endhighlight %}
+</code></pre></div>
 
 ### @FeatureCommand
 * Type: Method Annotation
@@ -43,13 +41,12 @@ public void someTask(float dt) {
 
 A Feature command is a method that can be called from within game with `/region set featurename args...`. The region must first be selected with `/region select` command.
 
-{% highlight java %}
-@FeatureCommand(alias = "test")
+<div class="source"><pre class="java"><code>@FeatureCommand(alias = "test")
 @FearureCommandPermission("test")
 public void commandTest(FeatureCommandArgs args) {
     // Do some command based on permission "raz.feature.{regionname}.test"
 }
-{% endhighlight %}
+</code></pre></div>
 
 ### @FeatureCommandPermission
 * Type: Method Annotation
@@ -62,13 +59,12 @@ FeatureCommandPermission adds permissions to feature commands, the Permission St
 
 FeatureCommandPermission uses a Overridable method of hasPermission method, so you can change how permissions are handled on a Feature by Feature basis.
 
-{% highlight java %}
-@FeatureCommand(alias = "test")
+<div class="source"><pre class="java"><code>@FeatureCommand(alias = "test")
 @FearureCommandPermission("test")
 public void commandTest(FeatureCommandArgs args) {
     // Do some command based on permission "raz.feature.{regionname}.test"
 }
-{% endhighlight %}
+</code></pre></div>
 
 ### @RegionDetector
 * Type: Method Annotation
@@ -77,20 +73,18 @@ public void commandTest(FeatureCommandArgs args) {
 
 This annotation will add and then process each Detector class that is attached to the @RegionDetector annoation.
 
-{% highlight java %}
-@RegionDetector({PlayerInRegion.class, PlayerHasSkill.class})
+<div class="source"><pre class="java"><code>@RegionDetector({PlayerInRegion.class, PlayerHasSkill.class})
 @FeatureCommand(alias = "test")
 public void commandTest(FeatureCommandArgs args) {
     // Do the command.
 }
-{% endhighlight %}
+</code></pre></div>
 
 In that example, it would generate two list which could then be called from the code in the feature with
 
-{% highlight java %}
-get(PlayerInRegion.class).getPlayers();
+<div class="source"><pre class="java"><code>get(PlayerInRegion.class).getPlayers();
 get(PlayerHasSkill.class).getPlayers();
-{% endhighlight %}
+</code></pre></div>
 
 The first being all the players in the Region, the second being a list of all the Players in the region that have a specific skill (at this point that would be coded into the detector). Configurations can be set within the code. As you can add a Detector manually in the onAttached() and the annotation will use that detector when it processes the annotation. If no Detector is added manually, the Annotation will add it for you.
 
@@ -98,15 +92,14 @@ The first being all the players in the Region, the second being a list of all th
 * Type: Field Annotation
 * Description: Used to mark a public field in a feature to be saved.
 
-{% highlight java %}
-// Standard (uses name of field in data files)
+<div class="source"><pre class="java"><code>// Standard (uses name of field in data files)
 @Data
 public String valuetosave;
 
 // Named (uses specified name in data files to help with readability
 @Data("name")
 public String datatosave; // Will be saved as "name" in data files.
-{% endhighlight %}
+</code></pre></div>
 
 ## Not Implemented Yet Annotations
 
@@ -114,8 +107,7 @@ public String datatosave; // Will be saved as "name" in data files.
 * Type: Class Annotation
 * Description: If you wish to use a different name for this feature in data files.
 
-{% highlight java %}
-@FeatureName("name")
+<div class="source"><pre class="java"><code>@FeatureName("name")
 public class SomeFeature implements Feature { // will use "name" instead of "somefeature" in data files.
 }
-{% endhighlight %}
+</code></pre></div>

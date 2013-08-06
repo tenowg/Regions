@@ -6,9 +6,9 @@
 	<bannerLeft>
 		<!-- Reflow Maven Skin, but with "Reflow" highlighted -->
 		<name>
-			Regions
+			${project.artifactId}
 		</name>
-		<href>http://github.com/tenowg/Regions/</href>
+		<href>${project.url}</href>
 	</bannerLeft>
 	<publishDate position="bottom" format="yyyy-MM-dd" />
 	<version position="bottom" />
@@ -23,9 +23,9 @@
 			<highlightJs>true</highlightJs>
 			<brand>
 				<name>
-					Regions
+					${project.artifactId}
 				</name>
-				<href>http://github.com/tenowg/Regions</href>
+				<href>${project.url}</href>
 			</brand>
 			<slogan>A Simple Regions/Zones/Area plugin for Spout Server.</slogan>
 			<titleTemplate>%2$s | %1$s</titleTemplate>
@@ -47,18 +47,32 @@
 					<sections>
 						<carousel />
 						<body />
-						<sidebar />
-						<thumbs>2</thumbs>
-						<columns>3</columns>
 					</sections>
 				</index>
 				<developer-info>
 					<toc>sidebar</toc>
 				</developer-info>
+				<integration>
+					<toc>false</toc>
+				</integration>
+				<issue-tracking>
+					<toc>false</toc>
+				</issue-tracking>
+				
+				
+				
 				<command>
 					<toc>sidebar</toc>
 					<breadcrumbs>true</breadcrumbs>
 				</command>
+				<annotation>
+					<toc>sidebar</toc>
+					<breadcrumbs>true</breadcrumbs>
+				</annotation>
+				<permission>
+					<toc>sidebar</toc>
+					<breadcrumbs>true</breadcrumbs>
+				</permission>
 				<usage>
 					<toc>sidebar</toc>
 					<breadcrumbs>true</breadcrumbs>
@@ -83,7 +97,7 @@
   
 		<menu name="Main" inherit="top">
 			<item name="Home" href="./" />
-			<item name="GitHub project" href="http://github.com/tenowg/Regions/" />
+			<item name="GitHub project" href="${project.scm.url}" />
 			<item name="Release notes" href="changes-report.html" />
 		</menu>
 		<menu name="Download" inherit="top">
@@ -99,7 +113,7 @@
 		<menu name="Contribute" inherit="bottom">
 			<item name="Contribute" href="contribute.html" />
 			<item name="Issues" href="http://github.com/tenowg/Regions/issues/" />
-			<item name="Fork on GitHub" href="http://github.com/tenowg/Regions/" />
+			<item name="Fork on GitHub" href="${project.scm.url}" />
 			<item name="Donate" href="" />
 		</menu>
 		<menu name="Maven Documentation" ref="reports" inherit="bottom"/>
