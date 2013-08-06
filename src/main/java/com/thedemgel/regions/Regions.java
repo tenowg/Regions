@@ -23,13 +23,14 @@ public class Regions extends Plugin {
 	//private Engine engine;
 	private static Regions instance;
 	private TicksPerSecondMonitor tpsMonitor;
-	private EventParser eventParser;
+	//private EventParser eventParser;
 	private RegisterEvents eventRegister;
+	private FeatureRegister featureRegister;
 	
 	private Map<String, Class<? extends Volume>> volumes = new HashMap<>();
 	private Map<String, String> volumeDesc = new HashMap<>();
 	
-	private Map<Plugin, PluginFeatures> features = new ConcurrentHashMap<>();
+	//private Map<Plugin, PluginFeatures> features = new ConcurrentHashMap<>();
 
 	@Override
 	public void onLoad() {
@@ -42,15 +43,12 @@ public class Regions extends Plugin {
 	
 	@Override
 	public void onEnable() {
-		eventParser = new EventParser();
-		eventRegister = new RegisterEvents(this);
+		//eventParser = new EventParser();
+		setEventRegister(new RegisterEvents(this));
+		
 		//Commands
-		//CommandRegistrationsFactory<Class<?>> commandRegFactory = new AnnotatedCommandRegistrationFactory(getEngine(), new SimpleInjector(this), new SimpleAnnotatedCommandExecutorFactory());
-		//RootCommand root = engine.getRootCommand();
-		//AnnotatedCommandExecutorFactory.create(new RazCommand(this));
 		AnnotatedCommandExecutorFactory.create(new RazCommand(this));
 		AnnotatedCommandExecutorFactory.create(new PlayerCommands(this), engine.getCommandManager().getCommand("region"));
-		//root.addSubCommands(this, RazCommand.class, commandRegFactory);
 
 		engine.getEventManager().registerEvents(new PlayerListener(this), this);
 		
@@ -84,7 +82,7 @@ public class Regions extends Plugin {
 		return volumeDesc;
 	}
 	
-	public void registerFeature(Plugin plugin, Class<? extends Feature> feature) {
+	/*public void registerFeature(Plugin plugin, Class<? extends Feature> feature) {
 		registerFeature(plugin, feature, eventParser);
 	}
 	
@@ -107,7 +105,7 @@ public class Regions extends Plugin {
 		}
 		
 		return null;
-	}
+	}*/
 	
 	public Class<? extends Volume> getVolume(String name) {
 		return volumes.get(name);
@@ -115,5 +113,21 @@ public class Regions extends Plugin {
 	
 	public TicksPerSecondMonitor getTPDMonitor() {
 		return tpsMonitor;
+	}
+
+	public RegisterEvents getEventRegister() {
+		return eventRegister;
+	}
+
+	public void setEventRegister(RegisterEvents eventRegister) {
+		this.eventRegister = eventRegister;
+	}
+
+	public FeatureRegister getFeatureRegister() {
+		return featureRegister;
+	}
+
+	public void setFeatureRegister(FeatureRegister featureRegister) {
+		this.featureRegister = featureRegister;
 	}
 }

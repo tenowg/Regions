@@ -38,7 +38,7 @@ public class RegionAPI {
 	 * @param feature
 	 */
 	public static void registerFeature(Plugin plugin, Class<? extends Feature> feature) {
-		Regions.getInstance().registerFeature(plugin, feature);
+		Regions.getInstance().getFeatureRegister().registerFeature(plugin, feature);
 	}
 	
 	/**
@@ -53,7 +53,7 @@ public class RegionAPI {
 	 * @param parser
 	 */
 	public static void registerFeature(Plugin plugin, Class<? extends Feature> feature, EventParser parser) {
-		Regions.getInstance().registerFeature(plugin, feature, parser);
+		Regions.getInstance().getFeatureRegister().registerFeature(plugin, feature, parser);
 	}
 	
 	/**

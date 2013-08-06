@@ -15,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.spout.api.Spout;
 import org.spout.api.event.Event;
 import org.spout.api.plugin.Plugin;
@@ -47,14 +48,22 @@ public class FeatureHolder implements Serializable {
 	 * Add a Feature to this FeatureHolder
 	 *
 	 * @param clazz
+	 * @param plugin
 	 * @return Either the Feature added, Previous Feature, or null if
 	 * failure.
 	 */
-	public <T extends Feature> T add(Plugin plugin, Class<T> clazz) {
+	public <T extends Feature> T add(Plugin plugin, Class<T> clazz) throws FeatureNotFoundException {
 
+		// Check if feature is registered (or issues will arise later)
+		Class<? extends Feature> featureClazz = Regions.getInstance().getFeatureRegister().getFeature(plugin, clazz);
+		
+		if (featureClazz == null) {
+			throw new FeatureNotFoundException(clazz.toString() + " not found.");
+		}
+		
 		Feature feature = null;
 		try {
-			feature = clazz.newInstance();
+			feature = featureClazz.newInstance();
 		} catch (InstantiationException | IllegalAccessException ex) {
 			Spout.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
 		}
@@ -64,9 +73,9 @@ public class FeatureHolder implements Serializable {
 		}
 
 		if (feature.attachTo(plugin, this)) {
-			if (!features.containsKey(clazz)) {
-				features.put(clazz, feature);
-				featureNames.put(feature.getClass().getSimpleName(), feature.getClass());
+			if (!features.containsKey(featureClazz)) {
+				features.put(featureClazz, feature);
+				featureNames.put(Regions.getInstance().getFeatureRegister().parseName(featureClazz), feature.getClass());
 
 				feature.onAttached();
 			}
@@ -111,7 +120,7 @@ public class FeatureHolder implements Serializable {
 	public <T extends Feature> void detach(Class<T> clazz) {
 		features.get(clazz).onDetached();
 		features.remove(clazz);
-		featureNames.remove(clazz.getSimpleName());
+		featureNames.remove(Regions.getInstance().getFeatureRegister().parseName(clazz));
 	}
 
 	/**
@@ -136,6 +145,7 @@ public class FeatureHolder implements Serializable {
 	 * Executes all execute methods while passing EVENT to all Features.
 	 *
 	 * @param event Event passed to Features to be executed.
+	 * @param regions EventRegion
 	 */
 
 	public void execute(Event event, EventRegion regions) {
@@ -215,15 +225,19 @@ public class FeatureHolder implements Serializable {
 						plug = plug.substring(0, plug.indexOf("}"));
 					}
 					Plugin lookupPlugin = Spout.getPluginManager().getPlugin(plug);
-					Class featureClazz = Regions.getInstance().getFeature((Plugin) lookupPlugin, string);
-					add(lookupPlugin, featureClazz);
+					Class featureClazz = Regions.getInstance().getFeatureRegister().getFeature(lookupPlugin, string);
+					try {
+						add(lookupPlugin, featureClazz);
+					} catch (FeatureNotFoundException ex) {
+						System.out.println("Feature not attachable.");
+					}
 					continue;
 				}
 				//Spout.getLogger().info(feat.toString());
 				Plugin plug = Spout.getPluginManager().getPlugin(feat.getPluginName());
 				if (feat.attachTo(plug, this)) {
 					features.put(feat.getClass(), feat);
-					featureNames.put(feat.getClass().getSimpleName(), feat.getClass());
+					featureNames.put(Regions.getInstance().getFeatureRegister().parseName(feat.getClass()), feat.getClass());
 				}
 			}
 		}

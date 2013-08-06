@@ -219,7 +219,7 @@ public class PlayerCommands {
 	@Permissible("regions.command.listfeatures")
 	public void listFeatures(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = getPlayer(source);
-		for (Entry<Plugin, PluginFeatures> plugins : plugin.getFeatures().entrySet()) {
+		for (Entry<Plugin, PluginFeatures> plugins : plugin.getFeatureRegister().getFeatures().entrySet()) {
 			player.sendMessage(ChatStyle.AQUA + "" + plugins.getKey().getName());
 			for (Entry<String, Class<? extends Feature>> features : plugins.getValue().getFeatures().entrySet()) {
 				player.sendMessage("    " + features.getValue().getSimpleName());

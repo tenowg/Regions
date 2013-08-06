@@ -14,6 +14,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.UUID;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.spout.api.Spout;
 import org.spout.api.geo.World;
 import org.spout.api.plugin.Plugin;
@@ -67,7 +68,12 @@ public class Region implements Serializable {
 	}
 
 	public <T extends Feature> T add(Plugin plugin, Class<T> clazz) {
-		return holder.add(plugin, clazz);
+		try {
+			return holder.add(plugin, clazz);
+		} catch (FeatureNotFoundException ex) {
+			Logger.getLogger(Region.class.getName()).log(Level.SEVERE, null, ex);
+			return null;
+		}
 	}
 
 	public <T extends Feature> void remove(Class<T> clazz) {
