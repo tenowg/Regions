@@ -51,7 +51,7 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Main <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li class="active"><a href="./" title="Home">Home </a></li>
-									<li class="active"><a href="./" title="GitHub project">GitHub project </a></li>
+									<li><a href="https://github.com/tenowg/Regions" title="GitHub project" class="externalLink">GitHub project </a></li>
 									<li><a href="changes-report.html" title="Release notes">Release notes </a></li>
 								</ul>
 							</li>
@@ -147,49 +147,37 @@
 		<a class="right carousel-control" href="#carousel0" data-slide="next">&rsaquo;</a>
 	</div>
 	<div class="row">
-		<div class="span8">
+		<div class="span12">
 			<div class="body-content">
 				<div class="section"> 
  <div class="page-header">
-  <h2 id="Something">Something</h2>
+  <h2 id="Regions">Regions</h2>
+ </div> 
+ <div class="section"> 
+  <h3 id="What_is_Regions">What is Regions</h3> 
+  <p>Regions is a simple way for developers to create Region/Areas/Zones for there plugin without the need to write their own code to handle regions or area themselves.</p> 
+  <p>Regions uses Annotations and basic classes to setup and control regions, each plugin can control their features with ease. As a matter of fact Regions is ment to be control 100% by the plugins that extend it, from commands to automatons everything is hidden from the player (the player thinks you wrote it!)</p> 
+ </div> 
+ <div class="section"> 
+  <h3 id="What_Regions_is_NOT">What Regions is NOT</h3> 
+  <p>Regions is not WorldGuard, Regions was not intended to be a full world protection plugin. While it can be emulated and could do everything WorldGuard does, it was ment to be a way to make <tt>FULL CUSTOM</tt> features to add to regions, making each region a container for custom code.</p> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Some_FeatureRegion_idea">Some Feature/Region idea</h3> 
+  <p>A Healing region for characters that belong to a specific faction (heals every 5 seconds)</p> 
+  <p>Prevent damage to players from other players based completely on what Components/level difference/residency</p> 
+  <p>Force specific mobs to spawn (Bosses) that can only stay within that Region, while limiting the amount that spawn in that region.</p> 
+ </div> 
+ <div class="section"> 
+  <h3 id="What_can_be_done">What can be done</h3> 
+  <p>Features can have in-game commands that can work based of permissions. This was added mainly so that admins could set settings on features without editing yml files or code.</p> 
+  <p>Save settings, in the example of InRegion, the number of times people have chatted in the region is counted, and then saved to be loaded next time.</p> 
+  <p>Detectors, these are small pre-processing code to be run before methods (such as OnTick methods) to help gather dynamic information to be used with in those methods (such as: what players are in the region, does this player have this skill, etc)</p> 
+  <p>You can make you Regions come alive, any attribute that you can give a player can (with alittle code) be added to a region (You could even give a region health! By writing a Health feature)</p> 
  </div> 
 </div>
 			</div>
 		</div>
-		<div class="span4">
-			<div class="well sidebar">
-	<h2 id="Another_Something">Another Something</h2>
-			</div>
-		</div>
-	</div>
-	<div class="row thumbnail-row">
-		<div class="span12">
-			<ul class="thumbnails">
-				<li class="span6">
-					<div class="thumbnail">
-						<div class="caption"><h2 id="and_something_else">and something else</h2>
-</div>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="row columns columns3">
-		<div class="span4">
-			<h2 id="Nothing">Nothing</h2>
-<div class="section">  
-</div>
-		</div>
-		<div class="span4">
-			<h2 id="And_More">And More</h2>
-<div class="section">  
-</div>
-		</div>
-		<div class="span4">
-			<h2 id="Nothing">Nothing</h2>
-		</div>
-	</div>
-	<div class="row">
 	</div>
 	</div>
 
@@ -206,8 +194,8 @@
 						<li class="active">
 							<a href="#" title="Home">Home </a>
 						</li>
-						<li class="active">
-							<a href="#" title="GitHub project">GitHub project </a>
+						<li>
+							<a href="https://github.com/tenowg/Regions" title="GitHub project" class="externalLink">GitHub project </a>
 						</li>
 						<li>
 							<a href="changes-report.html" title="Release notes">Release notes </a>

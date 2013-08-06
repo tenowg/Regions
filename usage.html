@@ -51,7 +51,7 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Main <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a href="./" title="Home">Home </a></li>
-									<li><a href="./" title="GitHub project">GitHub project </a></li>
+									<li><a href="https://github.com/tenowg/Regions" title="GitHub project" class="externalLink">GitHub project </a></li>
 									<li><a href="changes-report.html" title="Release notes">Release notes </a></li>
 								</ul>
 							</li>
@@ -142,15 +142,15 @@
   <h3 id="Plugin_Development">Plugin Development</h3> 
   <p>Regions is designed from the bottom up to be developer friendly.</p> 
   <p>Plugins create their features by creating a class that extends Feature</p> 
-  <div> 
-   <pre><tt>public class InRegion extends Feature implements Tickable {
+  <div class="source"> 
+   <pre class="java"><tt>public class InRegion extends Feature implements Tickable {
     // Tickable is an optional Decorator that tells Regions to check
     // this class on every tick to see if something needs to be done.
 }</tt></pre> 
   </div> 
   <p>Then each method and field of the class can be annotated with any Region Annotation</p> 
-  <div> 
-   <pre><tt>// Field and Method Annotations
+  <div class="source"> 
+   <pre class="java"><tt>// Field and Method Annotations
 @Data
 public String somethingtosave;
 
@@ -162,17 +162,17 @@ public void execute(PlayerQuitEvent event, EventRegion region) {
 }</tt></pre> 
   </div> 
   <p>Then simply register the feature with Regions.</p> 
-  <div> 
-   <pre><tt>RegionAPI.registerFeature(this, InRegion.class);</tt></pre> 
+  <div class="source"> 
+   <pre class="java"><tt>RegionAPI.registerFeature(this, InRegion.class);</tt></pre> 
   </div> 
   <p>Each plugin should control adding and removing features to regions, this can easily be done.</p> 
-  <div> 
-   <pre><tt>Region region = world.get(WorldRegionComponent.class).get(region);
+  <div class="source"> 
+   <pre class="java"><tt>Region region = world.get(WorldRegionComponent.class).get(region);
 region.add(Feature.class);</tt></pre> 
   </div> 
   <p>Which should be controlled with commands or actions from each plugin with help from the RegionAPI static methods.</p> 
-  <div> 
-   <pre><tt>RegionAPI to be expanded on.</tt></pre> 
+  <div class="source"> 
+   <pre class="java"><tt>RegionAPI to be expanded on.</tt></pre> 
   </div> 
  </div> 
  <div class="section"> 
@@ -180,8 +180,8 @@ region.add(Feature.class);</tt></pre>
   <p>Most events will be pre-configured to work with Regions, and will be automatically registered when a feature is registered with Regions.</p> 
   <p>Sometimes, however, some developers like to create their own Custom Events. And because it is nearly impossible to guess what every developer is going to need, I have made it possible to use Custom Events with Regions with only a minor amount of extra code.</p> 
   <p>All that needs to done is to <tt>extends EventParser</tt> and add a parser for your Custom Event that returns either <tt>WorldPoint</tt> or <tt>WorldUUID</tt>. Once this is done and returns the right information, everything is ready to be registered with Regions.</p> 
-  <div> 
-   <pre><tt>public class CustomEventParser extends EventParser {
+  <div class="source"> 
+   <pre class="java"><tt>public class CustomEventParser extends EventParser {
     // Custom Events
     public WorldPoint parse(EnterRegionEvent event) {
         WorldPoint wp = new WorldPoint();
@@ -199,8 +199,8 @@ region.add(Feature.class);</tt></pre>
 }</tt></pre> 
   </div> 
   <p>After you create the EventParser for your Custom Event you will just need to pass it when you register a Feature that uses that Event.</p> 
-  <div> 
-   <pre><tt>RegionAPI.registerFeature(this, InRegion.class, new CustomEventParser());</tt></pre> 
+  <div class="source"> 
+   <pre class="java"><tt>RegionAPI.registerFeature(this, InRegion.class, new CustomEventParser());</tt></pre> 
   </div> 
   <p>Currently Regions supports 90% of all Spout Server events, and will have support to handle Vanilla Events in the future.</p> 
  </div> 
@@ -240,7 +240,7 @@ region.add(Feature.class);</tt></pre>
 							<a href="./" title="Home">Home </a>
 						</li>
 						<li>
-							<a href="./" title="GitHub project">GitHub project </a>
+							<a href="https://github.com/tenowg/Regions" title="GitHub project" class="externalLink">GitHub project </a>
 						</li>
 						<li>
 							<a href="changes-report.html" title="Release notes">Release notes </a>

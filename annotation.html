@@ -51,7 +51,7 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Main <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a href="./" title="Home">Home </a></li>
-									<li><a href="./" title="GitHub project">GitHub project </a></li>
+									<li><a href="https://github.com/tenowg/Regions" title="GitHub project" class="externalLink">GitHub project </a></li>
 									<li><a href="changes-report.html" title="Release notes">Release notes </a></li>
 								</ul>
 							</li>
@@ -128,37 +128,11 @@
 				<li>Annotations</li>
 			</ul>
 		</div>
-		<hr class="toc-separator" />
-		<div id="toc-bar" class="navbar">
-			<div class="navbar-inner">
-				<div id="toc-scroll-target" class="container">
-					<ul id="toc" class="nav">
-						<li class="toplevel"><a href="#annotations" title="Annotations">Annotations</a></li>
-						<li class="toplevel"><a href="#aRegionEvent" title="@RegionEvent">@RegionEvent</a></li>
-						<li class="toplevel"><a href="#aOnTick" title="@OnTick">@OnTick</a></li>
-						<li class="toplevel"><a href="#aFeatureCommand" title="@FeatureCommand">@FeatureCommand</a></li>
-						<li class="toplevel"><a href="#aFeatureCommandPermission" title="@FeatureCommandPermission">@FeatureCommandPermission</a></li>
-						<li class="toplevel"><a href="#aRegionDetector" title="@RegionDetector">@RegionDetector</a></li>
-						<li class="toplevel"><a href="#aData" title="@Data">@Data</a></li>
-						<li class="dropdown">
-							<a href="#Not_Implemented_Yet_Annotations" title="Not Implemented Yet Annotations" class="dropdown-toggle" role="button" data-toggle="dropdown" data-target="#">Not Implemented Yet Annotations <b class="caret"></b></a>
-							<ul class="dropdown-menu" role="menu">
-								<!-- Repeat the item, otherwise it is not clickable as the dropdown root -->
-								<li><a href="#Not_Implemented_Yet_Annotations" title="Not Implemented Yet Annotations">Not Implemented Yet Annotations</a></li>
-								<li class="divider"></li>
-								<li><a href="#aFeatureNamename" title="@FeatureName(“name”)">@FeatureName(“name”)</a></li>
-
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
 	</header>
 
 	<div class="main-body">
 	<div class="row">
-		<div class="span12">
+		<div class="span8">
 			<div class="body-content">
 <div class="page-header">
  <h1 id="annotations">Annotations</h1>
@@ -173,7 +147,13 @@
   </ul> 
   <p>RegionEvents are automatically registered with Spout at start up.</p> 
   <p>To use a RegionEvent you just need to use the following format:</p> 
-  <p>{% highlight java %} @RegionEvent public execute(PlayerChatEvent event, EventRegion region) { // Do something on Player Chat } {% endhighlight %}</p> 
+  <div class="source"> 
+   <pre class="java"><tt>@RegionEvent
+public execute(PlayerChatEvent event, EventRegion region) {
+    // Do something on Player Chat
+}
+</tt></pre> 
+  </div> 
   <p>If a player chats while in the region, this code will get executed.</p> 
  </div> 
  <div class="section"> 
@@ -184,7 +164,13 @@
   </ul> 
   <p>OnTick is used in conjuntion with the Tickable interface (not spout server, but Regions interface). Without the Tickable interface <tt>implements Tickable</tt> the class will not even be looked at by the tick processor.</p> 
   <p>OnTick can also be used with the optional Intensity Enum <tt>@OnTick(load = Intensity.HIGHEST)</tt> this will limit the method to how overloaded the server is. The intensities from from lowest to highest and rate the intensity of the method, so if the method takes alot of processing power rate it higher. * Lowest: Will not run if server TPS is 8 or lower * Highest: Will not run if server TPS is 16 or lower</p> 
-  <p>{% highlight java %} @OnTick(load = Intensity.LOW) public void someTask(float dt) { // Do Something on Tick, will not run if TPS is 8 or lower } {% endhighlight %}</p> 
+  <div class="source"> 
+   <pre class="java"><tt>@OnTick(load = Intensity.LOW)
+public void someTask(float dt) {
+    // Do Something on Tick, will not run if TPS is 8 or lower
+}
+</tt></pre> 
+  </div> 
  </div> 
  <div class="section"> 
   <h3 id="aFeatureCommand">@FeatureCommand</h3> 
@@ -195,7 +181,14 @@
    <li>Can be used with @FearureCommandPermission</li> 
   </ul> 
   <p>A Feature command is a method that can be called from within game with <tt>/region set featurename args...</tt>. The region must first be selected with <tt>/region select</tt> command.</p> 
-  <p>{% highlight java %} @FeatureCommand(alias = “test”) @FearureCommandPermission(“test”) public void commandTest(FeatureCommandArgs args) { // Do some command based on permission “raz.feature.{regionname}.test” } {% endhighlight %}</p> 
+  <div class="source"> 
+   <pre class="java"><tt>@FeatureCommand(alias = &quot;test&quot;)
+@FearureCommandPermission(&quot;test&quot;)
+public void commandTest(FeatureCommandArgs args) {
+    // Do some command based on permission &quot;raz.feature.{regionname}.test&quot;
+}
+</tt></pre> 
+  </div> 
  </div> 
  <div class="section"> 
   <h3 id="aFeatureCommandPermission">@FeatureCommandPermission</h3> 
@@ -210,7 +203,14 @@
   </ul> 
   <p>FeatureCommandPermission adds permissions to feature commands, the Permission String by default is appended with <tt>raz.feature.</tt> so a player will need the full permission of <tt>raz.feature.regionname.name</tt> to use a feature command.</p> 
   <p>FeatureCommandPermission uses a Overridable method of hasPermission method, so you can change how permissions are handled on a Feature by Feature basis.</p> 
-  <p>{% highlight java %} @FeatureCommand(alias = “test”) @FearureCommandPermission(“test”) public void commandTest(FeatureCommandArgs args) { // Do some command based on permission “raz.feature.{regionname}.test” } {% endhighlight %}</p> 
+  <div class="source"> 
+   <pre class="java"><tt>@FeatureCommand(alias = &quot;test&quot;)
+@FearureCommandPermission(&quot;test&quot;)
+public void commandTest(FeatureCommandArgs args) {
+    // Do some command based on permission &quot;raz.feature.{regionname}.test&quot;
+}
+</tt></pre> 
+  </div> 
  </div> 
  <div class="section"> 
   <h3 id="aRegionDetector">@RegionDetector</h3> 
@@ -220,9 +220,20 @@
    <li>Requires: List of Detector classes to process.</li> 
   </ul> 
   <p>This annotation will add and then process each Detector class that is attached to the @RegionDetector annoation.</p> 
-  <p>{% highlight java %} @RegionDetector({PlayerInRegion.class, PlayerHasSkill.class}) @FeatureCommand(alias = “test”) public void commandTest(FeatureCommandArgs args) { // Do the command. } {% endhighlight %}</p> 
+  <div class="source"> 
+   <pre class="java"><tt>@RegionDetector({PlayerInRegion.class, PlayerHasSkill.class})
+@FeatureCommand(alias = &quot;test&quot;)
+public void commandTest(FeatureCommandArgs args) {
+    // Do the command.
+}
+</tt></pre> 
+  </div> 
   <p>In that example, it would generate two list which could then be called from the code in the feature with</p> 
-  <p>{% highlight java %} get(PlayerInRegion.class).getPlayers(); get(PlayerHasSkill.class).getPlayers(); {% endhighlight %}</p> 
+  <div class="source"> 
+   <pre class="java"><tt>get(PlayerInRegion.class).getPlayers();
+get(PlayerHasSkill.class).getPlayers();
+</tt></pre> 
+  </div> 
   <p>The first being all the players in the Region, the second being a list of all the Players in the region that have a specific skill (at this point that would be coded into the detector). Configurations can be set within the code. As you can add a Detector manually in the onAttached() and the annotation will use that detector when it processes the annotation. If no Detector is added manually, the Annotation will add it for you.</p> 
  </div> 
  <div class="section"> 
@@ -231,8 +242,16 @@
    <li>Type: Field Annotation</li> 
    <li>Description: Used to mark a public field in a feature to be saved.</li> 
   </ul> 
-  <p>{% highlight java %} // Standard (uses name of field in data files) @Data public String valuetosave;</p> 
-  <p>// Named (uses specified name in data files to help with readability @Data(“name”) public String datatosave; // Will be saved as “name” in data files. {% endhighlight %}</p> 
+  <div class="source"> 
+   <pre class="java"><tt>// Standard (uses name of field in data files)
+@Data
+public String valuetosave;
+
+// Named (uses specified name in data files to help with readability
+@Data(&quot;name&quot;)
+public String datatosave; // Will be saved as &quot;name&quot; in data files.
+</tt></pre> 
+  </div> 
  </div> 
 </div> 
 <div class="section"> 
@@ -243,9 +262,39 @@
    <li>Type: Class Annotation</li> 
    <li>Description: If you wish to use a different name for this feature in data files.</li> 
   </ul> 
-  <p>{% highlight java %} @FeatureName(“name”) public class SomeFeature implements Feature { // will use “name” instead of “somefeature” in data files. } {% endhighlight %}</p> 
+  <div class="source"> 
+   <pre class="java"><tt>@FeatureName(&quot;name&quot;)
+public class SomeFeature implements Feature { // will use &quot;name&quot; instead of &quot;somefeature&quot; in data files.
+}
+</tt></pre> 
+  </div> 
  </div> 
 </div>
+			</div>
+		</div>
+		<div class="span4">
+			<div id="toc-sidebar">
+				<div class="well">
+					<ul class="nav nav-list">
+						<li class="nav-header">Table of Contents</li>
+		<li class="dropdown"><a href="#annotations" title="Annotations">Annotations <b class="caret"></b></a>
+			<ul class="nav nav-list">
+		<li><a href="#aRegionEvent" title="@RegionEvent">@RegionEvent</a>
+		<li><a href="#aOnTick" title="@OnTick">@OnTick</a>
+		<li><a href="#aFeatureCommand" title="@FeatureCommand">@FeatureCommand</a>
+		<li><a href="#aFeatureCommandPermission" title="@FeatureCommandPermission">@FeatureCommandPermission</a>
+		<li><a href="#aRegionDetector" title="@RegionDetector">@RegionDetector</a>
+		<li><a href="#aData" title="@Data">@Data</a>
+		<li class="dropdown"><a href="#Not_Implemented_Yet_Annotations" title="Not Implemented Yet Annotations">Not Implemented Yet Annotations <b class="caret"></b></a>
+			<ul class="nav nav-list">
+		<li><a href="#aFeatureNamename" title="@FeatureName(“name”)">@FeatureName(“name”)</a>
+				<li class="divider"></li>
+			</ul>
+		</li>
+			</ul>
+		</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -265,7 +314,7 @@
 							<a href="./" title="Home">Home </a>
 						</li>
 						<li>
-							<a href="./" title="GitHub project">GitHub project </a>
+							<a href="https://github.com/tenowg/Regions" title="GitHub project" class="externalLink">GitHub project </a>
 						</li>
 						<li>
 							<a href="changes-report.html" title="Release notes">Release notes </a>
