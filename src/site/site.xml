@@ -5,11 +5,10 @@
 
 	<bannerLeft>
 		<!-- Reflow Maven Skin, but with "Reflow" highlighted -->
-		<name><![CDATA[
-<span class="color-highlight">Reflow</span> Maven Skin
-]]>
+		<name>
+			Regions
 		</name>
-		<href>http://andriusvelykis.github.com/reflow-maven-skin</href>
+		<href>http://github.com/tenowg/Regions/</href>
 	</bannerLeft>
 	<publishDate position="bottom" format="yyyy-MM-dd" />
 	<version position="bottom" />
@@ -20,20 +19,20 @@
 	</skin>
 	<custom>
 		<reflowSkin>
-			<theme>default</theme>
+			<theme>bootswatch-spacelab</theme>
 			<highlightJs>true</highlightJs>
 			<brand>
 				<name>
 					Regions
 				</name>
-				<href>http://andriusvelykis.github.com/reflow-maven-skin</href>
+				<href>http://github.com/tenowg/Regions</href>
 			</brand>
-			<slogan>Super interesting project doing good things.</slogan>
+			<slogan>A Simple Regions/Zones/Area plugin for Spout Server.</slogan>
 			<titleTemplate>%2$s | %1$s</titleTemplate>
 			<toc>top</toc>
-			<topNav>Download|reports</topNav>
+			<topNav>Main|Documentation|reports</topNav>
 			<bottomNav>
-				<column>Main|Download</column>
+				<column>Main</column>
 				<column>Documentation</column>
 				<column>reports|modules</column>
 			</bottomNav>
@@ -42,6 +41,7 @@
 			</bottomDescription>
 			<pages>
 				<index project="regions">
+					<titleTemplate>Regions for Spout Server</titleTemplate>
 					<breadcrumbs>false</breadcrumbs>
 					<toc>false</toc>
 					<sections>
@@ -59,18 +59,22 @@
 					<toc>sidebar</toc>
 					<breadcrumbs>true</breadcrumbs>
 				</command>
+				<usage>
+					<toc>sidebar</toc>
+					<breadcrumbs>true</breadcrumbs>
+				</usage>
 			</pages>
 		</reflowSkin>
 	</custom>
 	<body>
 		<!-- Add a rel to Google profile for all pages -->
 		<head>
-			<link rel="author" href="http://plus.google.com/109737404465892813363"/>
+			<link rel="author" href="https://github.com/tenowg"/>
 		</head>
   
 		<links>
-			<item name="Download" href="skin/index.html#Usage" />
-			<item name="GitHub project" href="http://github.com/tenowg/Regions/" />
+			<item name="Download" href="download.html" />
+			<!-- <item name="GitHub project" href="http://github.com/tenowg/Regions/" /> -->
 		</links>
 
 		<breadcrumbs>
@@ -83,12 +87,14 @@
 			<item name="Release notes" href="changes-report.html" />
 		</menu>
 		<menu name="Download" inherit="top">
-			<item name="Download" href="skin/index.html#Usage" />
-			<item name="License" href="license.html" />
+			<item name="Download" href="download.html" />
+			<!-- <item name="License" href="license.html" /> -->
 		</menu>
 		<menu name="Documentation" inherit="bottom">
+			<item name="Annotations" href="annotation.html" />
 			<item name="Commands" href="command.html" />
-			<item name="Other" href="misc.html" />
+			<item name="Permissions" href="permission.html" />
+			<item name="Usage" href="usage.html" />
 		</menu>
 		<menu name="Contribute" inherit="bottom">
 			<item name="Contribute" href="contribute.html" />
@@ -96,6 +102,6 @@
 			<item name="Fork on GitHub" href="http://github.com/tenowg/Regions/" />
 			<item name="Donate" href="" />
 		</menu>
-		<menu name="Maven documentation" ref="reports" inherit="bottom"/>
+		<menu name="Maven Documentation" ref="reports" inherit="bottom"/>
 	</body>
 </project>

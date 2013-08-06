@@ -1,4 +1,4 @@
-
+## Commands
 There are only a few basic commands available to Regions, Regions was designed to be extended and used by other plugins. With that in mind most commands either focus on Features, or manual Admin activitiy, most of these commands should not be give to regular users.
 
 ### ADDFEATURE
@@ -83,6 +83,3 @@ There are only a few basic commands available to Regions, Regions was designed t
 >
 > This will remove a region from the game.
 
-## Managing Features
-
-As Admin you should be able to have complete control over the features and effects that each region has, so there are some basic commands that can remove/add and modify all features on all regions.
