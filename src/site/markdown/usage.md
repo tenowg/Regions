@@ -4,17 +4,14 @@ Regions is designed from the bottom up to be developer friendly.
 
 Plugins create their features by creating a class that extends Feature
 
-{% highlight java %}
-public class InRegion extends Feature implements Tickable {
+<pre><code>public class InRegion extends Feature implements Tickable {
     // Tickable is an optional Decorator that tells Regions to check
     // this class on every tick to see if something needs to be done.
-}
-{% endhighlight %}
+}</code></pre>
 
 Then each method and field of the class can be annotated with any Region Annotation
 
-{% highlight java %}
-// Field and Method Annotations
+<pre><code>// Field and Method Annotations
 @Data
 public String somethingtosave;
 
@@ -23,27 +20,20 @@ public String somethingtosave;
 public void execute(PlayerQuitEvent event, EventRegion region) {
     // Do something when a player quits while in region.
     // EventOrder tells the Spout EventManager to run the event early.
-}
-{% endhighlight %}
+}</code></pre>
 
 Then simply register the feature with Regions.
 
-{% highlight java %}
-RegionAPI.registerFeature(this, InRegion.class);
-{% endhighlight %}
+<pre><code>RegionAPI.registerFeature(this, InRegion.class);</code></pre>
 
 Each plugin should control adding and removing features to regions, this can easily be done.
 
-{% highlight java %}
-Region region = world.get(WorldRegionComponent.class).get(region);
-region.add(Feature.class);
-{% endhighlight %}
+<pre><code>Region region = world.get(WorldRegionComponent.class).get(region);
+region.add(Feature.class);</code></pre>
 
 Which should be controlled with commands or actions from each plugin with help from the RegionAPI static methods.
 
-{% highlight java %}
-RegionAPI to be expanded on.
-{% endhighlight %}
+<pre><code>RegionAPI to be expanded on.</code></pre>
 
 ### Special Events
 Most events will be pre-configured to work with Regions, and will be automatically registered when a feature is registered with Regions.
@@ -52,8 +42,7 @@ Sometimes, however, some developers like to create their own Custom Events. And 
 
 All that needs to done is to `extends EventParser` and add a parser for your Custom Event that returns either `WorldPoint` or `WorldUUID`. Once this is done and returns the right information, everything is ready to be registered with Regions.
 
-{% highlight java %}
-public class CustomEventParser extends EventParser {
+<pre><code>public class CustomEventParser extends EventParser {
     // Custom Events
     public WorldPoint parse(EnterRegionEvent event) {
         WorldPoint wp = new WorldPoint();
@@ -68,13 +57,10 @@ public class CustomEventParser extends EventParser {
         wp.setUUID(event.getRegion().getUUID());
         return wp;
     }
-}
-{% endhighlight %}
+}</code></pre>
 
 After you create the EventParser for your Custom Event you will just need to pass it when you register a Feature that uses that Event.
 
-{% highlight java %}
-RegionAPI.registerFeature(this, InRegion.class, new CustomEventParser());
-{% endhighlight %}
+<pre><code>RegionAPI.registerFeature(this, InRegion.class, new CustomEventParser());</code></pre>
 
 Currently Regions supports 90% of all Spout Server events, and will have support to handle Vanilla Events in the future.
