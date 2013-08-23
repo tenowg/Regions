@@ -38,7 +38,7 @@
                   0
                 </td>
                 <td>
-                  4
+                  5
                 </td>
               </tr>
                           <tr>
@@ -108,7 +108,7 @@
                   0
                 </td>
                 <td>
-                  109
+                  110
                 </td>
               </tr>
                           <tr>
@@ -136,7 +136,7 @@
                   0
                 </td>
                 <td>
-                  14
+                  13
                 </td>
               </tr>
                           <tr>
@@ -178,7 +178,7 @@
                   0
                 </td>
                 <td>
-                  10
+                  9
                 </td>
               </tr>
                           <tr>
@@ -220,7 +220,7 @@
                   0
                 </td>
                 <td>
-                  4
+                  3
                 </td>
               </tr>
                           <tr>
@@ -234,7 +234,7 @@
                   0
                 </td>
                 <td>
-                  119
+                  120
                 </td>
               </tr>
                           <tr>
@@ -276,7 +276,7 @@
                   0
                 </td>
                 <td>
-                  33
+                  32
                 </td>
               </tr>
                           <tr>
@@ -360,7 +360,7 @@
                   0
                 </td>
                 <td>
-                  20
+                  21
                 </td>
               </tr>
                           <tr>
@@ -416,7 +416,35 @@
                   0
                 </td>
                 <td>
-                  24
+                  25
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.volume.points.PointsBox.java">com/thedemgel/regions/volume/points/PointsBox.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.volume.points.PointsSphere.java">com/thedemgel/regions/volume/points/PointsSphere.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
                 </td>
               </tr>
                           <tr>
@@ -431,34 +459,6 @@
                 </td>
                 <td>
                   11
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.volume.points.PointsSphere.java">com/thedemgel/regions/volume/points/PointsSphere.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  10
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.volume.points.PointsBox.java">com/thedemgel/regions/volume/points/PointsBox.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  8
                 </td>
               </tr>
                           <tr>
@@ -500,7 +500,7 @@
                   0
                 </td>
                 <td>
-                  3
+                  2
                 </td>
               </tr>
                           <tr>
@@ -519,6 +519,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.api.event.AddFeatureEvent.java">com/thedemgel/regions/api/event/AddFeatureEvent.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  39
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.data.PointMap.java">com/thedemgel/regions/data/PointMap.java</a>
                 </td>
                 <td>
@@ -528,7 +542,7 @@
                   0
                 </td>
                 <td>
-                  29
+                  30
                 </td>
               </tr>
                           <tr>
@@ -543,20 +557,6 @@
                 </td>
                 <td>
                   25
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.api.event.AddFeatureEvent.java">com/thedemgel/regions/api/event/AddFeatureEvent.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  39
                 </td>
               </tr>
                           <tr>
@@ -598,21 +598,7 @@
                   0
                 </td>
                 <td>
-                  12
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.annotations.Intensity.java">com/thedemgel/regions/annotations/Intensity.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  6
+                  13
                 </td>
               </tr>
                           <tr>
@@ -631,20 +617,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.parser.WorldPoint.java">com/thedemgel/regions/parser/WorldPoint.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  15
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.datasave.FeatureData.java">com/thedemgel/regions/datasave/FeatureData.java</a>
                 </td>
                 <td>
@@ -659,7 +631,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.command.RegionArgumentTypes.java">com/thedemgel/regions/command/RegionArgumentTypes.java</a>
+                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.parser.WorldPoint.java">com/thedemgel/regions/parser/WorldPoint.java</a>
                 </td>
                 <td>
                   0
@@ -668,7 +640,21 @@
                   0
                 </td>
                 <td>
-                  14
+                  15
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.annotations.Intensity.java">com/thedemgel/regions/annotations/Intensity.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
                 </td>
               </tr>
                           <tr>
@@ -687,6 +673,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.command.RegionArgumentTypes.java">com/thedemgel/regions/command/RegionArgumentTypes.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  14
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.api.event.RemoveRegionEvent.java">com/thedemgel/regions/api/event/RemoveRegionEvent.java</a>
                 </td>
                 <td>
@@ -696,7 +696,7 @@
                   0
                 </td>
                 <td>
-                  31
+                  32
                 </td>
               </tr>
                           <tr>
@@ -715,34 +715,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.annotations.FeatureCommandArgs.java">com/thedemgel/regions/annotations/FeatureCommandArgs.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  26
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.annotations.OnTickParser.java">com/thedemgel/regions/annotations/OnTickParser.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  23
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.util.TicksPerSecondMonitor.java">com/thedemgel/regions/util/TicksPerSecondMonitor.java</a>
                 </td>
                 <td>
@@ -752,7 +724,7 @@
                   0
                 </td>
                 <td>
-                  18
+                  17
                 </td>
               </tr>
                           <tr>
@@ -785,6 +757,34 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.annotations.FeatureCommandArgs.java">com/thedemgel/regions/annotations/FeatureCommandArgs.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  27
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.annotations.OnTickParser.java">com/thedemgel/regions/annotations/OnTickParser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  23
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.FeatureRegister.java">com/thedemgel/regions/FeatureRegister.java</a>
                 </td>
                 <td>
@@ -808,7 +808,7 @@
                   0
                 </td>
                 <td>
-                  16
+                  17
                 </td>
               </tr>
                           <tr>
@@ -822,7 +822,7 @@
                   0
                 </td>
                 <td>
-                  6
+                  5
                 </td>
               </tr>
                           <tr>
@@ -836,21 +836,7 @@
                   0
                 </td>
                 <td>
-                  7
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.volume.volumes.VolumeBox.java">com/thedemgel/regions/volume/volumes/VolumeBox.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  52
+                  6
                 </td>
               </tr>
                           <tr>
@@ -865,6 +851,20 @@
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.volume.volumes.VolumeBox.java">com/thedemgel/regions/volume/volumes/VolumeBox.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  51
                 </td>
               </tr>
                           <tr>
@@ -911,20 +911,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.data.FeaturePlugin.java">com/thedemgel/regions/data/FeaturePlugin.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  15
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.detectors.Detector.java">com/thedemgel/regions/detectors/Detector.java</a>
                 </td>
                 <td>
@@ -939,7 +925,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.parser.WorldUUID.java">com/thedemgel/regions/parser/WorldUUID.java</a>
+                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.data.FeaturePlugin.java">com/thedemgel/regions/data/FeaturePlugin.java</a>
                 </td>
                 <td>
                   0
@@ -948,7 +934,7 @@
                   0
                 </td>
                 <td>
-                  16
+                  15
                 </td>
               </tr>
                           <tr>
@@ -963,6 +949,20 @@
                 </td>
                 <td>
                   4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://tenowg.github.io/Regions/checkstyle.html#com.thedemgel.regions.parser.WorldUUID.java">com/thedemgel/regions/parser/WorldUUID.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  15
                 </td>
               </tr>
                       </tbody>
