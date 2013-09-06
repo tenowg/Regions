@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentMap;
 import org.spout.api.component.entity.EntityComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
-import org.spout.api.math.Vector3;
+import org.spout.math.vector.Vector3;
 
 /**
  * Player Region Component used to control Region Selection.

@@ -4,7 +4,7 @@ import com.thedemgel.regions.volume.points.Points;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 import org.spout.api.geo.discrete.Point;
-import org.spout.api.math.Vector3;
+import org.spout.math.vector.Vector3;
 
 public abstract class Volume {
 	public Volume() {
