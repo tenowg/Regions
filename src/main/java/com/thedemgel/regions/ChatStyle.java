@@ -27,16 +27,16 @@ public enum ChatStyle {
 	RESET('r');
 	public static final char COLOR_CHAR = '\u00A7';
 	private final char c;
-	private final Color foregroundColor, backgroundColor;
+	private final Color fgColor, bgColor;
 
-	private ChatStyle(char c) {
-		this(c, null, null);
+	private ChatStyle(char character) {
+		this(character, null, null);
 	}
 
-	private ChatStyle(char c, Color foregroundColor, Color backgroundColor) {
-		this.c = c;
-		this.foregroundColor = foregroundColor;
-		this.backgroundColor = backgroundColor;
+	private ChatStyle(char character, Color foregroundColor, Color backgroundColor) {
+		this.c = character;
+		this.fgColor = foregroundColor;
+		this.bgColor = backgroundColor;
 	}
 
 	public char getChar() {
@@ -44,11 +44,11 @@ public enum ChatStyle {
 	}
 
 	public Color getForegroundColor() {
-		return foregroundColor;
+		return fgColor;
 	}
 
 	public Color getBackgroundColor() {
-		return backgroundColor;
+		return bgColor;
 	}
 
 	@Override

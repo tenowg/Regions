@@ -26,8 +26,8 @@ public class PlayerListener implements Listener {
 	}
 
 	/**
-	 * Event on player join to add PlayerRegionComponent
-	 * @param event
+	 * Event on player join to add PlayerRegionComponent.
+	 * @param event PlayerJoinEvent
 	 */
 	@EventHandler(order = Order.LATE)
 	public final void onPlayerJoin(PlayerJoinEvent event) {
@@ -39,7 +39,7 @@ public class PlayerListener implements Listener {
 	 * TODO: Unsure if this is still needed.
 	 * To add PlayerRegionComponent if client is started
 	 * in single player mode.
-	 * @param event
+	 * @param event EventStartEvent
 	 */
 	@EventHandler
 	public final void onGameStart(EngineStartEvent event) {
@@ -54,7 +54,7 @@ public class PlayerListener implements Listener {
 	/**
 	 * Event to add WorldRegionComponent to a world on world load.
 	 * TODO: add exclusion parameter.
-	 * @param event
+	 * @param event WorldLoadEvent
 	 */
 	@EventHandler
 	public final void onWorldLord(WorldLoadEvent event) {
