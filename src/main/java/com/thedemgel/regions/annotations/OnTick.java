@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
  * <p>
  * <code>@OnTick(load = Intensity.LOW, freq = 1)</code>
  * <p>
- * The default is Ignore which means this will happen every tick and doesn't 
+ * The default is Ignore which means this will happen every tick and doesn't
  * check the TPS of the server. To use the default you don't need to set
  * the argument
  * <p>
@@ -26,6 +26,17 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface OnTick {
+	/**
+	 * The amount of load the annotated method is expected to place on the
+	 * server.
+	 * @return Intensity
+	 */
 	Intensity load() default Intensity.IGNORE;
+	/**
+	 * How often this method is allowed to be called by OnTick.
+	 * The value is based on server ticks.
+	 * TODO: Possibly change freq to another name.
+	 * @return
+	 */
 	int freq() default 1;
 }
