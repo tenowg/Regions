@@ -10,17 +10,32 @@ import java.util.logging.Level;
 import org.spout.api.Spout;
 
 /**
- * Parser to handle OnTick.
+ * Parser to handle OnTick annotation.
  *
- * @OnTick Any class that has a method with
- * @OnTick attached needs to implement Tickable interface.
+ * Any class that has a method with
+ * OnTick annotation attached needs to implement Tickable interface.
  */
 public class OnTickParser {
-	private Integer TPS_LOWEST = 8;
-	private Integer TPS_LOW = 10;
-	private Integer TPS_MODERATE = 12;
-	private Integer TPS_HIGH = 14;
-	private Integer TPS_HIGHEST= 16;
+	/**
+	 * If TPS is lower than 8 it will not fire OnTick.
+	 */
+	public static final Integer TPS_LOWEST = 8;
+	/**
+	 * If TPS is lower than 10 it will not fire OnTick.
+	 */
+	public static final Integer TPS_LOW = 10;
+	/**
+	 * If TPS is lower than 12 it will not fire OnTick.
+	 */
+	public static final Integer TPS_MODERATE = 12;
+	/**
+	 * If TPS is lower than 14 it will not fire OnTick.
+	 */
+	public static final Integer TPS_HIGH = 14;
+	/**
+	 * If TPS is lower than 16 it will not fire OnTick.
+	 */
+	public static final Integer TPS_HIGHEST = 16;
 
 	/**
 	 * Handle the OnTick annotation.
@@ -28,7 +43,7 @@ public class OnTickParser {
 	 * @param dt Tick duration
 	 * @param region Region feature is in.
 	 */
-	public void parse(Feature feature, float dt, Region region) /*throws Exception*/ {
+	public final void parse(Feature feature, float dt, Region region) /*throws Exception*/ {
 		if (!(feature instanceof Tickable)) {
 			return;
 		}

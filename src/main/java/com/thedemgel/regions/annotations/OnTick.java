@@ -29,14 +29,12 @@ public @interface OnTick {
 	/**
 	 * The amount of load the annotated method is expected to place on the
 	 * server.
-	 * @return Intensity
 	 */
 	Intensity load() default Intensity.IGNORE;
 	/**
 	 * How often this method is allowed to be called by OnTick.
 	 * The value is based on server ticks.
 	 * TODO: Possibly change freq to another name.
-	 * @return Integer amount of Ticks
 	 */
 	int freq() default 1;
 }

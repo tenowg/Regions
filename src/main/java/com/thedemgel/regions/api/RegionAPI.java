@@ -27,6 +27,8 @@ import org.spout.api.plugin.Plugin;
 
 public class RegionAPI {
 
+	private RegionAPI() {}
+
 	/**
 	 * Register your feature with Regions, this process will automatically register
 	 * any Event listed with Spout to be fired in the WorldRegionComponent and
@@ -40,7 +42,7 @@ public class RegionAPI {
 	public static void registerFeature(Plugin plugin, Class<? extends Feature> feature) {
 		Regions.getInstance().getFeatureRegister().registerFeature(plugin, feature);
 	}
-	
+
 	/**
 	 * Register your feature with Regions, this process will automatically register
 	 * any Event listed with Spout to be fired in the WorldRegionComponent and
@@ -55,7 +57,7 @@ public class RegionAPI {
 	public static void registerFeature(Plugin plugin, Class<? extends Feature> feature, EventParser parser) {
 		Regions.getInstance().getFeatureRegister().registerFeature(plugin, feature, parser);
 	}
-	
+
 	/**
 	 * Will search for and return a region by String name and place that into
 	 * Players selected region slot.
@@ -71,7 +73,7 @@ public class RegionAPI {
 
 		return selectRegion(player, region, plugin);
 	}
-	
+
 	/**
 	 * Will search for and return a region by UUID value and place that into
 	 * the Players selected region slot.
@@ -87,6 +89,7 @@ public class RegionAPI {
 		
 		return selectRegion(player, region, plugin);
 	}
+
 	/**
 	 * Will place the region passed it no the players Selected Region slot.
 	 * 
@@ -100,11 +103,11 @@ public class RegionAPI {
 		if (region == null) {
 			throw new RegionNotFoundException("Region is Null");
 		}
-		
+
 		SelectRegionEvent event = new SelectRegionEvent(player, region, plugin);
-		
+
 		Spout.getEventManager().callEvent(event);
-		
+
 		if (event.isCancelled()) {
 			throw new SelectionCancelledException("Selection was Cancelled, either another plugin or permissions is preventing selection.");
 		}
@@ -205,7 +208,7 @@ public class RegionAPI {
 		PlayerRegionComponent regComp = player.get(PlayerRegionComponent.class);
 		regComp.newSelection();
 	}
-	
+
 	/**
 	 * Sets the VolumeType of the Volume in the players Selected Region Slot.
 	 * This will reset the bounds of the Region Volume immediately.
@@ -243,7 +246,7 @@ public class RegionAPI {
 
 		removeRegion(player, region, plugin);
 	}
-	
+
 	/**
 	 * Will attempt to Remove a region by Region UUID.
 	 * 
@@ -258,7 +261,7 @@ public class RegionAPI {
 		
 		removeRegion(player, region, plugin);
 	}
-	
+
 	/**
 	 * Will attempt to Remove a region by Region.
 	 * 
@@ -277,6 +280,6 @@ public class RegionAPI {
 			throw new RegionNotFoundException("No matching region was found.");
 		}
 	}
-	
+
 	public static void featureCommand() {}
 }
