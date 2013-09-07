@@ -17,25 +17,25 @@ import org.spout.api.exception.EventException;
 
 public class RegisterEvents {
 
-	public final Regions plugin;
+	private final Regions plugin;
 
 	public RegisterEvents(Regions instance) {
 		this.plugin = instance;
 	}
 
-	public void registerEvents(Class<? extends Feature> feature, final EventParser parser) {
+	public final void registerEvents(Class<? extends Feature> feature, final EventParser parser) {
 		Method[] methods = feature.getDeclaredMethods();
 
 		for (final Method method : methods) {
 			if (method.isAnnotationPresent(RegionEvent.class)) {
 				final Class<?> checkClass = method.getParameterTypes()[0];
 				final Class<? extends Event> eventClass = checkClass.asSubclass(Event.class);
-                                
-                                // Order processing\
-                                Order order = Order.LATE;
-                                if (method.isAnnotationPresent(EventOrder.class)) {
-                                        order = method.getAnnotation(EventOrder.class).value();
-                                }
+
+				// Order processing\
+				Order order = Order.LATE;
+				if (method.isAnnotationPresent(EventOrder.class)) {
+					order = method.getAnnotation(EventOrder.class).value();
+				}
 
 				EventExecutor executor = new EventExecutor() {
 					@Override
@@ -44,13 +44,13 @@ public class RegisterEvents {
 							if (!checkClass.isAssignableFrom(event.getClass())) {
 								throw new EventException("Wrong event type passed to registered method");
 							}
-							
+
 							//Method parseMethod = parser.getClass().getDeclaredMethod("parse", checkClass);
 							Method parseMethod = parser.getClass().getMethod("parse", checkClass);
 							if (parseMethod.getGenericReturnType().equals(WorldPoint.class)) {
 								WorldPoint worldpoint = (WorldPoint) parseMethod.invoke(parser, event);
 								worldpoint.getWorld().get(WorldRegionComponent.class).execute(event, worldpoint.getLoc());
-							} else if(parseMethod.getGenericReturnType().equals(WorldUUID.class)) {
+							} else if (parseMethod.getGenericReturnType().equals(WorldUUID.class)) {
 								WorldUUID worldpoint = (WorldUUID) parseMethod.invoke(parser, event);
 								worldpoint.getWorld().get(WorldRegionComponent.class).execute(event, worldpoint.getUUID());
 							}
@@ -67,7 +67,7 @@ public class RegisterEvents {
 						}
 					}
 				};
-				
+
 				plugin.getEngine().getEventManager().registerEvent(eventClass, order, executor, plugin);
 			}
 		}

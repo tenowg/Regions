@@ -25,17 +25,17 @@ import org.spout.api.Spout;
 import org.spout.api.entity.Player;
 import org.spout.api.plugin.Plugin;
 
-public class RegionAPI {
+public final class RegionAPI {
 
-	private RegionAPI() {}
+	private RegionAPI() { }
 
 	/**
 	 * Register your feature with Regions, this process will automatically register
 	 * any Event listed with Spout to be fired in the WorldRegionComponent and
 	 * thus be pasted to the Features attached to Regions.
-	 * 
+	 *
 	 * This method will use the Default EventParser.
-	 * 
+	 *
 	 * @param plugin
 	 * @param feature
 	 */
@@ -47,9 +47,9 @@ public class RegionAPI {
 	 * Register your feature with Regions, this process will automatically register
 	 * any Event listed with Spout to be fired in the WorldRegionComponent and
 	 * thus be pasted to the Features attached to Regions.
-	 * 
+	 *
 	 * This method will use the EventParser that is pasted to it.
-	 * 
+	 *
 	 * @param plugin
 	 * @param feature
 	 * @param parser
@@ -61,7 +61,7 @@ public class RegionAPI {
 	/**
 	 * Will search for and return a region by String name and place that into
 	 * Players selected region slot.
-	 * 
+	 *
 	 * @param player
 	 * @param regionname
 	 * @return Region that was selected
@@ -77,7 +77,7 @@ public class RegionAPI {
 	/**
 	 * Will search for and return a region by UUID value and place that into
 	 * the Players selected region slot.
-	 * 
+	 *
 	 * @param player
 	 * @param regionuuid
 	 * @return Region that was selected
@@ -92,7 +92,7 @@ public class RegionAPI {
 
 	/**
 	 * Will place the region passed it no the players Selected Region slot.
-	 * 
+	 *
 	 * @param player
 	 * @param region
 	 * @return Region that was selected
@@ -119,7 +119,7 @@ public class RegionAPI {
 	/**
 	 * Will set and return the Points that was set by this method. Will throw
 	 * a InvalidPointPositionException Exception if an invalid ENUM or point was not settable.
-	 * 
+	 *
 	 * @param player
 	 * @param enumString
 	 * @return The Points that was set.
@@ -144,7 +144,7 @@ public class RegionAPI {
 	 * selected Region slot. Will throw RegionNotFoundException if region
 	 * was not previously loaded, and will throw PointsNotSetException if
 	 * all points are not correctly set.
-	 * 
+	 *
 	 * @param player
 	 * @return The Region Updated.
 	 * @throws PointsNotSetException
@@ -177,7 +177,7 @@ public class RegionAPI {
 	 * the Volume are not set correctly, and will throw RegionAlreadyExistsException
 	 * if the Region had previously been created (player will need to use
 	 * updateRegion instead)
-	 * 
+	 *
 	 * @param player
 	 * @return The region created.
 	 * @throws PointsNotSetException
@@ -212,10 +212,10 @@ public class RegionAPI {
 	/**
 	 * Sets the VolumeType of the Volume in the players Selected Region Slot.
 	 * This will reset the bounds of the Region Volume immediately.
-	 * 
+	 *
 	 * Will return a VolumeTypeNotFoundException if the Volume type is not
 	 * found in the registered Volume Types.
-	 * 
+	 *
 	 * @param player
 	 * @param volumeString
 	 * @return The Class of the Volume to be set
@@ -234,9 +234,9 @@ public class RegionAPI {
 
 	/**
 	 * Will attempt to Remove a region by Region String name.
-	 * 
+	 *
 	 * Will throw RegionNotFoundException if the Region isn't loaded.
-	 * 
+	 *
 	 * @param player
 	 * @param regionString
 	 * @throws RegionNotFoundException
@@ -249,9 +249,9 @@ public class RegionAPI {
 
 	/**
 	 * Will attempt to Remove a region by Region UUID.
-	 * 
+	 *
 	 * Will throw RegionNotFoundException if the Region isn't loaded.
-	 * 
+	 *
 	 * @param player
 	 * @param regionuuid
 	 * @throws RegionNotFoundException
@@ -264,9 +264,9 @@ public class RegionAPI {
 
 	/**
 	 * Will attempt to Remove a region by Region.
-	 * 
+	 *
 	 * Will throw RegionNotFoundException if the Region isn't loaded.
-	 * 
+	 *
 	 * @param player
 	 * @param region
 	 * @throws RegionNotFoundException
@@ -281,5 +281,5 @@ public class RegionAPI {
 		}
 	}
 
-	public static void featureCommand() {}
+	public static void featureCommand() { }
 }

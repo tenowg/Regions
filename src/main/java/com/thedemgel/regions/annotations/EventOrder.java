@@ -22,5 +22,8 @@ import org.spout.api.event.Order;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EventOrder {
+	/**
+	 * Order is the same as org.spout.api.event.Order.
+	 */
 	Order value() default Order.LATE;
 }
