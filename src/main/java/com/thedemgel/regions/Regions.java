@@ -32,7 +32,7 @@ public class Regions extends Plugin {
 
 	private Map<String, Class<? extends Volume>> volumes = new HashMap<>();
 	private Map<String, String> volumeDesc = new HashMap<>();
-	
+
 	public static final long TPS_INIT_DELAY = 0L;
 	public static final long TPS_REPEAT_DELAY = 50L;
 

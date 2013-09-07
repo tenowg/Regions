@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation to indicate a Detector class to be executed before the method.
- * 
+ *
  * Once executed the Detector will be attached to the Feature to be retrieved later by the method.
  */
 @Target(ElementType.METHOD)

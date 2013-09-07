@@ -8,87 +8,87 @@ import java.awt.Color;
 public enum ChatStyle {
 
 	/**
-	 * Black
+	 * Black.
 	 */
 	BLACK('0', Color.BLACK, Color.BLACK),
 	/**
-	 * Dark Blue
+	 * Dark Blue.
 	 */
 	DARK_BLUE('1', new Color(0, 0, 170), new Color(0, 0, 42)),
 	/**
-	 * Dark Green
+	 * Dark Green.
 	 */
 	DARK_GREEN('2', new Color(0, 170, 0), new Color(0, 42, 0)),
 	/**
-	 * Dark Aqua
+	 * Dark Aqua.
 	 */
 	DARK_AQUA('3', new Color(0, 170, 170), new Color(0, 42, 42)),
 	/**
-	 * Dark Red
+	 * Dark Red.
 	 */
 	DARK_RED('4', new Color(170, 0, 0), new Color(42, 0, 0)),
 	/**
-	 * Purple
+	 * Purple.
 	 */
 	PURPLE('5', new Color(170, 0, 170), new Color(42, 0, 42)),
 	/**
-	 * Gold
+	 * Gold.
 	 */
 	GOLD('6', new Color(255, 170, 0), new Color(42, 42, 0)),
 	/**
-	 * Gray
+	 * Gray.
 	 */
 	GRAY('7', new Color(170, 170, 170), new Color(42, 42, 42)),
 	/**
-	 * Dark Gray
+	 * Dark Gray.
 	 */
 	DARK_GRAY('8', new Color(85, 85, 85), new Color(21, 21, 21)),
 	/**
-	 * Blue
+	 * Blue.
 	 */
 	BLUE('9', new Color(85, 85, 255), new Color(21, 21, 63)),
 	/**
-	 * Green
+	 * Green.
 	 */
 	GREEN('a', new Color(85, 255, 85), new Color(21, 63, 21)),
 	/**
-	 * Aqua
+	 * Aqua.
 	 */
 	AQUA('b', new Color(85, 255, 255), new Color(21, 63, 63)),
 	/**
-	 * Red
+	 * Red.
 	 */
 	RED('c', new Color(255, 85, 85), new Color(63, 21, 21)),
 	/**
-	 * Pink
+	 * Pink.
 	 */
 	PINK('d', new Color(255, 85, 255), new Color(63, 21, 63)),
 	/**
-	 * Yellow
+	 * Yellow.
 	 */
 	YELLOW('e', new Color(255, 255, 85), new Color(63, 63, 21)),
 	/**
-	 * White
+	 * White.
 	 */
 	WHITE('f', Color.WHITE, new Color(63, 63, 63)),
 	/**
-	 * Obfuscated
+	 * Obfuscated.
 	 */
 	OBFUSCATED('k'),
 	/**
-	 * Bold
+	 * Bold.
 	 */
 	BOLD('l'),
 	/**
-	 * Underline
+	 * Underline.
 	 */
 	UNDERLINE('n'),
 	/**
-	 * Italic
+	 * Italic.
 	 */
 	ITALIC('o'),
 	/**
-	 * Reset
+	 * Reset.
 	 */
 	RESET('r');
 	public static final char COLOR_CHAR = '\u00A7';

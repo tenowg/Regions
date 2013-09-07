@@ -23,7 +23,7 @@ public class FeatureRegister {
 	 */
 	private final RegisterEvents eventRegister;
 	/**
-	 * Default EventParser
+	 * Default EventParser.
 	 */
 	private final EventParser eventParser;
 
@@ -45,7 +45,7 @@ public class FeatureRegister {
 	/**
 	 * Parse a unique name from a Feature by means of the FeatureName annotation.
 	 * @param feature Feature that contains a FeatureName class annotation.
-	 * @return
+	 * @return The String name of the Feature.
 	 */
 	public final String parseName(Class<? extends Feature> feature) {
 		String name = "";
@@ -65,7 +65,7 @@ public class FeatureRegister {
 	/**
 	 * Manual registration of a Feature.
 	 * @param plugin Plugin that is registering a Feature.
-	 * @param feature
+	 * @param feature Class of Feature being registered.
 	 */
 	public final void registerFeature(Plugin plugin, Class<? extends Feature> feature) {
 		registerFeature(plugin, feature, eventParser);
@@ -98,7 +98,7 @@ public class FeatureRegister {
 	 * Search for a feature (by feature class) registered by a plugin.
 	 * @param plugin Plugin that registered the feature.
 	 * @param feature The class of the feature being searched for.
-	 * @return
+	 * @return A class of the Searched for Feature.
 	 */
 	public final Class<? extends Feature> getFeature(Plugin plugin, Class<? extends Feature> feature) {
 		return getFeature(plugin, parseName(feature));
@@ -108,7 +108,7 @@ public class FeatureRegister {
 	 * Search for a feature (by feature SimpleName) registered by a plugin.
 	 * @param plugin Plugin that registered the feature.
 	 * @param simpleName SimpleName of the class registered.
-	 * @return
+	 * @return The class of the Feature being searched for.
 	 */
 	public final Class<? extends Feature> getFeature(Plugin plugin, String simpleName) {
 		if (features.containsKey(plugin)) {
