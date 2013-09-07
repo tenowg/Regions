@@ -14,16 +14,16 @@ public class CreateRegionEvent extends Event implements Cancellable {
 	private final Region region;
 	private final Plugin plugin;
 
-	public CreateRegionEvent(Player player, Region region, Plugin plugin) {
-		this.player = player;
-		this.region = region;
-		this.plugin = plugin;
+	public CreateRegionEvent(Player eventPlayer, Region eventRegion, Plugin eventPlugin) {
+		this.player = eventPlayer;
+		this.region = eventRegion;
+		this.plugin = eventPlugin;
 	}
 
-	public CreateRegionEvent(Region region, Plugin plugin) {
+	public CreateRegionEvent(Region eventRegion, Plugin eventPlugin) {
 		this.player = null;
-		this.region = region;
-		this.plugin = plugin;
+		this.region = eventRegion;
+		this.plugin = eventPlugin;
 	}
 
 	@Override
@@ -35,6 +35,10 @@ public class CreateRegionEvent extends Event implements Cancellable {
 		return handlers;
 	}
 
+	/**
+	 * Use to cancel an event before it finishes.
+	 * @param cancelled Boolean to cancel event (true = canceled)
+	 */
 	@Override
 	public final void setCancelled(boolean cancelled) {
 		super.setCancelled(cancelled);

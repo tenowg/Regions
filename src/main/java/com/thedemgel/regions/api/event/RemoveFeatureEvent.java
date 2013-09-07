@@ -16,18 +16,18 @@ public class RemoveFeatureEvent extends Event implements Cancellable {
 	private final Feature feature;
 	private final Plugin plugin;
 
-	public RemoveFeatureEvent(Player player, Region region, Feature feature, Plugin plugin) {
-		this.player = player;
-		this.region = region;
-		this.feature = feature;
-		this.plugin = plugin;
+	public RemoveFeatureEvent(Player eventPlayer, Region eventRegion, Feature eventFeature, Plugin eventPlugin) {
+		this.player = eventPlayer;
+		this.region = eventRegion;
+		this.feature = eventFeature;
+		this.plugin = eventPlugin;
 	}
 
-	public RemoveFeatureEvent(Region region, Feature feature, Plugin plugin) {
+	public RemoveFeatureEvent(Region eventRegion, Feature eventFeature, Plugin eventPlugin) {
 		this.player = null;
-		this.region = region;
-		this.feature = feature;
-		this.plugin = plugin;
+		this.region = eventRegion;
+		this.feature = eventFeature;
+		this.plugin = eventPlugin;
 	}
 
 	@Override
@@ -39,6 +39,10 @@ public class RemoveFeatureEvent extends Event implements Cancellable {
 		return handlers;
 	}
 
+	/**
+	 * Use to cancel an event before it finishes.
+	 * @param cancelled Boolean to cancel event (true = canceled)
+	 */
 	@Override
 	public final void setCancelled(boolean cancelled) {
 		super.setCancelled(cancelled);
