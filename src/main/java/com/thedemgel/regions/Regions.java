@@ -53,7 +53,7 @@ public class Regions extends Plugin {
 		AnnotatedCommandExecutorFactory.create(new RazCommand(this));
 		AnnotatedCommandExecutorFactory.create(new PlayerCommands(this), engine.getCommandManager().getCommand("region"));
 
-		engine.getEventManager().registerEvents(new PlayerListener(this), this);
+		engine.getEventManager().registerEvents(new GeneralListener(this), this);
 
 		tpsMonitor = new TicksPerSecondMonitor();
 		getEngine().getScheduler().scheduleSyncRepeatingTask(this, tpsMonitor, Regions.TPS_INIT_DELAY, Regions.TPS_REPEAT_DELAY, TaskPriority.CRITICAL);

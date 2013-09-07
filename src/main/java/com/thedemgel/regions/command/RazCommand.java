@@ -15,9 +15,9 @@ public class RazCommand {
 		this.plugin = instance;
 	}
 
-	@CommandDescription(aliases = {"region", "raz"}, usage = "", desc = "Access region commands")
+	@CommandDescription(aliases = { "region", "raz" }, usage = "", desc = "Access region commands")
 	@Permissible("regions.command.region")
-	public void raz(CommandSource source, CommandArguments args) throws CommandException {
+	public final void raz(CommandSource source, CommandArguments args) throws CommandException {
 		source.sendMessage("Do Regions help here.");
 	}
 }

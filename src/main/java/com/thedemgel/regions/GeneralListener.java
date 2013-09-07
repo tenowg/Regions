@@ -16,9 +16,8 @@ import org.spout.api.geo.World;
 
 /**
  * General Event Listener class for the Plugin.
- * TODO: change to GeneralListener
  */
-public class PlayerListener implements Listener {
+public class GeneralListener implements Listener {
 	/**
 	 * The Regions base plugin instance.
 	 */
@@ -28,7 +27,7 @@ public class PlayerListener implements Listener {
 	 * General Event Listener class for Regions.
 	 * @param instance The base Regions plugin.
 	 */
-	public PlayerListener(Regions instance) {
+	public GeneralListener(Regions instance) {
 		this.plugin = instance;
 	}
 
@@ -43,7 +42,6 @@ public class PlayerListener implements Listener {
 	}
 
 	/**
-	 * TODO: Unsure if this is still needed.
 	 * To add PlayerRegionComponent if client is started
 	 * in single player mode.
 	 * @param event EngineStartEvent from Spout Server
@@ -60,7 +58,6 @@ public class PlayerListener implements Listener {
 
 	/**
 	 * Event to add WorldRegionComponent to a world on world load.
-	 * TODO: add exclusion parameter.
 	 * @param event WorldLoadEvent from Spout Server
 	 */
 	@EventHandler

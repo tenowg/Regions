@@ -7,6 +7,6 @@ import org.spout.api.map.DefaultedKey;
 import org.spout.api.map.DefaultedKeyImpl;
 
 
-public class RegionsData {
+public final class RegionsData {
 	public static final DefaultedKey<ConcurrentSkipListMap> REGIONS = new DefaultedKeyImpl<ConcurrentSkipListMap>("regions", new ConcurrentSkipListMap<UUID, Region>());
 }

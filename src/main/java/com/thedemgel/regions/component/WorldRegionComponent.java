@@ -30,10 +30,10 @@ import org.spout.api.geo.discrete.Point;
  * @author tenowg
  */
 public class WorldRegionComponent extends WorldComponent {
+	public static final Integer WORLD_GRID_SIZE = 100;
 
 	private ConcurrentMap<UUID, Region> regions = new ConcurrentSkipListMap<>();
 	private ConcurrentMap<PointMap, Set<Region>> xregions = new ConcurrentHashMap<>();
-	
 	private Executor executor = Executors.newSingleThreadExecutor();
 
 	/**
@@ -93,9 +93,9 @@ public class WorldRegionComponent extends WorldComponent {
 
 		int i, ii, iii;
 
-		for (i = (int) (region.getVolume().getLowX() / 100); i <= (int) (region.getVolume().getHighX() / 100); i++) {
-			for (ii = (int) (region.getVolume().getLowY() / 100); ii <= (int) (region.getVolume().getHighY() / 100); ii++) {
-				for (iii = (int) (region.getVolume().getLowZ() / 100); iii <= (int) (region.getVolume().getHighZ() / 100); iii++) {
+		for (i = (int) (region.getVolume().getLowX() / WorldRegionComponent.WORLD_GRID_SIZE); i <= (int) (region.getVolume().getHighX() / WorldRegionComponent.WORLD_GRID_SIZE); i++) {
+			for (ii = (int) (region.getVolume().getLowY() / WorldRegionComponent.WORLD_GRID_SIZE); ii <= (int) (region.getVolume().getHighY() / WorldRegionComponent.WORLD_GRID_SIZE); ii++) {
+				for (iii = (int) (region.getVolume().getLowZ() / WorldRegionComponent.WORLD_GRID_SIZE); iii <= (int) (region.getVolume().getHighZ() / WorldRegionComponent.WORLD_GRID_SIZE); iii++) {
 					PointMap mpoint = new PointMap(i, ii, iii);
 					Set<Region> regs = xregions.get(mpoint);
 					if (regs == null) {
@@ -303,14 +303,15 @@ public class WorldRegionComponent extends WorldComponent {
 	 * @param dt
 	 */
 	@Override
-	public void onTick(float dt) {		
+	public void onTick(float dt) {
 		TickRunnable ontick = new TickRunnable(dt);
 		executor.execute(ontick);
 	}
 
 	private class TickRunnable implements Runnable {
+
 		private final float dt;
-		
+
 		public TickRunnable(float dt) {
 			this.dt = dt;
 		}

@@ -23,15 +23,14 @@ import org.yaml.snakeyaml.Yaml;
 
 public class Region implements Serializable {
 
-	private final static long serialVersionUID = 32L;
-	transient private Volume volume;
+	private static final long serialVersionUID = 32L;
+	private transient Volume volume;
 	private UUID ident = null;
 	private String name;
 	private String world;
 	private ConcurrentList<PointMap> pointCache = new ConcurrentList<>();
 	private FeatureHolder holder = new FeatureHolder();
-	transient private RegionData regionData;
-	
+	private transient RegionData regionData;
 	private String volumeYaml;
 
 	public Region(String type) {
@@ -62,7 +61,7 @@ public class Region implements Serializable {
 		holder.setRegion(this);
 		initData();
 	}
-	
+
 	private void initData() {
 		regionData = new RegionData(this);
 	}
@@ -126,7 +125,7 @@ public class Region implements Serializable {
 	public String getWorldUUID() {
 		return world;
 	}
-	
+
 	public World getWorld() {
 		return Spout.getEngine().getWorld(world, true);
 	}
@@ -158,17 +157,17 @@ public class Region implements Serializable {
 			volume = new VolumeBox();
 		}
 	}
-	
+
 	// HANDLE SERIALIZING VOLUME
 	private void writeObject(ObjectOutputStream oos) throws IOException {
 		regionData.save();
 
 		Yaml beanWriter = new Yaml(new PointRepresenter());
-		
+
 		volumeYaml = "";
 
 		volumeYaml = beanWriter.dump(volume);
-			
+
 		oos.defaultWriteObject();
 	}
 }

@@ -21,7 +21,6 @@ public class PlayerRegionComponent extends EntityComponent {
 
 	private Region selectedRegion;
 	private Class<? extends Volume> volType = VolumeBox.class;
-	
 	private ConcurrentMap<Points, Vector3> points = new ConcurrentHashMap<>();
 
 	@Override
@@ -29,7 +28,7 @@ public class PlayerRegionComponent extends EntityComponent {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param name The string value of the ENUM to set
 	 * @param point The Point location to set
 	 * @return The Points (ENUM) that was set - null if not found
@@ -44,7 +43,9 @@ public class PlayerRegionComponent extends EntityComponent {
 	}
 
 	/**
-	 * Returns the selected Region. This will return null if not Region was selected
+	 * Returns the selected Region. This will return null if not Region was
+	 * selected
+	 *
 	 * @return Selected Region or NULL
 	 */
 	public Region getSelectedRegion() {
@@ -60,6 +61,7 @@ public class PlayerRegionComponent extends EntityComponent {
 
 	/**
 	 * Retrieves a regions and places it in the selectionRegion.
+	 *
 	 * @param region the Region to select
 	 */
 	public void setSelectedRegion(Region region) {
@@ -68,10 +70,10 @@ public class PlayerRegionComponent extends EntityComponent {
 	}
 
 	/**
-	 * Will set the Volume type of a region, will also
-	 * reset the selectedRegion
-	 * TODO: not have to reset the selected region.
-	 * @param type 
+	 * Will set the Volume type of a region, will also reset the
+	 * selectedRegion TODO: not have to reset the selected region.
+	 *
+	 * @param type
 	 */
 	public void setVolumeType(Class<? extends Volume> type) {
 		volType = type;
@@ -80,6 +82,7 @@ public class PlayerRegionComponent extends EntityComponent {
 
 	/**
 	 * Will return the current VolumeType to be used by regions.
+	 *
 	 * @return Volume class
 	 */
 	public Class<? extends Volume> getVolumeType() {
@@ -88,12 +91,13 @@ public class PlayerRegionComponent extends EntityComponent {
 
 	/**
 	 * Updates a selections MIN/MAX
+	 *
 	 * @return Updated Region
 	 */
 	public UpdatedRegion updateSelected() {
 		//selectedRegion.setMinMax(pos1, pos2);
 		UpdatedRegion ureg = new UpdatedRegion(selectedRegion);
-		
+
 		// TODO: Move Points validation to Volume
 		for (Points pNum : selectedRegion.getVolume().getEnum()) {
 			if (!points.containsKey(pNum)) {
@@ -101,30 +105,31 @@ public class PlayerRegionComponent extends EntityComponent {
 				ureg.addErr(pNum);
 			}
 		}
-		
+
 		if (!ureg.getUpdated()) {
 			return ureg;
 		}
-		
+
 		for (Entry<Points, Vector3> point : points.entrySet()) {
 			selectedRegion.getVolume().setPoint(point.getKey(), point.getValue());
 		}
 
-		if(getOwner().getWorld().get(WorldRegionComponent.class).updateRegion(selectedRegion) == null) {
+		if (getOwner().getWorld().get(WorldRegionComponent.class).updateRegion(selectedRegion) == null) {
 			ureg.setExists(true);
 		}
-		
+
 		return ureg;
 	}
 
 	/**
 	 * Will commit a new region to the system. Used after newSelection()
+	 *
 	 * @param name Name of the purposed region
 	 * @return UpdatedRegion object
 	 */
 	public UpdatedRegion createSelected(String name) {
 		UpdatedRegion ureg = new UpdatedRegion(selectedRegion);
-		
+
 		for (Points pNum : selectedRegion.getVolume().getEnum()) {
 			Regions.getInstance().getLogger().info(pNum.toString());
 			if (!points.containsKey(pNum)) {
@@ -132,11 +137,11 @@ public class PlayerRegionComponent extends EntityComponent {
 				ureg.addErr(pNum);
 			}
 		}
-		
+
 		if (!ureg.getUpdated()) {
 			return ureg;
 		}
-		
+
 		for (Entry<Points, Vector3> point : points.entrySet()) {
 			selectedRegion.getVolume().setPoint(point.getKey(), point.getValue());
 		}
@@ -144,7 +149,7 @@ public class PlayerRegionComponent extends EntityComponent {
 		if (getOwner().getWorld().get(WorldRegionComponent.class).createRegion((Player) getOwner(), name) == null) {
 			ureg.setExists(true);
 		}
-	
+
 		return ureg;
 	}
 }

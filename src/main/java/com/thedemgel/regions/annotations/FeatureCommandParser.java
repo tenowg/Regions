@@ -18,10 +18,10 @@ public class FeatureCommandParser {
 	/**
 	 * Used to parse feature commands, throws FeaturePermissionException if the issuer of the command
 	 * fails a permissions test.
-	 * @param feature
-	 * @param command
-	 * @throws InvalidFeatureCommandException
-	 * @throws FeaturePermissionException
+	 * @param feature Feature being processed for Command
+	 * @param command FeatureCommandArgs for the command
+	 * @throws InvalidFeatureCommandException Thrown if command is not found.
+	 * @throws FeaturePermissionException Thrown if player doesn't have permission to use this command.
 	 */
 	public final void parse(Feature feature, FeatureCommandArgs command) throws InvalidFeatureCommandException, FeaturePermissionException  {
 		//Method[] methods = feature.getClass().getMethods();

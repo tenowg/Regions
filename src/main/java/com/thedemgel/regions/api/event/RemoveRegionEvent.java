@@ -10,7 +10,6 @@ import org.spout.api.plugin.Plugin;
 public class RemoveRegionEvent extends Event implements Cancellable {
 
 	private static HandlerList handlers = new HandlerList();
-	
 	private final Player player;
 	private final Region region;
 	private final Plugin plugin;
@@ -20,15 +19,15 @@ public class RemoveRegionEvent extends Event implements Cancellable {
 		this.region = region;
 		this.plugin = plugin;
 	}
-	
+
 	public RemoveRegionEvent(Region region, Plugin plugin) {
 		this.player = null;
 		this.region = region;
 		this.plugin = plugin;
 	}
-	
+
 	@Override
-	public HandlerList getHandlers() {
+	public final HandlerList getHandlers() {
 		return handlers;
 	}
 
@@ -37,19 +36,19 @@ public class RemoveRegionEvent extends Event implements Cancellable {
 	}
 
 	@Override
-	public void setCancelled(boolean cancelled) {
+	public final void setCancelled(boolean cancelled) {
 		super.setCancelled(cancelled);
 	}
-	
-	public Player getPlayer() {
+
+	public final Player getPlayer() {
 		return player;
 	}
 
-	public Region getRegion() {
+	public final Region getRegion() {
 		return region;
 	}
 
-	public Plugin getPlugin() {
+	public final Plugin getPlugin() {
 		return plugin;
 	}
 }

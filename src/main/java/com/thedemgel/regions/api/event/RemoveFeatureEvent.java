@@ -1,4 +1,3 @@
-
 package com.thedemgel.regions.api.event;
 
 import com.thedemgel.regions.data.Region;
@@ -9,23 +8,21 @@ import org.spout.api.event.Event;
 import org.spout.api.event.HandlerList;
 import org.spout.api.plugin.Plugin;
 
-
 public class RemoveFeatureEvent extends Event implements Cancellable {
 
 	private static HandlerList handlers = new HandlerList();
-	
 	private final Player player;
 	private final Region region;
 	private final Feature feature;
 	private final Plugin plugin;
-	
+
 	public RemoveFeatureEvent(Player player, Region region, Feature feature, Plugin plugin) {
 		this.player = player;
 		this.region = region;
 		this.feature = feature;
 		this.plugin = plugin;
 	}
-	
+
 	public RemoveFeatureEvent(Region region, Feature feature, Plugin plugin) {
 		this.player = null;
 		this.region = region;
@@ -34,7 +31,7 @@ public class RemoveFeatureEvent extends Event implements Cancellable {
 	}
 
 	@Override
-	public HandlerList getHandlers() {
+	public final HandlerList getHandlers() {
 		return handlers;
 	}
 
@@ -43,23 +40,23 @@ public class RemoveFeatureEvent extends Event implements Cancellable {
 	}
 
 	@Override
-	public void setCancelled(boolean cancelled) {
+	public final void setCancelled(boolean cancelled) {
 		super.setCancelled(cancelled);
 	}
-	
-	public Player getPlayer() {
+
+	public final Player getPlayer() {
 		return player;
 	}
 
-	public Region getRegion() {
+	public final Region getRegion() {
 		return region;
 	}
 
-	public Feature getFeature() {
+	public final Feature getFeature() {
 		return feature;
 	}
 
-	public Plugin getPlugin() {
+	public final Plugin getPlugin() {
 		return plugin;
 	}
 }

@@ -34,7 +34,6 @@ public @interface OnTick {
 	/**
 	 * How often this method is allowed to be called by OnTick.
 	 * The value is based on server ticks.
-	 * TODO: Possibly change freq to another name.
 	 */
 	int freq() default 1;
 }
