@@ -9,8 +9,8 @@
     <copyright>&#169;2013 Demgel OpenSource Coding</copyright>
     <item>
       <title>File: 67,
-             Errors: 364,
-             Warnings: 425,
+             Errors: 338,
+             Warnings: 423,
              Infos: 3
       </title>
             <link>http://tenowg.github.io/Regions/checkstyle.html</link>
@@ -276,7 +276,7 @@
                   11
                 </td>
                 <td>
-                  5
+                  0
                 </td>
               </tr>
                           <tr>
@@ -374,7 +374,7 @@
                   13
                 </td>
                 <td>
-                  7
+                  0
                 </td>
               </tr>
                           <tr>
@@ -553,10 +553,10 @@
                   0
                 </td>
                 <td>
-                  13
+                  12
                 </td>
                 <td>
-                  7
+                  0
                 </td>
               </tr>
                           <tr>
@@ -710,7 +710,7 @@
                   11
                 </td>
                 <td>
-                  5
+                  0
                 </td>
               </tr>
                           <tr>
@@ -763,10 +763,10 @@
                   0
                 </td>
                 <td>
-                  9
+                  8
                 </td>
                 <td>
-                  3
+                  1
                 </td>
               </tr>
                           <tr>

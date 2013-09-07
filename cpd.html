@@ -164,7 +164,7 @@
   <tbody> 
    <tr class="b"> 
     <td>com/thedemgel/regions/api/event/AddFeatureEvent.java</td> 
-    <td><a href="./xref/com/thedemgel/regions/api/event/AddFeatureEvent.html#26">26</a></td> 
+    <td><a href="./xref/com/thedemgel/regions/api/event/AddFeatureEvent.html#31">31</a></td> 
    </tr> 
    <tr class="a"> 
     <td>com/thedemgel/regions/api/event/RemoveFeatureEvent.java</td> 
@@ -173,11 +173,11 @@
    <tr class="b"> 
     <td colspan="2"> 
      <div> 
-      <pre>	public AddFeatureEvent(Region region, Feature feature, Plugin plugin) {
+      <pre>	public AddFeatureEvent(Region eventRegion, Feature eventFeature, Plugin eventPlugin) {
 		this.player = null;
-		this.region = region;
-		this.feature = feature;
-		this.plugin = plugin;
+		this.region = eventRegion;
+		this.feature = eventFeature;
+		this.plugin = eventPlugin;
 	}
 
 	@Override
@@ -189,6 +189,10 @@
 		return handlers;
 	}
 
+	/**
+	 * Use to cancel an event before it finishes.
+	 * @param cancelled Boolean to cancel event (true = canceled)
+	 */
 	@Override
 	public final void setCancelled(boolean cancelled) {
 		super.setCancelled(cancelled);
