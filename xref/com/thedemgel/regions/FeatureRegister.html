@@ -33,7 +33,7 @@
 <a class="jxr_linenumber" name="23" href="#23">23</a>  <em class="jxr_javadoccomment">	 */</em>
 <a class="jxr_linenumber" name="24" href="#24">24</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../com/thedemgel/regions/RegisterEvents.html">RegisterEvents</a> eventRegister;
 <a class="jxr_linenumber" name="25" href="#25">25</a>  	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="26" href="#26">26</a>  <em class="jxr_javadoccomment">	 * Default EventParser</em>
+<a class="jxr_linenumber" name="26" href="#26">26</a>  <em class="jxr_javadoccomment">	 * Default EventParser.</em>
 <a class="jxr_linenumber" name="27" href="#27">27</a>  <em class="jxr_javadoccomment">	 */</em>
 <a class="jxr_linenumber" name="28" href="#28">28</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../com/thedemgel/regions/parser/EventParser.html">EventParser</a> eventParser;
 <a class="jxr_linenumber" name="29" href="#29">29</a>  
@@ -55,7 +55,7 @@
 <a class="jxr_linenumber" name="45" href="#45">45</a>  	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="46" href="#46">46</a>  <em class="jxr_javadoccomment">	 * Parse a unique name from a Feature by means of the FeatureName annotation.</em>
 <a class="jxr_linenumber" name="47" href="#47">47</a>  <em class="jxr_javadoccomment">	 * @param feature Feature that contains a FeatureName class annotation.</em>
-<a class="jxr_linenumber" name="48" href="#48">48</a>  <em class="jxr_javadoccomment">	 * @return</em>
+<a class="jxr_linenumber" name="48" href="#48">48</a>  <em class="jxr_javadoccomment">	 * @return The String name of the Feature.</em>
 <a class="jxr_linenumber" name="49" href="#49">49</a>  <em class="jxr_javadoccomment">	 */</em>
 <a class="jxr_linenumber" name="50" href="#50">50</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> String parseName(Class&lt;? <strong class="jxr_keyword">extends</strong> Feature&gt; feature) {
 <a class="jxr_linenumber" name="51" href="#51">51</a>  		String name = <span class="jxr_string">""</span>;
@@ -75,7 +75,7 @@
 <a class="jxr_linenumber" name="65" href="#65">65</a>  	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="66" href="#66">66</a>  <em class="jxr_javadoccomment">	 * Manual registration of a Feature.</em>
 <a class="jxr_linenumber" name="67" href="#67">67</a>  <em class="jxr_javadoccomment">	 * @param plugin Plugin that is registering a Feature.</em>
-<a class="jxr_linenumber" name="68" href="#68">68</a>  <em class="jxr_javadoccomment">	 * @param feature</em>
+<a class="jxr_linenumber" name="68" href="#68">68</a>  <em class="jxr_javadoccomment">	 * @param feature Class of Feature being registered.</em>
 <a class="jxr_linenumber" name="69" href="#69">69</a>  <em class="jxr_javadoccomment">	 */</em>
 <a class="jxr_linenumber" name="70" href="#70">70</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> registerFeature(Plugin plugin, Class&lt;? <strong class="jxr_keyword">extends</strong> Feature&gt; feature) {
 <a class="jxr_linenumber" name="71" href="#71">71</a>  		registerFeature(plugin, feature, eventParser);
@@ -108,7 +108,7 @@
 <a class="jxr_linenumber" name="98" href="#98">98</a>  <em class="jxr_javadoccomment">	 * Search for a feature (by feature class) registered by a plugin.</em>
 <a class="jxr_linenumber" name="99" href="#99">99</a>  <em class="jxr_javadoccomment">	 * @param plugin Plugin that registered the feature.</em>
 <a class="jxr_linenumber" name="100" href="#100">100</a> <em class="jxr_javadoccomment">	 * @param feature The class of the feature being searched for.</em>
-<a class="jxr_linenumber" name="101" href="#101">101</a> <em class="jxr_javadoccomment">	 * @return</em>
+<a class="jxr_linenumber" name="101" href="#101">101</a> <em class="jxr_javadoccomment">	 * @return A class of the Searched for Feature.</em>
 <a class="jxr_linenumber" name="102" href="#102">102</a> <em class="jxr_javadoccomment">	 */</em>
 <a class="jxr_linenumber" name="103" href="#103">103</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> Class&lt;? <strong class="jxr_keyword">extends</strong> Feature&gt; getFeature(Plugin plugin, Class&lt;? <strong class="jxr_keyword">extends</strong> Feature&gt; feature) {
 <a class="jxr_linenumber" name="104" href="#104">104</a> 		<strong class="jxr_keyword">return</strong> getFeature(plugin, parseName(feature));
@@ -118,7 +118,7 @@
 <a class="jxr_linenumber" name="108" href="#108">108</a> <em class="jxr_javadoccomment">	 * Search for a feature (by feature SimpleName) registered by a plugin.</em>
 <a class="jxr_linenumber" name="109" href="#109">109</a> <em class="jxr_javadoccomment">	 * @param plugin Plugin that registered the feature.</em>
 <a class="jxr_linenumber" name="110" href="#110">110</a> <em class="jxr_javadoccomment">	 * @param simpleName SimpleName of the class registered.</em>
-<a class="jxr_linenumber" name="111" href="#111">111</a> <em class="jxr_javadoccomment">	 * @return</em>
+<a class="jxr_linenumber" name="111" href="#111">111</a> <em class="jxr_javadoccomment">	 * @return The class of the Feature being searched for.</em>
 <a class="jxr_linenumber" name="112" href="#112">112</a> <em class="jxr_javadoccomment">	 */</em>
 <a class="jxr_linenumber" name="113" href="#113">113</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> Class&lt;? <strong class="jxr_keyword">extends</strong> Feature&gt; getFeature(Plugin plugin, String simpleName) {
 <a class="jxr_linenumber" name="114" href="#114">114</a> 		<strong class="jxr_keyword">if</strong> (features.containsKey(plugin)) {
