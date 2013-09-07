@@ -35,17 +35,17 @@
 <a class="jxr_linenumber" name="25" href="#25">25</a>  <strong class="jxr_keyword">import</strong> org.spout.api.entity.Player;
 <a class="jxr_linenumber" name="26" href="#26">26</a>  <strong class="jxr_keyword">import</strong> org.spout.api.plugin.Plugin;
 <a class="jxr_linenumber" name="27" href="#27">27</a>  
-<a class="jxr_linenumber" name="28" href="#28">28</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/thedemgel/regions/api/RegionAPI.html">RegionAPI</a> {
+<a class="jxr_linenumber" name="28" href="#28">28</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/thedemgel/regions/api/RegionAPI.html">RegionAPI</a> {
 <a class="jxr_linenumber" name="29" href="#29">29</a>  
-<a class="jxr_linenumber" name="30" href="#30">30</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../com/thedemgel/regions/api/RegionAPI.html">RegionAPI</a>() {}
+<a class="jxr_linenumber" name="30" href="#30">30</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../com/thedemgel/regions/api/RegionAPI.html">RegionAPI</a>() { }
 <a class="jxr_linenumber" name="31" href="#31">31</a>  
 <a class="jxr_linenumber" name="32" href="#32">32</a>  	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="33" href="#33">33</a>  <em class="jxr_javadoccomment">	 * Register your feature with Regions, this process will automatically register</em>
 <a class="jxr_linenumber" name="34" href="#34">34</a>  <em class="jxr_javadoccomment">	 * any Event listed with Spout to be fired in the WorldRegionComponent and</em>
 <a class="jxr_linenumber" name="35" href="#35">35</a>  <em class="jxr_javadoccomment">	 * thus be pasted to the Features attached to Regions.</em>
-<a class="jxr_linenumber" name="36" href="#36">36</a>  <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="36" href="#36">36</a>  <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="37" href="#37">37</a>  <em class="jxr_javadoccomment">	 * This method will use the Default EventParser.</em>
-<a class="jxr_linenumber" name="38" href="#38">38</a>  <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="38" href="#38">38</a>  <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="39" href="#39">39</a>  <em class="jxr_javadoccomment">	 * @param plugin</em>
 <a class="jxr_linenumber" name="40" href="#40">40</a>  <em class="jxr_javadoccomment">	 * @param feature</em>
 <a class="jxr_linenumber" name="41" href="#41">41</a>  <em class="jxr_javadoccomment">	 */</em>
@@ -57,9 +57,9 @@
 <a class="jxr_linenumber" name="47" href="#47">47</a>  <em class="jxr_javadoccomment">	 * Register your feature with Regions, this process will automatically register</em>
 <a class="jxr_linenumber" name="48" href="#48">48</a>  <em class="jxr_javadoccomment">	 * any Event listed with Spout to be fired in the WorldRegionComponent and</em>
 <a class="jxr_linenumber" name="49" href="#49">49</a>  <em class="jxr_javadoccomment">	 * thus be pasted to the Features attached to Regions.</em>
-<a class="jxr_linenumber" name="50" href="#50">50</a>  <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="50" href="#50">50</a>  <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="51" href="#51">51</a>  <em class="jxr_javadoccomment">	 * This method will use the EventParser that is pasted to it.</em>
-<a class="jxr_linenumber" name="52" href="#52">52</a>  <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="52" href="#52">52</a>  <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="53" href="#53">53</a>  <em class="jxr_javadoccomment">	 * @param plugin</em>
 <a class="jxr_linenumber" name="54" href="#54">54</a>  <em class="jxr_javadoccomment">	 * @param feature</em>
 <a class="jxr_linenumber" name="55" href="#55">55</a>  <em class="jxr_javadoccomment">	 * @param parser</em>
@@ -71,7 +71,7 @@
 <a class="jxr_linenumber" name="61" href="#61">61</a>  	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="62" href="#62">62</a>  <em class="jxr_javadoccomment">	 * Will search for and return a region by String name and place that into</em>
 <a class="jxr_linenumber" name="63" href="#63">63</a>  <em class="jxr_javadoccomment">	 * Players selected region slot.</em>
-<a class="jxr_linenumber" name="64" href="#64">64</a>  <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="64" href="#64">64</a>  <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="65" href="#65">65</a>  <em class="jxr_javadoccomment">	 * @param player</em>
 <a class="jxr_linenumber" name="66" href="#66">66</a>  <em class="jxr_javadoccomment">	 * @param regionname</em>
 <a class="jxr_linenumber" name="67" href="#67">67</a>  <em class="jxr_javadoccomment">	 * @return Region that was selected</em>
@@ -87,7 +87,7 @@
 <a class="jxr_linenumber" name="77" href="#77">77</a>  	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="78" href="#78">78</a>  <em class="jxr_javadoccomment">	 * Will search for and return a region by UUID value and place that into</em>
 <a class="jxr_linenumber" name="79" href="#79">79</a>  <em class="jxr_javadoccomment">	 * the Players selected region slot.</em>
-<a class="jxr_linenumber" name="80" href="#80">80</a>  <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="80" href="#80">80</a>  <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="81" href="#81">81</a>  <em class="jxr_javadoccomment">	 * @param player</em>
 <a class="jxr_linenumber" name="82" href="#82">82</a>  <em class="jxr_javadoccomment">	 * @param regionuuid</em>
 <a class="jxr_linenumber" name="83" href="#83">83</a>  <em class="jxr_javadoccomment">	 * @return Region that was selected</em>
@@ -102,7 +102,7 @@
 <a class="jxr_linenumber" name="92" href="#92">92</a>  
 <a class="jxr_linenumber" name="93" href="#93">93</a>  	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="94" href="#94">94</a>  <em class="jxr_javadoccomment">	 * Will place the region passed it no the players Selected Region slot.</em>
-<a class="jxr_linenumber" name="95" href="#95">95</a>  <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="95" href="#95">95</a>  <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="96" href="#96">96</a>  <em class="jxr_javadoccomment">	 * @param player</em>
 <a class="jxr_linenumber" name="97" href="#97">97</a>  <em class="jxr_javadoccomment">	 * @param region</em>
 <a class="jxr_linenumber" name="98" href="#98">98</a>  <em class="jxr_javadoccomment">	 * @return Region that was selected</em>
@@ -129,7 +129,7 @@
 <a class="jxr_linenumber" name="119" href="#119">119</a> 	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="120" href="#120">120</a> <em class="jxr_javadoccomment">	 * Will set and return the Points that was set by this method. Will throw</em>
 <a class="jxr_linenumber" name="121" href="#121">121</a> <em class="jxr_javadoccomment">	 * a InvalidPointPositionException Exception if an invalid ENUM or point was not settable.</em>
-<a class="jxr_linenumber" name="122" href="#122">122</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="122" href="#122">122</a> <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="123" href="#123">123</a> <em class="jxr_javadoccomment">	 * @param player</em>
 <a class="jxr_linenumber" name="124" href="#124">124</a> <em class="jxr_javadoccomment">	 * @param enumString</em>
 <a class="jxr_linenumber" name="125" href="#125">125</a> <em class="jxr_javadoccomment">	 * @return The Points that was set.</em>
@@ -154,7 +154,7 @@
 <a class="jxr_linenumber" name="144" href="#144">144</a> <em class="jxr_javadoccomment">	 * selected Region slot. Will throw RegionNotFoundException if region</em>
 <a class="jxr_linenumber" name="145" href="#145">145</a> <em class="jxr_javadoccomment">	 * was not previously loaded, and will throw PointsNotSetException if</em>
 <a class="jxr_linenumber" name="146" href="#146">146</a> <em class="jxr_javadoccomment">	 * all points are not correctly set.</em>
-<a class="jxr_linenumber" name="147" href="#147">147</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="147" href="#147">147</a> <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="148" href="#148">148</a> <em class="jxr_javadoccomment">	 * @param player</em>
 <a class="jxr_linenumber" name="149" href="#149">149</a> <em class="jxr_javadoccomment">	 * @return The Region Updated.</em>
 <a class="jxr_linenumber" name="150" href="#150">150</a> <em class="jxr_javadoccomment">	 * @throws PointsNotSetException</em>
@@ -187,7 +187,7 @@
 <a class="jxr_linenumber" name="177" href="#177">177</a> <em class="jxr_javadoccomment">	 * the Volume are not set correctly, and will throw RegionAlreadyExistsException</em>
 <a class="jxr_linenumber" name="178" href="#178">178</a> <em class="jxr_javadoccomment">	 * if the Region had previously been created (player will need to use</em>
 <a class="jxr_linenumber" name="179" href="#179">179</a> <em class="jxr_javadoccomment">	 * updateRegion instead)</em>
-<a class="jxr_linenumber" name="180" href="#180">180</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="180" href="#180">180</a> <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="181" href="#181">181</a> <em class="jxr_javadoccomment">	 * @param player</em>
 <a class="jxr_linenumber" name="182" href="#182">182</a> <em class="jxr_javadoccomment">	 * @return The region created.</em>
 <a class="jxr_linenumber" name="183" href="#183">183</a> <em class="jxr_javadoccomment">	 * @throws PointsNotSetException</em>
@@ -222,10 +222,10 @@
 <a class="jxr_linenumber" name="212" href="#212">212</a> 	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="213" href="#213">213</a> <em class="jxr_javadoccomment">	 * Sets the VolumeType of the Volume in the players Selected Region Slot.</em>
 <a class="jxr_linenumber" name="214" href="#214">214</a> <em class="jxr_javadoccomment">	 * This will reset the bounds of the Region Volume immediately.</em>
-<a class="jxr_linenumber" name="215" href="#215">215</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="215" href="#215">215</a> <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="216" href="#216">216</a> <em class="jxr_javadoccomment">	 * Will return a VolumeTypeNotFoundException if the Volume type is not</em>
 <a class="jxr_linenumber" name="217" href="#217">217</a> <em class="jxr_javadoccomment">	 * found in the registered Volume Types.</em>
-<a class="jxr_linenumber" name="218" href="#218">218</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="218" href="#218">218</a> <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="219" href="#219">219</a> <em class="jxr_javadoccomment">	 * @param player</em>
 <a class="jxr_linenumber" name="220" href="#220">220</a> <em class="jxr_javadoccomment">	 * @param volumeString</em>
 <a class="jxr_linenumber" name="221" href="#221">221</a> <em class="jxr_javadoccomment">	 * @return The Class of the Volume to be set</em>
@@ -244,9 +244,9 @@
 <a class="jxr_linenumber" name="234" href="#234">234</a> 
 <a class="jxr_linenumber" name="235" href="#235">235</a> 	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="236" href="#236">236</a> <em class="jxr_javadoccomment">	 * Will attempt to Remove a region by Region String name.</em>
-<a class="jxr_linenumber" name="237" href="#237">237</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="237" href="#237">237</a> <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="238" href="#238">238</a> <em class="jxr_javadoccomment">	 * Will throw RegionNotFoundException if the Region isn't loaded.</em>
-<a class="jxr_linenumber" name="239" href="#239">239</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="239" href="#239">239</a> <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="240" href="#240">240</a> <em class="jxr_javadoccomment">	 * @param player</em>
 <a class="jxr_linenumber" name="241" href="#241">241</a> <em class="jxr_javadoccomment">	 * @param regionString</em>
 <a class="jxr_linenumber" name="242" href="#242">242</a> <em class="jxr_javadoccomment">	 * @throws RegionNotFoundException</em>
@@ -259,9 +259,9 @@
 <a class="jxr_linenumber" name="249" href="#249">249</a> 
 <a class="jxr_linenumber" name="250" href="#250">250</a> 	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="251" href="#251">251</a> <em class="jxr_javadoccomment">	 * Will attempt to Remove a region by Region UUID.</em>
-<a class="jxr_linenumber" name="252" href="#252">252</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="252" href="#252">252</a> <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="253" href="#253">253</a> <em class="jxr_javadoccomment">	 * Will throw RegionNotFoundException if the Region isn't loaded.</em>
-<a class="jxr_linenumber" name="254" href="#254">254</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="254" href="#254">254</a> <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="255" href="#255">255</a> <em class="jxr_javadoccomment">	 * @param player</em>
 <a class="jxr_linenumber" name="256" href="#256">256</a> <em class="jxr_javadoccomment">	 * @param regionuuid</em>
 <a class="jxr_linenumber" name="257" href="#257">257</a> <em class="jxr_javadoccomment">	 * @throws RegionNotFoundException</em>
@@ -274,9 +274,9 @@
 <a class="jxr_linenumber" name="264" href="#264">264</a> 
 <a class="jxr_linenumber" name="265" href="#265">265</a> 	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="266" href="#266">266</a> <em class="jxr_javadoccomment">	 * Will attempt to Remove a region by Region.</em>
-<a class="jxr_linenumber" name="267" href="#267">267</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="267" href="#267">267</a> <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="268" href="#268">268</a> <em class="jxr_javadoccomment">	 * Will throw RegionNotFoundException if the Region isn't loaded.</em>
-<a class="jxr_linenumber" name="269" href="#269">269</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="269" href="#269">269</a> <em class="jxr_javadoccomment">	 *</em>
 <a class="jxr_linenumber" name="270" href="#270">270</a> <em class="jxr_javadoccomment">	 * @param player</em>
 <a class="jxr_linenumber" name="271" href="#271">271</a> <em class="jxr_javadoccomment">	 * @param region</em>
 <a class="jxr_linenumber" name="272" href="#272">272</a> <em class="jxr_javadoccomment">	 * @throws RegionNotFoundException</em>
@@ -291,7 +291,7 @@
 <a class="jxr_linenumber" name="281" href="#281">281</a> 		}
 <a class="jxr_linenumber" name="282" href="#282">282</a> 	}
 <a class="jxr_linenumber" name="283" href="#283">283</a> 
-<a class="jxr_linenumber" name="284" href="#284">284</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> featureCommand() {}
+<a class="jxr_linenumber" name="284" href="#284">284</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> featureCommand() { }
 <a class="jxr_linenumber" name="285" href="#285">285</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
