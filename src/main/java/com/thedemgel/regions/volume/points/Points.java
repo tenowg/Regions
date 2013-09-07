@@ -9,5 +9,8 @@ package com.thedemgel.regions.volume.points;
  */
 public interface Points {
 
-	public String desc();
+	/**
+	 * The description of the point.
+	 */
+	String desc();
 }

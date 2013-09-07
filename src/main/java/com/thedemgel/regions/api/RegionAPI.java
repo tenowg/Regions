@@ -34,7 +34,7 @@ import org.spout.api.plugin.Plugin;
 public final class RegionAPI {
 
 	/**
-	 * 
+	 *
 	 */
 	private RegionAPI() {
 	}
@@ -77,6 +77,7 @@ public final class RegionAPI {
 	 *
 	 * @param player Player selecting the region.
 	 * @param regionname The String name of the region being selected.
+	 * @param plugin Plugin attempting to allow player to select Region.
 	 * @return Region that was selected
 	 * @throws RegionNotFoundException Exception thrown if String region
 	 * name is not found.
@@ -95,6 +96,7 @@ public final class RegionAPI {
 	 *
 	 * @param player Player attempting to select a region.
 	 * @param regionuuid The UUID of the region to be selected.
+	 * @param plugin Plugin attempting to allow player to select Region.
 	 * @return Region that was selected
 	 * @throws RegionNotFoundException Thrown if UUID is not found in loaded
 	 * regions.
@@ -112,6 +114,7 @@ public final class RegionAPI {
 	 *
 	 * @param player Player attempting to select a region.
 	 * @param region The Region Object to be selected.
+	 * @param plugin Plugin attempting to allow player to select Region.
 	 * @return Region that was selected
 	 * @throws RegionNotFoundException Thrown if Region Object is not found
 	 * in loaded regions.
@@ -227,6 +230,13 @@ public final class RegionAPI {
 		return ureg.getRegion();
 	}
 
+	/**
+	 * Attempt to create a new blank region. This region is not saved until
+	 * createRegion is called and will not effect the world in any way until
+	 * it is saved. Once saved it will immediately effect the world as it was
+	 * created.
+	 * @param player Player Object of player attempting to create Region.
+	 */
 	public static void newRegion(Player player) {
 		PlayerRegionComponent regComp = player.get(PlayerRegionComponent.class);
 		regComp.newSelection();
@@ -263,6 +273,7 @@ public final class RegionAPI {
 	 *
 	 * @param player Player attempting to remove a region.
 	 * @param regionString The String name of the region to be removed.
+	 * @param plugin Plugin attempting to allow player to remove Region.
 	 * @throws RegionNotFoundException Thrown when String region name is not
 	 * found.
 	 */
@@ -279,6 +290,7 @@ public final class RegionAPI {
 	 *
 	 * @param player Player attempting to remove a region.
 	 * @param regionuuid UUID of the region being removed.
+	 * @param plugin Plugin attempting to allow player to remove Region.
 	 * @throws RegionNotFoundException Thrown if UUID Region is not found.
 	 */
 	public static void removeRegion(Player player, UUID regionuuid, Plugin plugin) throws RegionNotFoundException {
@@ -294,6 +306,7 @@ public final class RegionAPI {
 	 *
 	 * @param player Player attempting to remove a region.
 	 * @param region The Region Object to be removed.
+	 * @param plugin Plugin attempting to allow player to remove Region.
 	 * @throws RegionNotFoundException Thrown if Region Object is not found.
 	 */
 	public static void removeRegion(Player player, Region region, Plugin plugin) throws RegionNotFoundException {
@@ -306,6 +319,9 @@ public final class RegionAPI {
 		}
 	}
 
+	/**
+	 *
+	 */
 	public static void featureCommand() {
 	}
 }

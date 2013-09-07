@@ -15,7 +15,6 @@ public class VolumeBox extends Volume {
 	// Adjusted Min/Max values
 	private Vector3 pos1;
 	private Vector3 pos2;
-	
 	private Vector3 minVol = Vector3.ZERO;
 	private Vector3 maxVol = Vector3.ZERO;
 	// Used for serialization
@@ -69,25 +68,24 @@ public class VolumeBox extends Volume {
 		}
 
 		switch (points) {
-			case ONE: {
+			case ONE:
 				setMin(point);
 				break;
-			}
-			case TWO: {
+			case TWO:
 				setMax(point);
 				break;
-			}
+			default:
 		}
 	}
 
 	public Vector3 getAdjustedMin() {
 		return pos1;
 	}
-	
+
 	public Vector3 getAdjustedMax() {
 		return pos2;
 	}
-	
+
 	@Override
 	public Vector3 getMin() {
 		return minVol;
