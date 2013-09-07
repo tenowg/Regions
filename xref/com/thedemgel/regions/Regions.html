@@ -63,7 +63,7 @@
 <a class="jxr_linenumber" name="53" href="#53">53</a>  		AnnotatedCommandExecutorFactory.create(<strong class="jxr_keyword">new</strong> <a href="../../../com/thedemgel/regions/command/RazCommand.html">RazCommand</a>(<strong class="jxr_keyword">this</strong>));
 <a class="jxr_linenumber" name="54" href="#54">54</a>  		AnnotatedCommandExecutorFactory.create(<strong class="jxr_keyword">new</strong> <a href="../../../com/thedemgel/regions/command/PlayerCommands.html">PlayerCommands</a>(<strong class="jxr_keyword">this</strong>), engine.getCommandManager().getCommand(<span class="jxr_string">"region"</span>));
 <a class="jxr_linenumber" name="55" href="#55">55</a>  
-<a class="jxr_linenumber" name="56" href="#56">56</a>  		engine.getEventManager().registerEvents(<strong class="jxr_keyword">new</strong> PlayerListener(<strong class="jxr_keyword">this</strong>), <strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="56" href="#56">56</a>  		engine.getEventManager().registerEvents(<strong class="jxr_keyword">new</strong> GeneralListener(<strong class="jxr_keyword">this</strong>), <strong class="jxr_keyword">this</strong>);
 <a class="jxr_linenumber" name="57" href="#57">57</a>  
 <a class="jxr_linenumber" name="58" href="#58">58</a>  		tpsMonitor = <strong class="jxr_keyword">new</strong> <a href="../../../com/thedemgel/regions/util/TicksPerSecondMonitor.html">TicksPerSecondMonitor</a>();
 <a class="jxr_linenumber" name="59" href="#59">59</a>  		getEngine().getScheduler().scheduleSyncRepeatingTask(<strong class="jxr_keyword">this</strong>, tpsMonitor, Regions.TPS_INIT_DELAY, Regions.TPS_REPEAT_DELAY, TaskPriority.CRITICAL);

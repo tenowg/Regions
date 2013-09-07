@@ -164,11 +164,11 @@
   <tbody> 
    <tr class="b"> 
     <td>com/thedemgel/regions/api/event/AddFeatureEvent.java</td> 
-    <td><a href="./xref/com/thedemgel/regions/api/event/AddFeatureEvent.html#29">29</a></td> 
+    <td><a href="./xref/com/thedemgel/regions/api/event/AddFeatureEvent.html#26">26</a></td> 
    </tr> 
    <tr class="a"> 
     <td>com/thedemgel/regions/api/event/RemoveFeatureEvent.java</td> 
-    <td><a href="./xref/com/thedemgel/regions/api/event/RemoveFeatureEvent.html#29">29</a></td> 
+    <td><a href="./xref/com/thedemgel/regions/api/event/RemoveFeatureEvent.html#26">26</a></td> 
    </tr> 
    <tr class="b"> 
     <td colspan="2"> 
@@ -179,9 +179,9 @@
 		this.feature = feature;
 		this.plugin = plugin;
 	}
-	
+
 	@Override
-	public HandlerList getHandlers() {
+	public final HandlerList getHandlers() {
 		return handlers;
 	}
 
@@ -190,23 +190,23 @@
 	}
 
 	@Override
-	public void setCancelled(boolean cancelled) {
+	public final void setCancelled(boolean cancelled) {
 		super.setCancelled(cancelled);
 	}
-	
-	public Player getPlayer() {
+
+	public final Player getPlayer() {
 		return player;
 	}
 
-	public Region getRegion() {
+	public final Region getRegion() {
 		return region;
 	}
 
-	public Feature getFeature() {
+	public final Feature getFeature() {
 		return feature;
 	}
-	
-	public Plugin getPlugin() {
+
+	public final Plugin getPlugin() {
 		return plugin;
 	}
 }</pre> 
