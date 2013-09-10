@@ -27,25 +27,25 @@
 <a class="jxr_linenumber" name="17" href="#17">17</a>  
 <a class="jxr_linenumber" name="18" href="#18">18</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../com/thedemgel/regions/RegisterEvents.html">RegisterEvents</a> {
 <a class="jxr_linenumber" name="19" href="#19">19</a>  
-<a class="jxr_linenumber" name="20" href="#20">20</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../com/thedemgel/regions/Regions.html">Regions</a> plugin;
+<a class="jxr_linenumber" name="20" href="#20">20</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <a href="../../../com/thedemgel/regions/Regions.html">Regions</a> plugin;
 <a class="jxr_linenumber" name="21" href="#21">21</a>  
 <a class="jxr_linenumber" name="22" href="#22">22</a>  	<strong class="jxr_keyword">public</strong> <a href="../../../com/thedemgel/regions/RegisterEvents.html">RegisterEvents</a>(<a href="../../../com/thedemgel/regions/Regions.html">Regions</a> instance) {
 <a class="jxr_linenumber" name="23" href="#23">23</a>  		<strong class="jxr_keyword">this</strong>.plugin = instance;
 <a class="jxr_linenumber" name="24" href="#24">24</a>  	}
 <a class="jxr_linenumber" name="25" href="#25">25</a>  
-<a class="jxr_linenumber" name="26" href="#26">26</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> registerEvents(Class&lt;? <strong class="jxr_keyword">extends</strong> Feature&gt; feature, <strong class="jxr_keyword">final</strong> <a href="../../../com/thedemgel/regions/parser/EventParser.html">EventParser</a> parser) {
+<a class="jxr_linenumber" name="26" href="#26">26</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> registerEvents(Class&lt;? <strong class="jxr_keyword">extends</strong> Feature&gt; feature, <strong class="jxr_keyword">final</strong> <a href="../../../com/thedemgel/regions/parser/EventParser.html">EventParser</a> parser) {
 <a class="jxr_linenumber" name="27" href="#27">27</a>  		Method[] methods = feature.getDeclaredMethods();
 <a class="jxr_linenumber" name="28" href="#28">28</a>  
 <a class="jxr_linenumber" name="29" href="#29">29</a>  		<strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Method method : methods) {
 <a class="jxr_linenumber" name="30" href="#30">30</a>  			<strong class="jxr_keyword">if</strong> (method.isAnnotationPresent(RegionEvent.<strong class="jxr_keyword">class</strong>)) {
 <a class="jxr_linenumber" name="31" href="#31">31</a>  				<strong class="jxr_keyword">final</strong> Class&lt;?&gt; checkClass = method.getParameterTypes()[0];
 <a class="jxr_linenumber" name="32" href="#32">32</a>  				<strong class="jxr_keyword">final</strong> Class&lt;? <strong class="jxr_keyword">extends</strong> Event&gt; eventClass = checkClass.asSubclass(Event.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="33" href="#33">33</a>  
-<a class="jxr_linenumber" name="34" href="#34">34</a>  				<em class="jxr_comment">// Order processing\</em>
-<a class="jxr_linenumber" name="35" href="#35">35</a>  				Order order = Order.LATE;
-<a class="jxr_linenumber" name="36" href="#36">36</a>  				<strong class="jxr_keyword">if</strong> (method.isAnnotationPresent(EventOrder.<strong class="jxr_keyword">class</strong>)) {
-<a class="jxr_linenumber" name="37" href="#37">37</a>  					order = method.getAnnotation(EventOrder.<strong class="jxr_keyword">class</strong>).value();
-<a class="jxr_linenumber" name="38" href="#38">38</a>  				}
+<a class="jxr_linenumber" name="33" href="#33">33</a>                                  
+<a class="jxr_linenumber" name="34" href="#34">34</a>                                  <em class="jxr_comment">// Order processing\</em>
+<a class="jxr_linenumber" name="35" href="#35">35</a>                                  Order order = Order.LATE;
+<a class="jxr_linenumber" name="36" href="#36">36</a>                                  <strong class="jxr_keyword">if</strong> (method.isAnnotationPresent(EventOrder.<strong class="jxr_keyword">class</strong>)) {
+<a class="jxr_linenumber" name="37" href="#37">37</a>                                          order = method.getAnnotation(EventOrder.<strong class="jxr_keyword">class</strong>).value();
+<a class="jxr_linenumber" name="38" href="#38">38</a>                                  }
 <a class="jxr_linenumber" name="39" href="#39">39</a>  
 <a class="jxr_linenumber" name="40" href="#40">40</a>  				EventExecutor executor = <strong class="jxr_keyword">new</strong> EventExecutor() {
 <a class="jxr_linenumber" name="41" href="#41">41</a>  					@Override
@@ -54,13 +54,13 @@
 <a class="jxr_linenumber" name="44" href="#44">44</a>  							<strong class="jxr_keyword">if</strong> (!checkClass.isAssignableFrom(event.getClass())) {
 <a class="jxr_linenumber" name="45" href="#45">45</a>  								<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> EventException(<span class="jxr_string">"Wrong event type passed to registered method"</span>);
 <a class="jxr_linenumber" name="46" href="#46">46</a>  							}
-<a class="jxr_linenumber" name="47" href="#47">47</a>  
+<a class="jxr_linenumber" name="47" href="#47">47</a>  							
 <a class="jxr_linenumber" name="48" href="#48">48</a>  							<em class="jxr_comment">//Method parseMethod = parser.getClass().getDeclaredMethod("parse", checkClass);</em>
 <a class="jxr_linenumber" name="49" href="#49">49</a>  							Method parseMethod = parser.getClass().getMethod(<span class="jxr_string">"parse"</span>, checkClass);
 <a class="jxr_linenumber" name="50" href="#50">50</a>  							<strong class="jxr_keyword">if</strong> (parseMethod.getGenericReturnType().equals(WorldPoint.<strong class="jxr_keyword">class</strong>)) {
 <a class="jxr_linenumber" name="51" href="#51">51</a>  								WorldPoint worldpoint = (WorldPoint) parseMethod.invoke(parser, event);
 <a class="jxr_linenumber" name="52" href="#52">52</a>  								worldpoint.getWorld().get(WorldRegionComponent.<strong class="jxr_keyword">class</strong>).execute(event, worldpoint.getLoc());
-<a class="jxr_linenumber" name="53" href="#53">53</a>  							} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (parseMethod.getGenericReturnType().equals(WorldUUID.<strong class="jxr_keyword">class</strong>)) {
+<a class="jxr_linenumber" name="53" href="#53">53</a>  							} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(parseMethod.getGenericReturnType().equals(WorldUUID.<strong class="jxr_keyword">class</strong>)) {
 <a class="jxr_linenumber" name="54" href="#54">54</a>  								WorldUUID worldpoint = (WorldUUID) parseMethod.invoke(parser, event);
 <a class="jxr_linenumber" name="55" href="#55">55</a>  								worldpoint.getWorld().get(WorldRegionComponent.<strong class="jxr_keyword">class</strong>).execute(event, worldpoint.getUUID());
 <a class="jxr_linenumber" name="56" href="#56">56</a>  							}
@@ -77,7 +77,7 @@
 <a class="jxr_linenumber" name="67" href="#67">67</a>  						}
 <a class="jxr_linenumber" name="68" href="#68">68</a>  					}
 <a class="jxr_linenumber" name="69" href="#69">69</a>  				};
-<a class="jxr_linenumber" name="70" href="#70">70</a>  
+<a class="jxr_linenumber" name="70" href="#70">70</a>  				
 <a class="jxr_linenumber" name="71" href="#71">71</a>  				plugin.getEngine().getEventManager().registerEvent(eventClass, order, executor, plugin);
 <a class="jxr_linenumber" name="72" href="#72">72</a>  			}
 <a class="jxr_linenumber" name="73" href="#73">73</a>  		}
