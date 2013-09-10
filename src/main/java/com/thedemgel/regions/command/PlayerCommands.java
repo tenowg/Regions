@@ -37,8 +37,7 @@ import org.spout.api.exception.CommandException;
 import org.spout.api.plugin.Plugin;
 
 /**
- *
- * @author Craig <tenowg at thedemgel.com>
+ * In-Game commands for players, typically admin used.
  */
 public class PlayerCommands {
 
@@ -48,9 +47,16 @@ public class PlayerCommands {
 		this.plugin = instance;
 	}
 
+	/**
+	 * List various information about a Region.
+	 * Usage is "/region info regionname"
+	 * @param source The source of the command, should be a player.
+	 * @param args CommandArguements Object containing a list of all commands.
+	 * @throws CommandException Thrown should anything go wrong with this command.
+	 */
 	@CommandDescription(aliases = "info", usage = "[name]", desc = "Print out various information about a region.")
 	@Permissible("regions.command.info")
-	public void info(CommandSource source, CommandArguments args) throws CommandException {
+	public final void info(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = args.checkPlayer(source);
 		String regionname = args.popString("regionname");
 
@@ -60,9 +66,16 @@ public class PlayerCommands {
 		player.sendMessage("Id: " + region.getUUID().toString());
 	}
 
+	/**
+	 * Attempt to set a POINT for a region.
+	 * Usage is "/region one" where one is the name of a point.
+	 * @param source The source of the command, should be a player.
+	 * @param args CommandArguements Object containing a list of all commands.
+	 * @throws CommandException Thrown should anything go wrong with this command.
+	 */
 	@CommandDescription(aliases = "pos", usage = "[point type]", desc = "Select the Position point of a volume.")
 	@Permissible("regions.command.position")
-	public void pos(CommandSource source, CommandArguments args) throws CommandException {
+	public final void pos(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = args.checkPlayer(source);
 		String pointType = args.popString("pointtype");
 
@@ -77,9 +90,17 @@ public class PlayerCommands {
 		player.sendMessage(ChatStyle.AQUA + "Position " + point + " set.");
 	}
 
+	/**
+	 * Update a region that is currently held within a Player Selection. If not region, or a new region is in the
+	 * selection, this will fail and direct the player what needs to be done.
+	 * Usage is "/region update"
+	 * @param source The source of the command, should be a player.
+	 * @param args CommandArguements Object containing a list of all commands.
+	 * @throws CommandException Thrown should anything go wrong with this command.
+	 */
 	@CommandDescription(aliases = "update", usage = "", desc = "Update Selected region")
 	@Permissible("regions.command.update")
-	public void updateregion(CommandSource source, CommandArguments args) throws CommandException {
+	public final void updateregion(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = getPlayer(source);
 
 		try {
@@ -97,7 +118,7 @@ public class PlayerCommands {
 
 	@CommandDescription(aliases = "create", usage = "(name)", desc = "Create a Region. (Should have 2 Positions selected.")
 	@Permissible("regions.command.create")
-	public void createRegion(CommandSource source, CommandArguments args) throws CommandException {
+	public final void createRegion(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = getPlayer(source);
 
 		try {
@@ -115,7 +136,7 @@ public class PlayerCommands {
 
 	@CommandDescription(aliases = "types", desc = "List all available region types.")
 	@Permissible("regions.command.types")
-	public void regionsTypes(CommandSource source, CommandArguments args) throws CommandException {
+	public final void regionsTypes(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = getPlayer(source);
 
 		for (Entry<String, String> type : plugin.getTypeDesc().entrySet()) {
@@ -125,7 +146,7 @@ public class PlayerCommands {
 
 	@CommandDescription(aliases = "settype", usage = "(type)", desc = "Set the type of Volume for selected region.")
 	@Permissible("regions.command.settype")
-	public void setRegionType(CommandSource source, CommandArguments args) throws CommandException {
+	public final void setRegionType(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = args.checkPlayer(source);
 		String type = args.popString("type");
 
@@ -139,7 +160,7 @@ public class PlayerCommands {
 
 	@CommandDescription(aliases = "select", usage = "(name)", desc = "Select a region to edit it.")
 	@Permissible("regions.command.select")
-	public void getRegion(CommandSource source, CommandArguments args) throws CommandException {
+	public final void getRegion(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = args.checkPlayer(source);
 		String regionName = args.popString("region");
 
@@ -154,7 +175,7 @@ public class PlayerCommands {
 
 	@CommandDescription(aliases = "remove", usage = "(name)", desc = "Remove region information based on name.")
 	@Permissible("regions.command.remove")
-	public void removeRegion(CommandSource source, CommandArguments args) throws CommandException {
+	public final void removeRegion(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = args.checkPlayer(source);
 		String regionName = args.popString("region");
 
@@ -168,7 +189,7 @@ public class PlayerCommands {
 
 	@CommandDescription(aliases = "new", desc = "Clear and initalize a new Region in a Players selection")
 	@Permissible("regions.command.new")
-	public void newRegion(CommandSource source, CommandArguments args) throws CommandException {
+	public final void newRegion(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = getPlayer(source);
 
 		RegionAPI.newRegion(player);
@@ -190,7 +211,7 @@ public class PlayerCommands {
 
 	@CommandDescription(aliases = "points", desc = "List needed points in Region")
 	@Permissible("regions.command.points")
-	public void listpoints(CommandSource source, CommandArguments args) throws CommandException {
+	public final  void listpoints(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = getPlayer(source);
 
 		PlayerRegionComponent regComp = player.get(PlayerRegionComponent.class);
@@ -204,7 +225,7 @@ public class PlayerCommands {
 
 	@CommandDescription(aliases = "list", desc = "List all regions.")
 	@Permissible("regions.command.list")
-	public void listRegion(CommandSource source, CommandArguments args) throws CommandException {
+	public final void listRegion(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = getPlayer(source);
 
 		ConcurrentMap<UUID, Region> regions = player.getWorld().get(WorldRegionComponent.class).getRegions();
@@ -217,7 +238,7 @@ public class PlayerCommands {
 
 	@CommandDescription(aliases = { "listfeatures", "lf" }, usage = "[plugin]", desc = "Lists all the available Features.")
 	@Permissible("regions.command.listfeatures")
-	public void listFeatures(CommandSource source, CommandArguments args) throws CommandException {
+	public final void listFeatures(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = getPlayer(source);
 		for (Entry<Plugin, PluginFeatures> plugins : plugin.getFeatureRegister().getFeatures().entrySet()) {
 			player.sendMessage(ChatStyle.AQUA + "" + plugins.getKey().getName());
@@ -229,12 +250,12 @@ public class PlayerCommands {
 
 	@CommandDescription(aliases = { "addfeature", "af" }, usage = "[plugin] [feature]", desc = "Attempts to add a Feature to a region.")
 	@Permissible("regions.command.addfeature")
-	public void addFeature(CommandSource source, CommandArguments args) throws CommandException {
+	public final void addFeature(CommandSource source, CommandArguments args) throws CommandException {
 	}
 
 	@CommandDescription(aliases = { "set", "fc", "featurecommand" }, usage = "(feature) (command) [args...]", desc = "Sets or Executes a command on a Feature.")
 	@Permissible("regions.command.set")
-	public void set(CommandSource source, CommandArguments args) throws CommandException {
+	public final void set(CommandSource source, CommandArguments args) throws CommandException {
 		Player player = args.checkPlayer(source);
 		Region region = player.get(PlayerRegionComponent.class).getSelectedRegion();
 		Feature feature = RegionArgumentTypes.popFeature("feature", args, region);

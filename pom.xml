@@ -39,6 +39,7 @@
 		<vanillaVersion>1.6.2-SNAPSHOT</vanillaVersion>	
 		<buildNumber>0</buildNumber>
 		<mainClass>com.thedemgel.regions.Regions</mainClass>
+		<githubSiteOwner>tenowg</githubSiteOwner>
 	</properties>
 
 	<developers>
@@ -72,7 +73,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<extensions>
+		<!--<extensions>
 			<extension>
 				<groupId>org.apache.maven.scm</groupId>
 				<artifactId>maven-scm-provider-gitexe</artifactId>
@@ -88,7 +89,7 @@
 				<artifactId>wagon-gitsite</artifactId>
 				<version>0.3.1</version>
 			</extension>
-		</extensions>
+		</extensions>-->
 		
 		<defaultGoal>clean install</defaultGoal>
 
@@ -179,7 +180,27 @@
 				</configuration>
 			</plugin>
 			
-			
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.8</version>
+				<executions>
+					<execution>
+						<configuration>
+							<server>github-project-site-new</server>
+							<repositoryName>${project.name}</repositoryName>
+							<repositoryOwner>${githubSiteOwner}</repositoryOwner>
+							<branch>refs/heads/gh-pages</branch>
+							<merge>true</merge>
+							<message>Site for ${project.version}-b${buildNumber}</message>
+						</configuration>
+						<phase>site</phase>
+						<goals>
+							<goal>site</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			
 		</plugins>
 		
@@ -285,7 +306,7 @@
 											<type>${project.packaging}</type>
 										</artifactItem>
 									</artifactItems>
-									<outputDirectory>${application-home}</outputDirectory>
+									<outputDirectory>${application.home}</outputDirectory>
 								</configuration>
 							</execution>
 						</executions>
