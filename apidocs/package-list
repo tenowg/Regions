@@ -10,9 +10,6 @@ com.thedemgel.regions.detectors
 com.thedemgel.regions.exception
 com.thedemgel.regions.feature
 com.thedemgel.regions.parser
-com.thedemgel.regions.server
-com.thedemgel.regions.server.bucket
-com.thedemgel.regions.server.spout
 com.thedemgel.regions.util
 com.thedemgel.regions.volume
 com.thedemgel.regions.volume.points
